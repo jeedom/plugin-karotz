@@ -16,7 +16,7 @@
 	<div class="col-xs-4">
 	<center>
 	<span class="cmd cmd-widget cursor" data-cmd_id="#oreillerandom_id#" style="font-size: 150%;"><i class="fa fa-random" title="Oreille Aléatoire"></i></span>
-    <span class="cmd cmd-widget cursor" data-cmd_id="#oreillereset_id#" style="font-size: 150%;margin-left:15px;">  <i class="fa fa-refresh" title="Oreille Reset"></i></span>
+    <span class="cmd cmd-widget cursor" data-cmd_id="#oreilleraz_id#" style="font-size: 150%;margin-left:15px;">  <i class="fa fa-refresh" title="Oreille Reset"></i></span>
     <span class="cmd cmd-widget cursor" data-cmd_id="#clock_id#" style="font-size: 150%;margin-left:15px;">  <i class="icon divers-circular114" title="Horloge"></i></span>
     <span class="cmd cmd-widget cursor" data-cmd_id="#humeur_id#" style="font-size: 150%;margin-left:15px;">  <i class="icon personne-bear2" title="Humeur"></i></span></br>
     <span class="cmd cmd-widget cursor" data-cmd_id="#squeezeon_id#" style="font-size: 150%;"><i class="fa fa-check" title="On"></i></span>
@@ -31,7 +31,7 @@
 	<script>
 		$("body").undelegate(".karotz[data-eqLogic_id=#id#] .pulsespeed",'slidestop');
 		$("body").delegate(".karotz[data-eqLogic_id=#id#] .pulsespeed",'slidestop', function (event, ui) {
-			jeedom.cmd.execute({id: '#volume_id#', value: {slider: $(".karotz[data-eqLogic_id=#id#] .pulsespeed input").value()}});
+			jeedom.cmd.execute({id: '#pulsespeed_id#', value: {slider: $(".karotz[data-eqLogic_id=#id#] .pulsespeed input").value()}});
 		});
 	</script>
 	</center>
@@ -44,9 +44,9 @@
         });
         $('#statekarotz_#id#').on('click', function() {
         if('#state#' == 'awake'){
-			jeedom.cmd.execute({id: '#dort_id#'});
+			jeedom.cmd.execute({id: '#coucher_id#'});
 		}else{
-			jeedom.cmd.execute({id: '#reveille_id#'});
+			jeedom.cmd.execute({id: '#debout_id#'});
 		}
         });
      $('.eqLogic[data-eqLogic_id=#id#] .cmd').on('click', function() {

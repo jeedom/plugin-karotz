@@ -456,64 +456,10 @@ class karotz extends eqLogic {
 			
 		}
 
-		$refresh = $this->getCmd(null, 'refresh');
-        if (is_object($refresh)) {
-		$replace['#refresh_id#'] = $refresh->getId();
-        }
-        $reveille = $this->getCmd(null, 'debout');
-        if (is_object($reveille)) {
-		$replace['#reveille_id#'] = $reveille->getId();
-        }
+		foreach ($this->getCmd('action') as $cmd) {
+			$replace['#' . $cmd->getLogicalId() . '_id#'] = $cmd->getId();
+		}
         
-        $dort = $this->getCmd(null, 'coucher');
-        if (is_object($dort)) {
-		$replace['#dort_id#'] = $dort->getId();
-        }
-        
-        $oreillerandom = $this->getCmd(null, 'oreillerandom');
-        if (is_object($oreillerandom)) {
-		$replace['#oreillerandom_id#'] = $oreillerandom->getId();
-        }
-        
-        $oreillereset = $this->getCmd(null, 'oreilleraz');
-        if (is_object($oreillereset)) {
-		$replace['#oreillereset_id#'] = $oreillereset->getId();
-        }
-        
-        $clock = $this->getCmd(null, 'clock');
-        if (is_object($clock)) {
-		$replace['#clock_id#'] = $clock->getId();
-        }
-        
-        $humeur = $this->getCmd(null, 'humeur');
-        if (is_object($humeur)) {
-		$replace['#humeur_id#'] = $humeur->getId();
-        }
-        
-        $squeezeon = $this->getCmd(null, 'squeezeon');
-        if (is_object($squeezeon)) {
-		$replace['#squeezeon_id#'] = $squeezeon->getId();
-        }
-        
-        $squeezeoff = $this->getCmd(null, 'squeezeoff');
-        if (is_object($squeezeoff)) {
-		$replace['#squeezeoff_id#'] = $squeezeoff->getId();
-        }
-        
-        $pulseon = $this->getCmd(null, 'pulseon');
-        if (is_object($pulseon)) {
-		$replace['#pulseon_id#'] = $pulseon->getId();
-        }
-        
-        $pulseoff = $this->getCmd(null, 'pulseoff');
-        if (is_object($pulseoff)) {
-		$replace['#pulseoff_id#'] = $pulseoff->getId();
-        }
-        
-        $pulsespeed = $this->getCmd(null, 'pulsespeed');
-        if (is_object($pulsespeed)) {
-		$replace['#pulsespeed_id#'] = $pulsespeed->getId();
-        }
 		$parameters = $this->getDisplay('parameters');
 		if (is_array($parameters)) {
 			foreach ($parameters as $key => $value) {

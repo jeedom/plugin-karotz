@@ -16,7 +16,7 @@
 	<center>
     Oreilles : 
 	<span class="cmd cmd-widget cursor" data-cmd_id="#oreillerandom_id#"><i class="fa fa-random" title="Oreille Aléatoire"></i></span>
-    <span class="cmd cmd-widget cursor" data-cmd_id="#oreillereset_id#"><i class="fa fa-refresh" title="Oreille Reset"></i></span>
+    <span class="cmd cmd-widget cursor" data-cmd_id="#oreilleraz_id#"><i class="fa fa-refresh" title="Oreille Reset"></i></span>
     <span title="Position manuelle"><i id="manualear_#id#" class="fa fa-user cursor"></i></span></br>
     Actions :
     <span class="cmd cmd-widget cursor" data-cmd_id="#clock_id#"><i class="icon divers-circular114" title="Horloge"></i></span>
@@ -49,9 +49,9 @@
         });
         $('#statekarotz_#id#').on('click', function() {
         if('#state#' == 'awake'){
-			jeedom.cmd.execute({id: '#dort_id#'});
+			jeedom.cmd.execute({id: '#coucher_id#'});
 		}else{
-			jeedom.cmd.execute({id: '#reveille_id#'});
+			jeedom.cmd.execute({id: '#debout_id#'});
 		}
         });
         
