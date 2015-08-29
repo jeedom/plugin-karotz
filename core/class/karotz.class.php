@@ -471,7 +471,7 @@ class karotz extends eqLogic {
         }
         
         $oreillerandom = $this->getCmd(null, 'oreillerandom');
-        if (is_object(oreillerandom)) {
+        if (is_object($oreillerandom)) {
 		$replace['#oreillerandom_id#'] = $oreillerandom->getId();
         }
         
@@ -501,7 +501,7 @@ class karotz extends eqLogic {
         }
         
         $pulseon = $this->getCmd(null, 'pulseon');
-        if (is_object(pulseon)) {
+        if (is_object($pulseon)) {
 		$replace['#pulseon_id#'] = $pulseon->getId();
         }
         
@@ -511,7 +511,7 @@ class karotz extends eqLogic {
         }
         
         $pulsespeed = $this->getCmd(null, 'pulsespeed');
-        if (is_object(pulsespeed)) {
+        if (is_object($pulsespeed)) {
 		$replace['#pulsespeed_id#'] = $pulsespeed->getId();
         }
 		$parameters = $this->getDisplay('parameters');
@@ -536,7 +536,6 @@ class karotzCmd extends cmd {
     /*     * *********************Methode d'instance************************* */
 
     public function execute($_options = null) {
-		log::add('karotz','debug','TOTO');
     	if ($this->getType() == '') {
 			return '';
 		}
