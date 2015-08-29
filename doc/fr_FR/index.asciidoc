@@ -1,7 +1,7 @@
 == Karotz
 
 === Description
-Ce plugin permet de controller son Karotz. Cela va de sa led, à ses oreilles en passant par les sons et la synthèse vocale et plein d'autres
+Ce plugin permet de controller son Karotz (fonctionnant sous Open Karotz). Cela va de sa led, à ses oreilles en passant par les sons et la synthèse vocale et plein d'autres
 
 image:../images/karotz_screenshot1.jpg[width=256]
 image:../images/karotz_screenshot2.jpg[width=256]
