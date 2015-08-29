@@ -1,7 +1,7 @@
 <div class="eqLogic-widget eqLogic noResize karotz" style="width: 240px;background-color: #background_color#; padding : 0px; #style#" data-eqLogic_id="#id#" data-version="dashboard" >
     <span class="statusCmd" style="position : absolute;left : 5px;bottom : 5px; width : 30px;z-index: 1030;"></span>
-    <i class='fa fa-refresh pull-right cursor refresh' style="margin-top: 3px;margin-right: 5px;"></i>
-    <i id="micro_#id#" class='icon loisir-microphone52 pull-left cursor micro' style="margin-top: 3px;margin-left: 5px;"></i>
+    <i class='fa fa-refresh pull-right cursor refresh' style="margin-top: 3px;margin-right: 5px;" title="Rafraîchir"></i>
+    <i id="micro_#id#" class='icon loisir-microphone52 pull-left cursor micro' style="margin-top: 3px;margin-left: 5px;" title="Gérer le son"></i>
     <center><a href="#eqLink#" style="font-size : 1.5em;"> #name# </a></center>
 
     <span class="cmd cmd-widget" data-cmd_id="#refresh_id#" style="display:none;"></span>
@@ -27,7 +27,7 @@
     Leds : 
     <span class="cmd cmd-widget cursor" data-cmd_id="#pulseon_id#"><i class="icon jeedom2-lightbulb58" title="Pulse On"></i></span>
     <span class="cmd cmd-widget cursor" data-cmd_id="#pulseoff_id#"><i class="icon jeedom2-lightbulb25" title="Pulse Off"></i></span>
-    <div class="pulsespeed" style="width: 80px;" value="700"></div>
+    <div class="pulsespeed" style="width: 80px;" value="700" data-slider-tooltip="hide"></div>
 	<script>
 		$(".karotz[data-eqLogic_id=#id#] .pulsespeed").bootstrapSlider({
 			min: 0,
