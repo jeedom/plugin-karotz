@@ -5,8 +5,7 @@
 
     <span class="cmd cmd-widget" data-cmd_id="#refresh_id#" style="display:none;"></span>
     
-    <div class="row">
-    <center><span style="position : absolute;top :92px;z-index: 2;margin-left:32px;" class="couleurstatut cursor" title="Couleur du ventre"><span style="background:#couleurstatut#;border-radius: 40px;font-size: 75%;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></span></center>
+    <center><span style="position : absolute;top :92px;z-index: 2;margin-left:-8px;" class="couleurstatut cursor" title="Couleur du ventre"><span style="background:#couleurstatut#;border-radius: 40px;font-size: 75%;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></span></center>
 	<center>
     <img id="statekarotz_#id#" class="cursor" src="plugins/karotz/core/template/images/#state#.png" alt="Karotz" title="#actionstate#" height="85">
    </center>
@@ -31,7 +30,6 @@
 		});
 	</script>
 	</center>
-</div>
     <script>
         $('.eqLogic[data-eqLogic_id=#id#] .refresh').on('click', function () {
             jeedom.cmd.execute({id: '#refresh_id#'});
