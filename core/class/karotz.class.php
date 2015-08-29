@@ -90,6 +90,30 @@ class karotz extends eqLogic {
 		$karotz->executerequest($request);
 	}
     
+    public function ttskarotz($id,$voice,$message) {
+		$karotz = karotz::byId($id);
+        $request = 'http://' . $karotz->getConfiguration('addr') . '/cgi-bin/tts?voice='.$voice.'&text='.rawurlencode($message);
+		$karotz->executerequest($request);
+	}
+    
+    public function soundkarotz($id,$sound) {
+		$karotz = karotz::byId($id);
+        $request = 'http://' . $karotz->getConfiguration('addr') . '/cgi-bin/sound?id='.$sound;
+		$karotz->executerequest($request);
+	}
+    
+    public function urlkarotz($id,$url) {
+		$karotz = karotz::byId($id);
+        $request = 'http://' . $karotz->getConfiguration('addr') . '/cgi-bin/sound?url='.$url;
+		$karotz->executerequest($request);
+	}
+    
+    public function stopkarotz($id) {
+		$karotz = karotz::byId($id);
+        $request = 'http://' . $karotz->getConfiguration('addr') . '/cgi-bin/sound_control?cmd=quit';
+		$karotz->executerequest($request);
+	}
+    
     public function postUpdate() {
         $this->cron30($this->getId());
     }
@@ -239,6 +263,20 @@ class karotz extends eqLogic {
         $sound->setDisplay('message_placeholder', __('Id du son', __FILE__));
 		$sound->setConfiguration('parameters', 'id=#message#');
 		$sound->save();
+        
+        $stopsound = $this->getCmd(null, 'stopsound');
+		if (!is_object($stopsound)) {
+			$stopsound = new karotzCmd();
+			$stopsound->setLogicalId('stopsound');
+			$stopsound->setIsVisible(1);
+			$stopsound->setName(__('Arrêter son', __FILE__));
+		}
+		$stopsound->setType('action');
+		$stopsound->setSubType('other');
+		$stopsound->setEqLogic_id($this->getId());
+        $stopsound->setConfiguration('request', 'sound_control');
+		$stopsound->setConfiguration('parameters', 'cmd=quit');
+		$stopsound->save();
         
         $url = $this->getCmd(null, 'url');
 		if (!is_object($url)) {
@@ -476,6 +514,7 @@ class karotzCmd extends cmd {
     /*     * *********************Methode d'instance************************* */
 
     public function execute($_options = null) {
+		log::add('karotz','debug','TOTO');
     	if ($this->getType() == '') {
 			return '';
 		}

@@ -76,7 +76,7 @@ $eqLogics = eqLogic::byType('karotz');
                 </div>
                 <div class="form-group">
                     <label class="col-lg-2 control-label">{{Catégorie}}</label>
-                    <div class="col-lg-3">
+                    <div class="col-lg-4">
                         <?php
                         foreach (jeedom::getConfiguration('eqLogic:category') as $key => $value) {
                             echo '<label class="checkbox-inline">';

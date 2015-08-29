@@ -1,12 +1,11 @@
-== Porkfolio
+== Karotz
 
 === Description
-Ce plugin permet de controller et d'avoir toutes les infos de sa tirelire Porkfolio.
+Ce plugin permet de controller son Karotz. Cela va de sa led, à ses oreilles en passant par les sons et la synthèse vocale et plein d'autres
 
-image:../images/porkfolio_screenshot1.jpg[width=256]
-image:../images/porkfolio_screenshot10.jpg[width=256]
-image:../images/porkfolio_screenshot9.jpg[width=256]
-image:../images/porkfolio_screenshot8.jpg[width=256]
+image:../images/karotz_screenshot1.jpg[width=256]
+image:../images/karotz_screenshot2.jpg[width=256]
+image:../images/karotz_screenshot3.jpg[width=256]
 
 '''
 === Configuration
@@ -14,15 +13,8 @@ include::configuration.asciidoc[]
 
 ...
 
-=== Les informations
+=== Les informations/actions
 include::informations.asciidoc[]
-
-...
-
-=== Les actions
-include::actions.asciidoc[]
-
-...
 
 === FAQ
 include::FAQ.asciidoc[]

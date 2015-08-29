@@ -36,7 +36,7 @@ $couleur= $karotz->getCmd(null,'couleurstatut')->execCmd();
 <input type="color" id="couleur" name='<?php echo $id; ?>' value='<?php echo $couleur; ?>'/>
 </div>
 <br />
-<a class="btn btn-success ventrecouleur"><i class="fa fa-check-circle"></i> ok</a>
+<a class="btn btn-success ventrecouleur"><i class="fa fa-check-circle"></i> Changer la couleur</a>
 
 <script>
 

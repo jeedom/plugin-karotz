@@ -1,11 +1,22 @@
-==== Informations sur le dashboard :
+==== Informations/actions sur le dashboard :
 
-image:../images/dashboardinfo.jpg[width=380]
+image:../images/widget.jpg[width=380]
 
-* A : Tête du cochon qui peut changer d'humeur. En laisasnt la souris sur sa tête il vous dira quand est ce qu'ila bougé pour la dernière fois ainsi que la dernière fois ou il a été retourné
-* B : Bouton rafraichir pour redemander les valeurs au serveur
-* C : Montant de la dernière opération. En laissant la souris dessus vous aurez la date de la dernière opération
-* D : Montant de votre objectif
-* E : Couleur du nez de votre porkfolio
-* F : Barre de progression dans l'atteinte de votre objectif
-* G : Somme actuellement dans votre porkfolio
+* A : Permet d'accéder à la page de choix de son
+
+image:../images/karotz_screenshot5.jpg[width=380]karotz_screenshot7.jpg
+
+* B : Bouton rafraichir pour redemander les valeurs d'état et de couleur
+* C : Zone de controle des oreilles (aléatoire, remise à zéro, personnalisé)
+
+image:../images/karotz_screenshot7.jpg[width=380]
+
+* D : Zone actions (horloge/humeur)
+* E : Zone squeezebox (activer/désactiver)
+* F : Zone leds (activer clignotement/ désactiver)
+
+image:../images/karotz_screenshot6.jpg[width=380]
+
+* G : Slider de contrôle vitesse clignotement
+* H : En cliquant sur le ventre, cela permet de changer la couleur de la led
+* I : En cliquant sur le lapin cela permet de le faire se coucher ou endormir

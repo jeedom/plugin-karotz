@@ -39,6 +39,35 @@ try {
 		karotz::changeventrekarotz(init('id'),init('couleur'));
 		ajax::success();
 	}
+    
+    if (init('action') == 'tts') {
+        if (init('message')==''){
+            ajax::error('Veuillez saisir un message');
+        }
+		karotz::ttskarotz(init('id'),init('voice'),init('message'));
+		ajax::success();
+	}
+    
+    if (init('action') == 'sound') {
+        if (init('sound')==''){
+            ajax::error('Veuillez saisir un son');
+        }
+		karotz::soundkarotz(init('id'),init('sound'));
+		ajax::success();
+	}
+    
+    if (init('action') == 'url') {
+        if (init('url')==''){
+            ajax::error('Veuillez saisir une url');
+        }
+		karotz::urlkarotz(init('id'),init('url'));
+		ajax::success();
+	}
+    
+    if (init('action') == 'stop') {
+		karotz::stopkarotz(init('id'));
+		ajax::success();
+	}
 
     throw new Exception(__('Aucune methode correspondante à : ', __FILE__) . init('action'));
     /*     * *********Catch exeption*************** */
