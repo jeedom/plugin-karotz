@@ -102,7 +102,7 @@ $eqLogics = eqLogic::byType('karotz');
                 </div>
             </fieldset> 
         </form>
-
+        
         <legend>Commandes</legend>
         <table id="table_cmd" class="table table-bordered table-condensed">
             <thead>
