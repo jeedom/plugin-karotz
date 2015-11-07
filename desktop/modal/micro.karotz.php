@@ -31,15 +31,15 @@ $karotz = karotz::byId($id);
             Choisissez ce que vous voulez faire
 </div>
 <div id="micro">
-   TTS &nbsp &nbsp Voix <input id="ttsvoice" type='text' name='<?php echo $id; ?>'/> &nbsp &nbsp &nbsp &nbsp Message <input id="ttstext" type='text' name='<?php echo $ecran; ?>' value='<?php echo $texte; ?>' size="55"/> </br></br>
+   TTS &nbsp &nbsp Voix <input id="ttsvoice" type='text' name='<?php echo $id; ?>'/> &nbsp &nbsp &nbsp &nbsp Message <input id="ttstext" type='text' name='<?php echo $id; ?>'/></br></br>
    Son &nbsp &nbsp Id  <input id="soundid" type='text' name='<?php echo $id; ?>'/> </br></br>
    Url &nbsp &nbsp <input id="soundurl" type='text' name='<?php echo $id; ?>' size="55"/> </br></br>
 </div>
 <br/>
-<a class="btn btn-success tts"><i class="fa fa-check-circle"></i> Faire parler</a>
-<a class="btn btn-success sound"><i class="fa fa-check-circle"></i> Jouer un son</a>
-<a class="btn btn-success url"><i class="fa fa-check-circle"></i> Jouer une url</a>
-<a class="btn btn-danger stop"><i class="fa fa-check-circle"></i> Arrêter le son</a>
+<a class="btn btn-success tts"><i class="icon loisir-microphone52"></i> Faire parler</a>
+<a class="btn btn-success sound"><i class="icon loisir-musical"></i> Jouer un son</a>
+<a class="btn btn-success url"><i class="icon loisir-musical81"></i> Jouer une url</a>
+<a class="btn btn-danger stop"><i class="fa fa-stop"></i> Arrêter le son</a>
 <script>
 
 $('.tts').on('click', function() {

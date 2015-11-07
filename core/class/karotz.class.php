@@ -61,6 +61,13 @@ class karotz extends eqLogic {
 						log::add('karotz','debug','set:'.$cmd->getName().' to '. $value);
 					}
 				}
+				$mc = cache::byKey('karotzWidgetmobile' . $karotz->getId());
+				$mc->remove();
+				$mc = cache::byKey('karotzWidgetdashboard' . $karotz->getId());
+				$mc->remove();
+				$karotz->toHtml('mobile');
+				$karotz->toHtml('dashboard');
+				$karotz->refreshWidget();
 				$karotz->refreshWidget();
             }
         }
@@ -248,6 +255,22 @@ class karotz extends eqLogic {
 		$tts->setConfiguration('parameters', 'text=#message#&voice=#title#');
 		$tts->save();
         
+        $ttsnocache = $this->getCmd(null, 'ttsnocache');
+		if (!is_object($ttsnocache)) {
+			$ttsnocache = new karotzCmd();
+			$ttsnocache->setLogicalId('ttsnocache');
+			$ttsnocache->setIsVisible(1);
+			$ttsnocache->setName(__('TTS sans cache', __FILE__));
+		}
+		$ttsnocache->setType('action');
+		$ttsnocache->setSubType('message');
+		$ttsnocache->setEqLogic_id($this->getId());
+        $ttsnocache->setDisplay('title_placeholder', __('Voix', __FILE__));
+        $ttsnocache->setDisplay('message_placeholder', __('Phrase', __FILE__));
+        $ttsnocache->setConfiguration('request', 'tts');
+		$ttsnocache->setConfiguration('parameters', 'text=#message#&voice=#title#&nocache=1');
+		$ttsnocache->save();
+        
         $sound = $this->getCmd(null, 'sound');
 		if (!is_object($sound)) {
 			$sound = new karotzCmd();
@@ -308,6 +331,20 @@ class karotz extends eqLogic {
 		$squeezeon->setConfiguration('parameters', 'cmd=start');
 		$squeezeon->save();
         
+        $snapshot = $this->getCmd(null, 'snapshot');
+		if (!is_object($snapshot)) {
+			$snapshot = new karotzCmd();
+			$snapshot->setLogicalId('snapshot');
+			$snapshot->setIsVisible(1);
+			$snapshot->setName(__('Faire prendre une photo au lapin', __FILE__));
+		}
+		$snapshot->setType('action');
+		$snapshot->setSubType('other');
+		$snapshot->setEqLogic_id($this->getId());
+        $snapshot->setConfiguration('request', 'snapshot');
+		$snapshot->setConfiguration('parameters', 'silent=1');
+		$snapshot->save();
+        
         $squeezeoff = $this->getCmd(null, 'squeezeoff');
 		if (!is_object($squeezeoff)) {
 			$squeezeoff = new karotzCmd();
@@ -366,6 +403,22 @@ class karotz extends eqLogic {
 		$pulsespeed->setConfiguration('parameters', 'speed=#slider#&pulse=1');
 		$pulsespeed->save();
         
+        $pulsecolor = $this->getCmd(null, 'pulsecolor');
+		if (!is_object($pulsecolor)) {
+			$pulsecolor = new karotzCmd();
+			$pulsecolor->setLogicalId('pulsecolor');
+			$pulsecolor->setIsVisible(1);
+			$pulsecolor->setName(__('Pulse avec couleur secondaire', __FILE__));
+		}
+		$pulsecolor->setType('action');
+		$pulsecolor->setSubType('message');
+        $pulsecolor->setDisplay('message_placeholder', __('Vitesse [0-2000]', __FILE__));
+        $pulsecolor->setDisplay('title_placeholder', __('Couleur', __FILE__));
+		$pulsecolor->setEqLogic_id($this->getId());
+        $pulsecolor->setConfiguration('request', 'leds');
+		$pulsecolor->setConfiguration('parameters', 'speed=#message#&pulse=1&color2=#title#');
+		$pulsecolor->save();
+        
         $oreillepos = $this->getCmd(null, 'oreillepos');
 		if (!is_object($oreillepos)) {
 			$oreillepos = new karotzCmd();
@@ -422,11 +475,19 @@ class karotz extends eqLogic {
     }
     
     public function toHtml($_version = 'dashboard') {
-		if ($this->getIsEnable() != 1) {
+    	if ($this->getIsEnable() != 1) {
 			return '';
 		}
 		if (!$this->hasRight('r')) {
 			return '';
+		}
+		$version = jeedom::versionAlias($_version);
+		if ($this->getDisplay('hideOn' . $version) == 1) {
+			return '';
+		}
+		$mc = cache::byKey('karotzWidget' . jeedom::versionAlias($_version) . $this->getId());
+		if ($mc->getValue() != '') {
+			return preg_replace("/" . preg_quote(self::UIDDELIMITER) . "(.*?)" . preg_quote(self::UIDDELIMITER) . "/", self::UIDDELIMITER . mt_rand() . self::UIDDELIMITER, $mc->getValue());
 		}
         if (is_object($this->getCmd(null,'etat')) && $this->getCmd(null,'etat')->execCmd()=='Réveillé'){
 			$state='awake';
@@ -435,12 +496,12 @@ class karotz extends eqLogic {
 			$state='sleep';
             $action='Réveiller le Karotz';
 		}
-		$_version = jeedom::versionAlias($_version);
 		$background=$this->getBackgroundColor($_version);
 		$replace = array(
 			'#name#' => $this->getName(),
 			'#id#' => $this->getId(),
 			'#background_color#' => $background,
+			'#uid#' => 'karotz' . $this->getId() . self::UIDDELIMITER . mt_rand() . self::UIDDELIMITER,
 			'#eqLink#' => $this->getLinkToConfiguration(),
 			'#state#' => $state,
             '#actionstate#'=> $action,
@@ -468,6 +529,7 @@ class karotz extends eqLogic {
 		}
 
 		$html = template_replace($replace, getTemplate('core', $_version, 'karotz', 'karotz'));
+		cache::set('karotzWidget' . $_version . $this->getId(), $html, 0);
 		return $html;
 	}
 }
@@ -503,18 +565,56 @@ class karotzCmd extends cmd {
                 switch ($this->subType) {
                     case 'message':
                         $type=$this->getConfiguration('request');
-                        if ($this->getLogicalId() == 'tts') {
+                        if ($this->getLogicalId() == 'tts' || $this->getLogicalId() == 'ttsnocache') {
                             $parameters = str_replace('#message#',rawurlencode($_options['message']), $parameters);
-                            if ($_options != null && $_options!='#title#'){
+                            if ($_options['title'] != null && $_options['title']){
                                 $parameters = str_replace('#title#',rawurlencode($_options['title']), $parameters);
                             } else {
                                 $parameters = str_replace('#title#','', $parameters);
                             }
                         }
+                        elseif ($this->getLogicalId() == 'pulsecolor') {
+                            $parameters = str_replace('#message#',rawurlencode($_options['message']), $parameters);
+                            $finalcolor='none';
+                            switch (strtolower($_options['title'])) {
+                                    case 'bleu':
+                                        $finalcolor='0000FF';
+                                    break;
+                                    case 'vert':
+                                        $finalcolor='00FF00';
+                                    break;
+                                    case 'jaune':
+                                        $finalcolor='FFFF00';
+                                    break;
+                                    case 'rouge':
+                                        $finalcolor='FF0000';
+                                    break;
+                                    case 'cyan':
+                                        $finalcolor='00FFFF';
+                                    break;
+                                    case 'rose':
+                                        $finalcolor='FF00FF';
+                                    break;
+                                    case 'gris':
+                                        $finalcolor='808080';
+                                    break;
+                                    case 'blanc':
+                                        $finalcolor='FFFFFF';
+                                    break;
+                                    case 'noir':
+                                        $finalcolor='000000';
+                                    break;
+                                }
+                             if ($finalcolor=='none'){
+                                $parameters = str_replace('#title#',rawurlencode(substr($_options['title'],1)), $parameters);
+                            } else {
+                                 $parameters = str_replace('#title#',rawurlencode($finalcolor), $parameters);
+                            }
+                        } 
                         else {
                             $parameters = str_replace('#message#',$_options['message'], $parameters);
+                            $parameters = str_replace('#title#',rawurlencode($_options['title']), $parameters);
                         }
-                        $parameters = str_replace('#title#',rawurlencode($_options['title']), $parameters);
 						log::add('karotz','debug','Execution de la commande suivante : ' .$parameters);
                         break;
                     case 'slider':

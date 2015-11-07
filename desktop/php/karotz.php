@@ -108,7 +108,6 @@ $eqLogics = eqLogic::byType('karotz');
             <thead>
                 <tr>
                     <th>{{Nom}}</th>
-                    <th>{{Paramètres}}</th>
                     <th>{{Action}}</th>
                 </tr>
             </thead>

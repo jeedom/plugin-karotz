@@ -1,47 +1,47 @@
-<div class="eqLogic-widget eqLogic karotz" style="width: 240px;background-color: #background_color#; padding : 0px; #style#" data-eqLogic_id="#id#" data-version="mobile" >
+<div class="eqLogic-widget eqLogic karotz" style="width: 240px;background-color: #background_color#; padding : 0px; #style#" data-eqLogic_id="#id#" data-eqLogic_uid="#uid#" data-version="mobile" >
     <span class="statusCmd" style="position : absolute;left : 5px; width : 30px;z-index: 1030;"></span>
     <i class='fa fa-refresh pull-right cursor refresh' style="margin-top: 3px;margin-right: 5px;"></i>
     <center>#name#</center></br>
 
     <span class="cmd cmd-widget" data-cmd_id="#refresh_id#" style="display:none;"></span>
     
-    <center><span style="position : absolute;top :92px;z-index: 2;margin-left:-8px;" class="couleurstatut cursor" title="Couleur du ventre"><span style="background:#couleurstatut#;border-radius: 40px;font-size: 75%;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></span></center>
+    <center><span style="position : absolute;top :92px;z-index: 2;margin-left:-9px;" class="couleurstatut cursor"><i class="fa fa-circle fa-lg" style="color : #couleurstatut#;"></i></span></center>
 	<center>
-    <img id="statekarotz_#id#" class="cursor" src="plugins/karotz/core/template/images/#state#.png" alt="Karotz" title="#actionstate#" height="85">
+    <img id="statekarotz_#uid#" class="cursor" src="plugins/karotz/core/template/images/#state#.png" alt="Karotz" height="85">
    </center>
    <center>
-	<span class="cmd cmd-widget cursor" data-cmd_id="#oreillerandom_id#" style="font-size: 150%;"><i class="fa fa-random" title="Oreille Aléatoire"></i></span>
-    <span class="cmd cmd-widget cursor" data-cmd_id="#oreilleraz_id#" style="font-size: 150%;margin-left:15px;">  <i class="fa fa-refresh" title="Oreille Reset"></i></span>
-    <span class="cmd cmd-widget cursor" data-cmd_id="#clock_id#" style="font-size: 150%;margin-left:15px;">  <i class="icon divers-circular114" title="Horloge"></i></span>
-    <span class="cmd cmd-widget cursor" data-cmd_id="#humeur_id#" style="font-size: 150%;margin-left:15px;">  <i class="icon personne-bear2" title="Humeur"></i></span></br>
-    <span class="cmd cmd-widget cursor" data-cmd_id="#squeezeon_id#" style="font-size: 150%;"><i class="fa fa-check" title="On"></i></span>
-    <span class="cmd cmd-widget cursor" data-cmd_id="#squeezeoff_id#" style="font-size: 150%;margin-left:15px;">  <i class="fa fa-times" title="Off"></i></span>
-    <span class="cmd cmd-widget cursor" data-cmd_id="#pulseon_id#" style="font-size: 150%;margin-left:15px;">  <i class="icon jeedom2-lightbulb58" title="Pulse On"></i></span>
-    <span class="cmd cmd-widget cursor" data-cmd_id="#pulseoff_id#" style="font-size: 150%;margin-left:15px;">  <i class="icon jeedom2-lightbulb25" title="Pulse Off"></i></span>
+	<span class="cmd cmd-widget cursor" data-cmd_id="#oreillerandom_id#" style="font-size: 150%;"><i class="fa fa-random"></i></span>
+    <span class="cmd cmd-widget cursor" data-cmd_id="#oreilleraz_id#" style="font-size: 150%;margin-left:15px;">  <i class="fa fa-refresh"></i></span>
+    <span class="cmd cmd-widget cursor" data-cmd_id="#clock_id#" style="font-size: 150%;margin-left:15px;">  <i class="icon divers-circular114"></i></span>
+    <span class="cmd cmd-widget cursor" data-cmd_id="#humeur_id#" style="font-size: 150%;margin-left:15px;">  <i class="icon personne-bear2"></i></span></br>
+    <span class="cmd cmd-widget cursor" data-cmd_id="#squeezeon_id#" style="font-size: 150%;"><i class="fa fa-check"></i></span>
+    <span class="cmd cmd-widget cursor" data-cmd_id="#squeezeoff_id#" style="font-size: 150%;margin-left:15px;">  <i class="fa fa-times"></i></span>
+    <span class="cmd cmd-widget cursor" data-cmd_id="#pulseon_id#" style="font-size: 150%;margin-left:15px;">  <i class="icon jeedom2-lightbulb58"></i></span>
+    <span class="cmd cmd-widget cursor" data-cmd_id="#pulseoff_id#" style="font-size: 150%;margin-left:15px;">  <i class="icon jeedom2-lightbulb25"></i></span>
     <div class="pulsespeed" style="width: 80px;" value="700"></div>
 	<div class="pulsespeed full-width-slider" style="width: 96%;text-align: right;min-width : 100px;">
 		<input type="range" min="0" max="2000" data-theme="a" value="700"/>
-	</div>
-
+    </div>
 	<script>
-		$("body").undelegate(".karotz[data-eqLogic_id=#id#] .pulsespeed",'slidestop');
-		$("body").delegate(".karotz[data-eqLogic_id=#id#] .pulsespeed",'slidestop', function (event, ui) {
-			jeedom.cmd.execute({id: '#pulsespeed_id#', value: {slider: $(".karotz[data-eqLogic_id=#id#] .pulsespeed input").value()}});
+		$("body").undelegate(".eqLogic[data-eqLogic_uid=#uid#] .pulsespeed",'slidestop');
+		$("body").delegate(".eqLogic[data-eqLogic_uid=#uid#] .pulsespeed",'slidestop', function (event, ui) {
+			jeedom.cmd.execute({id: '#pulsespeed_id#', value: {slider: $(".eqLogic[data-eqLogic_uid=#uid#] .pulsespeed input").value()}});
 		});
 	</script>
 	</center>
+
     <script>
-        $('.eqLogic[data-eqLogic_id=#id#] .refresh').on('click', function () {
+        $('.eqLogic[data-eqLogic_uid=#uid#] .refresh').on('click', function () {
             jeedom.cmd.execute({id: '#refresh_id#'});
         });
-        $('#statekarotz_#id#').on('click', function() {
+        $('#statekarotz_#uid#').on('click', function() {
         if('#state#' == 'awake'){
 			jeedom.cmd.execute({id: '#coucher_id#'});
 		}else{
 			jeedom.cmd.execute({id: '#debout_id#'});
 		}
         });
-     $('.eqLogic[data-eqLogic_id=#id#] .cmd').on('click', function() {
+     $('.eqLogic[data-eqLogic_uid=#uid#] .cmd').on('click', function() {
 			jeedom.cmd.execute({id: $(this).data('cmd_id')});
 		});
     </script>

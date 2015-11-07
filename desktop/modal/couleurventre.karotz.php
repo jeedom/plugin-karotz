@@ -30,13 +30,13 @@ $id = $karotz->getId();
 $couleur= $karotz->getCmd(null,'couleurstatut')->execCmd();
 ?>
 <div class="alert alert-info">
-            Choisissez la couleur du ventre de votre karotz. La couleur actuelle est <span style="background:<?php echo $couleur; ?>;border-radius: 60px;">&nbsp;&nbsp;&nbsp;&nbsp;</span>.
+            Choisissez la couleur du ventre de votre karotz. La couleur actuelle est <i class="fa fa-circle fa-lg" style="color : <?php echo $couleur; ?>;"></i>.
 </div>
 <div id="ventrecouleur">
 <input type="color" id="couleur" name='<?php echo $id; ?>' value='<?php echo $couleur; ?>'/>
 </div>
 <br />
-<a class="btn btn-success ventrecouleur"><i class="fa fa-check-circle"></i> Changer la couleur</a>
+<a class="btn btn-success ventrecouleur"><i class="fa fa-pencil"></i> Changer la couleur</a>
 
 <script>
 

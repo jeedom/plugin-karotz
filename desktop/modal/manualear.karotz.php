@@ -35,7 +35,7 @@ $karotz = karotz::byId($id);
    Oreille gauche <input id="leftear" type='number'  min="0" max="16" step="1" name='<?php echo $id; ?>'/>
 </div>
 <br/>
-<a class="btn btn-success ok"><i class="fa fa-check-circle"></i> Faire bouger les oreilles</a>
+<a class="btn btn-success ok"><i class="fa fa-refresh"></i> Faire bouger les oreilles</a>
 <script>
 
 $('.ok').on('click', function() {
