@@ -29,7 +29,6 @@ class karotz extends eqLogic {
 		}
 		foreach ($eqLogics as $karotz) {
 			if ($karotz->getIsEnable() == 1) {
-				log::add('karotz', 'debug', 'Pull Cron pour Karotz');
 				$request = 'http://' . $karotz->getConfiguration('addr') . '/cgi-bin/status';
 				$response = $karotz->executerequest($request);
 				$ch = curl_init();
@@ -58,23 +57,14 @@ class karotz extends eqLogic {
 					}
 					if ($value == 0 || $value != 'old') {
 						$cmd->event($value);
-						log::add('karotz', 'debug', 'set:' . $cmd->getName() . ' to ' . $value);
 					}
 				}
-				$mc = cache::byKey('karotzWidgetmobile' . $karotz->getId());
-				$mc->remove();
-				$mc = cache::byKey('karotzWidgetdashboard' . $karotz->getId());
-				$mc->remove();
-				$karotz->toHtml('mobile');
-				$karotz->toHtml('dashboard');
-				$karotz->refreshWidget();
 				$karotz->refreshWidget();
 			}
 		}
 	}
 
 	public static function executerequest($request) {
-		log::add('karotz', 'debug', $request);
 		$ch = curl_init();
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
 		curl_setopt($ch, CURLOPT_URL, $request);
@@ -126,7 +116,6 @@ class karotz extends eqLogic {
 	}
 
 	public function postSave() {
-
 		$coucher = $this->getCmd(null, 'coucher');
 		if (!is_object($coucher)) {
 			$coucher = new karotzCmd();
