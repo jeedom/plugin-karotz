@@ -17,61 +17,56 @@
  */
 
 try {
-    require_once dirname(__FILE__) . '/../../../../core/php/core.inc.php';
-    include_file('core', 'authentification', 'php');
-	
+	require_once dirname(__FILE__) . '/../../../../core/php/core.inc.php';
+	include_file('core', 'authentification', 'php');
+
 	if (init('action') == 'moveear') {
 		$id = init('id');
 		$karotz = karotz::byId($id);
-		$right=init('right');
-		$left=init('left');
-		if (!is_numeric($right) || !is_numeric($left)){
+		$right = init('right');
+		$left = init('left');
+		if (!is_numeric($right) || !is_numeric($left)) {
 			ajax::error('Veuillez saisir un nombre SVP');
-		} else if (($right)<0 || ($right)>16 || ($left)<0 || ($left)>16 ){
+		} else if (($right) < 0 || ($right) > 16 || ($left) < 0 || ($left) > 16) {
 			ajax::error('Veuillez saisir une valeur comprise entre 1 et 16');
 		} else {
-			karotz::moveearkarotz(init('id'),init('right'),init('left'));
+			karotz::moveearkarotz(init('id'), init('right'), init('left'));
 			ajax::success();
 		}
 	}
-	
-	if (init('action') == 'ventrecouleur') {
-		karotz::changeventrekarotz(init('id'),init('couleur'));
+
+	if (init('action') == 'tts') {
+		if (init('message') == '') {
+			ajax::error('Veuillez saisir un message');
+		}
+		karotz::ttskarotz(init('id'), init('voice'), init('message'));
 		ajax::success();
 	}
-    
-    if (init('action') == 'tts') {
-        if (init('message')==''){
-            ajax::error('Veuillez saisir un message');
-        }
-		karotz::ttskarotz(init('id'),init('voice'),init('message'));
+
+	if (init('action') == 'sound') {
+		if (init('sound') == '') {
+			ajax::error('Veuillez saisir un son');
+		}
+		karotz::soundkarotz(init('id'), init('sound'));
 		ajax::success();
 	}
-    
-    if (init('action') == 'sound') {
-        if (init('sound')==''){
-            ajax::error('Veuillez saisir un son');
-        }
-		karotz::soundkarotz(init('id'),init('sound'));
+
+	if (init('action') == 'url') {
+		if (init('url') == '') {
+			ajax::error('Veuillez saisir une url');
+		}
+		karotz::urlkarotz(init('id'), init('url'));
 		ajax::success();
 	}
-    
-    if (init('action') == 'url') {
-        if (init('url')==''){
-            ajax::error('Veuillez saisir une url');
-        }
-		karotz::urlkarotz(init('id'),init('url'));
-		ajax::success();
-	}
-    
-    if (init('action') == 'stop') {
+
+	if (init('action') == 'stop') {
 		karotz::stopkarotz(init('id'));
 		ajax::success();
 	}
 
-    throw new Exception(__('Aucune methode correspondante à : ', __FILE__) . init('action'));
-    /*     * *********Catch exeption*************** */
+	throw new Exception(__('Aucune methode correspondante à : ', __FILE__) . init('action'));
+	/*     * *********Catch exeption*************** */
 } catch (Exception $e) {
-    ajax::error(displayExeption($e), $e->getCode());
+	ajax::error(displayExeption($e), $e->getCode());
 }
 ?>

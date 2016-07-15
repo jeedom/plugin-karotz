@@ -526,12 +526,10 @@ class karotzCmd extends cmd {
 		if ($this->type == 'action') {
 			$requestHeader = 'http://' . $karotz->getConfiguration('addr') . '/cgi-bin/';
 			$type = $this->getConfiguration('request');
-
 			if ($this->getConfiguration('parameters') == '') {
 				$request = $requestHeader . $type;
 			} else {
 				$parameters = $this->getConfiguration('parameters');
-
 				if ($_options != null) {
 					switch ($this->subType) {
 						case 'message':
@@ -584,7 +582,6 @@ class karotzCmd extends cmd {
 								$parameters = str_replace('#message#', $_options['message'], $parameters);
 								$parameters = str_replace('#title#', rawurlencode($_options['title']), $parameters);
 							}
-							log::add('karotz', 'debug', 'Execution de la commande suivante : ' . $parameters);
 							break;
 						case 'slider':
 							$type = $this->getConfiguration('request');
@@ -592,8 +589,7 @@ class karotzCmd extends cmd {
 							break;
 						case 'color':
 							$type = $this->getConfiguration('request');
-							$parameters = str_replace('#color#', $_options['color'], $parameters);
-							$parameters = str_replace('#', '', $parameters);
+							$parameters = str_replace('#', '', str_replace('#color#', $_options['color'], $parameters));
 							break;
 						default:
 							$type = $this->getConfiguration('request');
