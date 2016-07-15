@@ -1,4 +1,4 @@
-==== Configuration du plugin Jeedom :
+=== Configuration du plugin Jeedom :
 
 *Installation/Création*
 
@@ -42,3 +42,18 @@ Vous n'avez rien à faire dans cette section. Les commandes seront créées auto
 * Vitesse pulse : permet de régler la vitesse du clignotement
 
 Toutes ces commandes sont disponibles via les scénarios
+
+
+=== Commande TTS
+
+La commande tts peut prendre plusieurs options séparée par des & :
+
+- engine : le numéro du moteur de voix
+- voice : le nom de la voix
+- nocache : ne pas utiliser le cache
+
+Exemple : 
+
+----
+engine=3&nocache=1
+----

@@ -238,27 +238,11 @@ class karotz extends eqLogic {
 		$tts->setType('action');
 		$tts->setSubType('message');
 		$tts->setEqLogic_id($this->getId());
-		$tts->setDisplay('title_placeholder', __('Voix', __FILE__));
+		$tts->setDisplay('title_placeholder', __('Options', __FILE__));
 		$tts->setDisplay('message_placeholder', __('Phrase', __FILE__));
 		$tts->setConfiguration('request', 'tts');
-		$tts->setConfiguration('parameters', 'text=#message#&voice=#title#');
+		$tts->setConfiguration('parameters', 'text=#message#&#title#');
 		$tts->save();
-
-		$ttsnocache = $this->getCmd(null, 'ttsnocache');
-		if (!is_object($ttsnocache)) {
-			$ttsnocache = new karotzCmd();
-			$ttsnocache->setLogicalId('ttsnocache');
-			$ttsnocache->setIsVisible(1);
-			$ttsnocache->setName(__('TTS sans cache', __FILE__));
-		}
-		$ttsnocache->setType('action');
-		$ttsnocache->setSubType('message');
-		$ttsnocache->setEqLogic_id($this->getId());
-		$ttsnocache->setDisplay('title_placeholder', __('Voix', __FILE__));
-		$ttsnocache->setDisplay('message_placeholder', __('Phrase', __FILE__));
-		$ttsnocache->setConfiguration('request', 'tts');
-		$ttsnocache->setConfiguration('parameters', 'text=#message#&voice=#title#&nocache=1');
-		$ttsnocache->save();
 
 		$sound = $this->getCmd(null, 'sound');
 		if (!is_object($sound)) {
@@ -534,10 +518,10 @@ class karotzCmd extends cmd {
 					switch ($this->subType) {
 						case 'message':
 							$type = $this->getConfiguration('request');
-							if ($this->getLogicalId() == 'tts' || $this->getLogicalId() == 'ttsnocache') {
+							if ($this->getLogicalId() == 'tts') {
 								$parameters = str_replace('#message#', rawurlencode($_options['message']), $parameters);
 								if ($_options['title'] != null && $_options['title']) {
-									$parameters = str_replace('#title#', rawurlencode($_options['title']), $parameters);
+									$parameters = str_replace('#title#', $_options['title'], $parameters);
 								} else {
 									$parameters = str_replace('#title#', '', $parameters);
 								}
