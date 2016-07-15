@@ -90,6 +90,9 @@ class karotz extends eqLogic {
 	public function ttskarotz($id, $voice, $message) {
 		$karotz = karotz::byId($id);
 		$request = 'http://' . $karotz->getConfiguration('addr') . '/cgi-bin/tts?voice=' . $voice . '&text=' . rawurlencode($message);
+		if ($karotz->getConfiguration('ttsengine') != 0) {
+			$request .= '&engine=' . $karotz->getConfiguration('ttsengine');
+		}
 		$karotz->executerequest($request);
 	}
 
@@ -520,10 +523,14 @@ class karotzCmd extends cmd {
 							$type = $this->getConfiguration('request');
 							if ($this->getLogicalId() == 'tts') {
 								$parameters = str_replace('#message#', rawurlencode($_options['message']), $parameters);
-								if ($_options['title'] != null && $_options['title']) {
+								if ($_options['title'] != null && $_options['title'] && strpos($_options['title'], ' ') === false) {
 									$parameters = str_replace('#title#', $_options['title'], $parameters);
 								} else {
 									$parameters = str_replace('#title#', '', $parameters);
+								}
+								$parameters = trim($parameters, '&');
+								if ($karotz->getConfiguration('ttsengine') != 0 && strpos($parameters, 'engine') === false) {
+									$parameters .= '&engine=' . $karotz->getConfiguration('ttsengine');
 								}
 							} elseif ($this->getLogicalId() == 'pulsecolor') {
 								$parameters = str_replace('#message#', rawurlencode($_options['message']), $parameters);
