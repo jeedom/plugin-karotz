@@ -1,64 +1,64 @@
 <?php
 
 /* This file is part of Jeedom.
-*
-* Jeedom is free software: you can redistribute it and/or modify
-* it under the terms of the GNU General Public License as published by
-* the Free Software Foundation, either version 3 of the License, or
-* (at your option) any later version.
-*
-* Jeedom is distributed in the hope that it will be useful,
-* but WITHOUT ANY WARRANTY; without even the implied warranty of
-* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-* GNU General Public License for more details.
-*
-* You should have received a copy of the GNU General Public License
-* along with Jeedom. If not, see <http://www.gnu.org/licenses/>.
-*/
+ *
+ * Jeedom is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * Jeedom is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with Jeedom. If not, see <http://www.gnu.org/licenses/>.
+ */
 
 /* * ***************************Includes********************************* */
 require_once dirname(__FILE__) . '/../../../../core/php/core.inc.php';
 
 class karotz extends eqLogic {
-    
-    public function cron30($_eqlogic_id = null) {
-        if($_eqlogic_id !== null){
+
+	public function cron30($_eqlogic_id = null) {
+		if ($_eqlogic_id !== null) {
 			$eqLogics = array(eqLogic::byId($_eqlogic_id));
-		}else{
+		} else {
 			$eqLogics = eqLogic::byType('karotz');
 		}
-        foreach ($eqLogics as $karotz) {
-            if ($karotz->getIsEnable() == 1) {
+		foreach ($eqLogics as $karotz) {
+			if ($karotz->getIsEnable() == 1) {
 				log::add('karotz', 'debug', 'Pull Cron pour Karotz');
-                $request = 'http://' . $karotz->getConfiguration('addr') . '/cgi-bin/status';
-                $response=$karotz->executerequest($request);
-                $ch = curl_init();
-                curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-                curl_setopt($ch, CURLOPT_URL, $request);
-                curl_setopt($ch, CURLOPT_TIMEOUT, 5);
-                $response = curl_exec($ch);
-                curl_close($ch);
-                $jsonstatus=json_decode($response, true);
-                $statut=isset($jsonstatus['sleep']) ? $jsonstatus['sleep'] : "old";
-                $color=isset($jsonstatus['led_color']) ? $jsonstatus['led_color'] : "old";
-                foreach ($karotz->getCmd('info') as $cmd) {
+				$request = 'http://' . $karotz->getConfiguration('addr') . '/cgi-bin/status';
+				$response = $karotz->executerequest($request);
+				$ch = curl_init();
+				curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+				curl_setopt($ch, CURLOPT_URL, $request);
+				curl_setopt($ch, CURLOPT_TIMEOUT, 5);
+				$response = curl_exec($ch);
+				curl_close($ch);
+				$jsonstatus = json_decode($response, true);
+				$statut = isset($jsonstatus['sleep']) ? $jsonstatus['sleep'] : "old";
+				$color = isset($jsonstatus['led_color']) ? $jsonstatus['led_color'] : "old";
+				foreach ($karotz->getCmd('info') as $cmd) {
 					switch ($cmd->getName()) {
 						case 'Statut':
-                            $value='Réveillé';
-                            if ($statut==1){
-                                $value='Endormi';
-                            }
-                            break;
-                        case 'Statut Couleur':
-                            $value=$color;
-                            if ($color!='old') {
-                                $value='#'.$color;
-                            }
-						break;
-                    }
-                    if ($value==0 ||$value != 'old'){
+							$value = 'Réveillé';
+							if ($statut == 1) {
+								$value = 'Endormi';
+							}
+							break;
+						case 'Statut Couleur':
+							$value = $color;
+							if ($color != 'old') {
+								$value = '#' . $color;
+							}
+							break;
+					}
+					if ($value == 0 || $value != 'old') {
 						$cmd->event($value);
-						log::add('karotz','debug','set:'.$cmd->getName().' to '. $value);
+						log::add('karotz', 'debug', 'set:' . $cmd->getName() . ' to ' . $value);
 					}
 				}
 				$mc = cache::byKey('karotzWidgetmobile' . $karotz->getId());
@@ -69,65 +69,65 @@ class karotz extends eqLogic {
 				$karotz->toHtml('dashboard');
 				$karotz->refreshWidget();
 				$karotz->refreshWidget();
-            }
-        }
-    }
-    
-    public static function executerequest($request) {
-        log::add('karotz', 'debug', $request);
-        $ch = curl_init();
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-        curl_setopt($ch, CURLOPT_URL, $request);
-        curl_setopt($ch, CURLOPT_TIMEOUT, 5);
-        $response = curl_exec($ch);
-        curl_close($ch);
-        return $response;
-    }
-    
-    public function changeventrekarotz($id,$color) {
-		$karotz = karotz::byId($id);
-        $request = 'http://' . $karotz->getConfiguration('addr') . '/cgi-bin/leds?color='.str_replace('#', '', $color);
-		$karotz->executerequest($request);
-        $karotz->cron30($id);
+			}
+		}
 	}
-    
-    public function moveearkarotz($id,$right,$left) {
-		$karotz = karotz::byId($id);
-        $request = 'http://' . $karotz->getConfiguration('addr') . '/cgi-bin/ears?right='.$right.'&left='.$left.'&noreset=1';
-		$karotz->executerequest($request);
+
+	public static function executerequest($request) {
+		log::add('karotz', 'debug', $request);
+		$ch = curl_init();
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+		curl_setopt($ch, CURLOPT_URL, $request);
+		curl_setopt($ch, CURLOPT_TIMEOUT, 5);
+		$response = curl_exec($ch);
+		curl_close($ch);
+		return $response;
 	}
-    
-    public function ttskarotz($id,$voice,$message) {
+
+	public function changeventrekarotz($id, $color) {
 		$karotz = karotz::byId($id);
-        $request = 'http://' . $karotz->getConfiguration('addr') . '/cgi-bin/tts?voice='.$voice.'&text='.rawurlencode($message);
+		$request = 'http://' . $karotz->getConfiguration('addr') . '/cgi-bin/leds?color=' . str_replace('#', '', $color);
+		$karotz->executerequest($request);
+		$karotz->cron30($id);
+	}
+
+	public function moveearkarotz($id, $right, $left) {
+		$karotz = karotz::byId($id);
+		$request = 'http://' . $karotz->getConfiguration('addr') . '/cgi-bin/ears?right=' . $right . '&left=' . $left . '&noreset=1';
 		$karotz->executerequest($request);
 	}
-    
-    public function soundkarotz($id,$sound) {
+
+	public function ttskarotz($id, $voice, $message) {
 		$karotz = karotz::byId($id);
-        $request = 'http://' . $karotz->getConfiguration('addr') . '/cgi-bin/sound?id='.$sound;
+		$request = 'http://' . $karotz->getConfiguration('addr') . '/cgi-bin/tts?voice=' . $voice . '&text=' . rawurlencode($message);
 		$karotz->executerequest($request);
 	}
-    
-    public function urlkarotz($id,$url) {
+
+	public function soundkarotz($id, $sound) {
 		$karotz = karotz::byId($id);
-        $request = 'http://' . $karotz->getConfiguration('addr') . '/cgi-bin/sound?url='.$url;
+		$request = 'http://' . $karotz->getConfiguration('addr') . '/cgi-bin/sound?id=' . $sound;
 		$karotz->executerequest($request);
 	}
-    
-    public function stopkarotz($id) {
+
+	public function urlkarotz($id, $url) {
 		$karotz = karotz::byId($id);
-        $request = 'http://' . $karotz->getConfiguration('addr') . '/cgi-bin/sound_control?cmd=quit';
+		$request = 'http://' . $karotz->getConfiguration('addr') . '/cgi-bin/sound?url=' . $url;
 		$karotz->executerequest($request);
 	}
-    
-    public function postUpdate() {
-        $this->cron30($this->getId());
-    }
-    
-    public function postSave() {
-        
-        $coucher = $this->getCmd(null, 'coucher');
+
+	public function stopkarotz($id) {
+		$karotz = karotz::byId($id);
+		$request = 'http://' . $karotz->getConfiguration('addr') . '/cgi-bin/sound_control?cmd=quit';
+		$karotz->executerequest($request);
+	}
+
+	public function postUpdate() {
+		$this->cron30($this->getId());
+	}
+
+	public function postSave() {
+
+		$coucher = $this->getCmd(null, 'coucher');
 		if (!is_object($coucher)) {
 			$coucher = new karotzCmd();
 			$coucher->setLogicalId('coucher');
@@ -137,11 +137,11 @@ class karotz extends eqLogic {
 		$coucher->setType('action');
 		$coucher->setSubType('other');
 		$coucher->setEqLogic_id($this->getId());
-        $coucher->setConfiguration('request', 'sleep');
+		$coucher->setConfiguration('request', 'sleep');
 		$coucher->setConfiguration('parameters', '');
 		$coucher->save();
-        
-        $debout = $this->getCmd(null, 'debout');
+
+		$debout = $this->getCmd(null, 'debout');
 		if (!is_object($debout)) {
 			$debout = new karotzCmd();
 			$debout->setLogicalId('debout');
@@ -151,11 +151,11 @@ class karotz extends eqLogic {
 		$debout->setType('action');
 		$debout->setSubType('other');
 		$debout->setEqLogic_id($this->getId());
-        $debout->setConfiguration('request', 'wakeup');
+		$debout->setConfiguration('request', 'wakeup');
 		$debout->setConfiguration('parameters', 'silent=0');
 		$debout->save();
-        
-        $deboutsilent = $this->getCmd(null, 'deboutsilent');
+
+		$deboutsilent = $this->getCmd(null, 'deboutsilent');
 		if (!is_object($deboutsilent)) {
 			$deboutsilent = new karotzCmd();
 			$deboutsilent->setLogicalId('deboutsilent');
@@ -165,11 +165,11 @@ class karotz extends eqLogic {
 		$deboutsilent->setType('action');
 		$deboutsilent->setSubType('other');
 		$deboutsilent->setEqLogic_id($this->getId());
-        $deboutsilent->setConfiguration('request', 'wakeup');
+		$deboutsilent->setConfiguration('request', 'wakeup');
 		$deboutsilent->setConfiguration('parameters', 'silent=1');
 		$deboutsilent->save();
-        
-        $couleur = $this->getCmd(null, 'couleur');
+
+		$couleur = $this->getCmd(null, 'couleur');
 		if (!is_object($couleur)) {
 			$couleur = new karotzCmd();
 			$couleur->setLogicalId('couleur');
@@ -179,11 +179,11 @@ class karotz extends eqLogic {
 		$couleur->setType('action');
 		$couleur->setSubType('color');
 		$couleur->setEqLogic_id($this->getId());
-        $couleur->setConfiguration('request', 'leds');
+		$couleur->setConfiguration('request', 'leds');
 		$couleur->setConfiguration('parameters', 'color=#color#');
 		$couleur->save();
-                
-        $oreilleraz = $this->getCmd(null, 'oreilleraz');
+
+		$oreilleraz = $this->getCmd(null, 'oreilleraz');
 		if (!is_object($oreilleraz)) {
 			$oreilleraz = new karotzCmd();
 			$oreilleraz->setLogicalId('oreilleraz');
@@ -193,11 +193,11 @@ class karotz extends eqLogic {
 		$oreilleraz->setType('action');
 		$oreilleraz->setSubType('other');
 		$oreilleraz->setEqLogic_id($this->getId());
-        $oreilleraz->setConfiguration('request', 'ears_reset');
+		$oreilleraz->setConfiguration('request', 'ears_reset');
 		$oreilleraz->setConfiguration('parameters', '');
 		$oreilleraz->save();
-        
-        $oreillerandom = $this->getCmd(null, 'oreillerandom');
+
+		$oreillerandom = $this->getCmd(null, 'oreillerandom');
 		if (!is_object($oreillerandom)) {
 			$oreillerandom = new karotzCmd();
 			$oreillerandom->setLogicalId('oreillerandom');
@@ -207,11 +207,11 @@ class karotz extends eqLogic {
 		$oreillerandom->setType('action');
 		$oreillerandom->setSubType('other');
 		$oreillerandom->setEqLogic_id($this->getId());
-        $oreillerandom->setConfiguration('request', 'ears_random');
+		$oreillerandom->setConfiguration('request', 'ears_random');
 		$oreillerandom->setConfiguration('parameters', 'noreset=1');
 		$oreillerandom->save();
-        
-        $humeur = $this->getCmd(null, 'humeur');
+
+		$humeur = $this->getCmd(null, 'humeur');
 		if (!is_object($humeur)) {
 			$humeur = new karotzCmd();
 			$humeur->setLogicalId('humeur');
@@ -221,11 +221,11 @@ class karotz extends eqLogic {
 		$humeur->setType('action');
 		$humeur->setSubType('other');
 		$humeur->setEqLogic_id($this->getId());
-        $humeur->setConfiguration('request', 'apps/moods');
+		$humeur->setConfiguration('request', 'apps/moods');
 		$humeur->setConfiguration('parameters', '');
 		$humeur->save();
-        
-        $clock = $this->getCmd(null, 'clock');
+
+		$clock = $this->getCmd(null, 'clock');
 		if (!is_object($clock)) {
 			$clock = new karotzCmd();
 			$clock->setLogicalId('clock');
@@ -235,11 +235,11 @@ class karotz extends eqLogic {
 		$clock->setType('action');
 		$clock->setSubType('other');
 		$clock->setEqLogic_id($this->getId());
-        $clock->setConfiguration('request', 'apps/clock');
+		$clock->setConfiguration('request', 'apps/clock');
 		$clock->setConfiguration('parameters', '');
 		$clock->save();
-        
-        $tts = $this->getCmd(null, 'tts');
+
+		$tts = $this->getCmd(null, 'tts');
 		if (!is_object($tts)) {
 			$tts = new karotzCmd();
 			$tts->setLogicalId('tts');
@@ -249,13 +249,13 @@ class karotz extends eqLogic {
 		$tts->setType('action');
 		$tts->setSubType('message');
 		$tts->setEqLogic_id($this->getId());
-        $tts->setDisplay('title_placeholder', __('Voix', __FILE__));
-        $tts->setDisplay('message_placeholder', __('Phrase', __FILE__));
-        $tts->setConfiguration('request', 'tts');
+		$tts->setDisplay('title_placeholder', __('Voix', __FILE__));
+		$tts->setDisplay('message_placeholder', __('Phrase', __FILE__));
+		$tts->setConfiguration('request', 'tts');
 		$tts->setConfiguration('parameters', 'text=#message#&voice=#title#');
 		$tts->save();
-        
-        $ttsnocache = $this->getCmd(null, 'ttsnocache');
+
+		$ttsnocache = $this->getCmd(null, 'ttsnocache');
 		if (!is_object($ttsnocache)) {
 			$ttsnocache = new karotzCmd();
 			$ttsnocache->setLogicalId('ttsnocache');
@@ -265,13 +265,13 @@ class karotz extends eqLogic {
 		$ttsnocache->setType('action');
 		$ttsnocache->setSubType('message');
 		$ttsnocache->setEqLogic_id($this->getId());
-        $ttsnocache->setDisplay('title_placeholder', __('Voix', __FILE__));
-        $ttsnocache->setDisplay('message_placeholder', __('Phrase', __FILE__));
-        $ttsnocache->setConfiguration('request', 'tts');
+		$ttsnocache->setDisplay('title_placeholder', __('Voix', __FILE__));
+		$ttsnocache->setDisplay('message_placeholder', __('Phrase', __FILE__));
+		$ttsnocache->setConfiguration('request', 'tts');
 		$ttsnocache->setConfiguration('parameters', 'text=#message#&voice=#title#&nocache=1');
 		$ttsnocache->save();
-        
-        $sound = $this->getCmd(null, 'sound');
+
+		$sound = $this->getCmd(null, 'sound');
 		if (!is_object($sound)) {
 			$sound = new karotzCmd();
 			$sound->setLogicalId('sound');
@@ -281,13 +281,13 @@ class karotz extends eqLogic {
 		$sound->setType('action');
 		$sound->setSubType('message');
 		$sound->setEqLogic_id($this->getId());
-        $sound->setDisplay('title_disable', 1);
-        $sound->setConfiguration('request', 'sound');
-        $sound->setDisplay('message_placeholder', __('Id du son', __FILE__));
+		$sound->setDisplay('title_disable', 1);
+		$sound->setConfiguration('request', 'sound');
+		$sound->setDisplay('message_placeholder', __('Id du son', __FILE__));
 		$sound->setConfiguration('parameters', 'id=#message#');
 		$sound->save();
-        
-        $stopsound = $this->getCmd(null, 'stopsound');
+
+		$stopsound = $this->getCmd(null, 'stopsound');
 		if (!is_object($stopsound)) {
 			$stopsound = new karotzCmd();
 			$stopsound->setLogicalId('stopsound');
@@ -297,11 +297,11 @@ class karotz extends eqLogic {
 		$stopsound->setType('action');
 		$stopsound->setSubType('other');
 		$stopsound->setEqLogic_id($this->getId());
-        $stopsound->setConfiguration('request', 'sound_control');
+		$stopsound->setConfiguration('request', 'sound_control');
 		$stopsound->setConfiguration('parameters', 'cmd=quit');
 		$stopsound->save();
-        
-        $url = $this->getCmd(null, 'url');
+
+		$url = $this->getCmd(null, 'url');
 		if (!is_object($url)) {
 			$url = new karotzCmd();
 			$url->setLogicalId('url');
@@ -311,13 +311,13 @@ class karotz extends eqLogic {
 		$url->setType('action');
 		$url->setSubType('message');
 		$url->setEqLogic_id($this->getId());
-        $url->setDisplay('title_disable', 1);
-        $url->setConfiguration('request', 'sound');
-        $url->setDisplay('message_placeholder', __('Url à Jouer', __FILE__));
+		$url->setDisplay('title_disable', 1);
+		$url->setConfiguration('request', 'sound');
+		$url->setDisplay('message_placeholder', __('Url à Jouer', __FILE__));
 		$url->setConfiguration('parameters', 'url=#message#');
 		$url->save();
-        
-        $squeezeon = $this->getCmd(null, 'squeezeon');
+
+		$squeezeon = $this->getCmd(null, 'squeezeon');
 		if (!is_object($squeezeon)) {
 			$squeezeon = new karotzCmd();
 			$squeezeon->setLogicalId('squeezeon');
@@ -327,11 +327,11 @@ class karotz extends eqLogic {
 		$squeezeon->setType('action');
 		$squeezeon->setSubType('other');
 		$squeezeon->setEqLogic_id($this->getId());
-        $squeezeon->setConfiguration('request', 'squeezebox');
+		$squeezeon->setConfiguration('request', 'squeezebox');
 		$squeezeon->setConfiguration('parameters', 'cmd=start');
 		$squeezeon->save();
-        
-        $snapshot = $this->getCmd(null, 'snapshot');
+
+		$snapshot = $this->getCmd(null, 'snapshot');
 		if (!is_object($snapshot)) {
 			$snapshot = new karotzCmd();
 			$snapshot->setLogicalId('snapshot');
@@ -341,11 +341,11 @@ class karotz extends eqLogic {
 		$snapshot->setType('action');
 		$snapshot->setSubType('other');
 		$snapshot->setEqLogic_id($this->getId());
-        $snapshot->setConfiguration('request', 'snapshot');
+		$snapshot->setConfiguration('request', 'snapshot');
 		$snapshot->setConfiguration('parameters', 'silent=1');
 		$snapshot->save();
-        
-        $squeezeoff = $this->getCmd(null, 'squeezeoff');
+
+		$squeezeoff = $this->getCmd(null, 'squeezeoff');
 		if (!is_object($squeezeoff)) {
 			$squeezeoff = new karotzCmd();
 			$squeezeoff->setLogicalId('squeezeoff');
@@ -355,11 +355,11 @@ class karotz extends eqLogic {
 		$squeezeoff->setType('action');
 		$squeezeoff->setSubType('other');
 		$squeezeoff->setEqLogic_id($this->getId());
-        $squeezeoff->setConfiguration('request', 'squeezebox');
+		$squeezeoff->setConfiguration('request', 'squeezebox');
 		$squeezeoff->setConfiguration('parameters', 'cmd=stop');
 		$squeezeoff->save();
-        
-        $pulseon = $this->getCmd(null, 'pulseon');
+
+		$pulseon = $this->getCmd(null, 'pulseon');
 		if (!is_object($pulseon)) {
 			$pulseon = new karotzCmd();
 			$pulseon->setLogicalId('pulseon');
@@ -369,11 +369,11 @@ class karotz extends eqLogic {
 		$pulseon->setType('action');
 		$pulseon->setSubType('other');
 		$pulseon->setEqLogic_id($this->getId());
-        $pulseon->setConfiguration('request', 'leds');
+		$pulseon->setConfiguration('request', 'leds');
 		$pulseon->setConfiguration('parameters', 'pulse=1');
 		$pulseon->save();
-        
-        $pulseoff = $this->getCmd(null, 'pulseoff');
+
+		$pulseoff = $this->getCmd(null, 'pulseoff');
 		if (!is_object($pulseoff)) {
 			$pulseoff = new karotzCmd();
 			$pulseoff->setLogicalId('pulseoff');
@@ -383,11 +383,11 @@ class karotz extends eqLogic {
 		$pulseoff->setType('action');
 		$pulseoff->setSubType('other');
 		$pulseoff->setEqLogic_id($this->getId());
-        $pulseoff->setConfiguration('request', 'leds');
+		$pulseoff->setConfiguration('request', 'leds');
 		$pulseoff->setConfiguration('parameters', 'pulse=0');
 		$pulseoff->save();
-        
-        $pulsespeed = $this->getCmd(null, 'pulsespeed');
+
+		$pulsespeed = $this->getCmd(null, 'pulsespeed');
 		if (!is_object($pulsespeed)) {
 			$pulsespeed = new karotzCmd();
 			$pulsespeed->setLogicalId('pulsespeed');
@@ -399,11 +399,11 @@ class karotz extends eqLogic {
 		$pulsespeed->setConfiguration('minValue', 0);
 		$pulsespeed->setConfiguration('maxValue', 2000);
 		$pulsespeed->setEqLogic_id($this->getId());
-        $pulsespeed->setConfiguration('request', 'leds');
+		$pulsespeed->setConfiguration('request', 'leds');
 		$pulsespeed->setConfiguration('parameters', 'speed=#slider#&pulse=1');
 		$pulsespeed->save();
-        
-        $pulsecolor = $this->getCmd(null, 'pulsecolor');
+
+		$pulsecolor = $this->getCmd(null, 'pulsecolor');
 		if (!is_object($pulsecolor)) {
 			$pulsecolor = new karotzCmd();
 			$pulsecolor->setLogicalId('pulsecolor');
@@ -412,14 +412,14 @@ class karotz extends eqLogic {
 		}
 		$pulsecolor->setType('action');
 		$pulsecolor->setSubType('message');
-        $pulsecolor->setDisplay('message_placeholder', __('Vitesse [0-2000]', __FILE__));
-        $pulsecolor->setDisplay('title_placeholder', __('Couleur', __FILE__));
+		$pulsecolor->setDisplay('message_placeholder', __('Vitesse [0-2000]', __FILE__));
+		$pulsecolor->setDisplay('title_placeholder', __('Couleur', __FILE__));
 		$pulsecolor->setEqLogic_id($this->getId());
-        $pulsecolor->setConfiguration('request', 'leds');
+		$pulsecolor->setConfiguration('request', 'leds');
 		$pulsecolor->setConfiguration('parameters', 'speed=#message#&pulse=1&color2=#title#');
 		$pulsecolor->save();
-        
-        $oreillepos = $this->getCmd(null, 'oreillepos');
+
+		$oreillepos = $this->getCmd(null, 'oreillepos');
 		if (!is_object($oreillepos)) {
 			$oreillepos = new karotzCmd();
 			$oreillepos->setLogicalId('oreillepos');
@@ -428,14 +428,14 @@ class karotz extends eqLogic {
 		}
 		$oreillepos->setType('action');
 		$oreillepos->setSubType('message');
-        $oreillepos->setDisplay('message_placeholder', __('Oreille Droite [0-16]', __FILE__));
-        $oreillepos->setDisplay('title_placeholder', __('Oreille Gauche [0-16]', __FILE__));
+		$oreillepos->setDisplay('message_placeholder', __('Oreille Droite [0-16]', __FILE__));
+		$oreillepos->setDisplay('title_placeholder', __('Oreille Gauche [0-16]', __FILE__));
 		$oreillepos->setEqLogic_id($this->getId());
-        $oreillepos->setConfiguration('request', 'ears');
+		$oreillepos->setConfiguration('request', 'ears');
 		$oreillepos->setConfiguration('parameters', 'right=#message#&left=#title#&noreset=1');
 		$oreillepos->save();
-        
-        $etat = $this->getCmd(null, 'etat');
+
+		$etat = $this->getCmd(null, 'etat');
 		if (!is_object($etat)) {
 			$etat = new karotzCmd();
 			$etat->setLogicalId('etat');
@@ -445,10 +445,10 @@ class karotz extends eqLogic {
 		$etat->setType('info');
 		$etat->setSubType('string');
 		$etat->setEventOnly(1);
-        $etat->setEqLogic_id($this->getId());
-        $etat->save();
-        
-        $couleurstatut = $this->getCmd(null, 'couleurstatut');
+		$etat->setEqLogic_id($this->getId());
+		$etat->save();
+
+		$couleurstatut = $this->getCmd(null, 'couleurstatut');
 		if (!is_object($couleurstatut)) {
 			$couleurstatut = new karotzCmd();
 			$couleurstatut->setLogicalId('couleurstatut');
@@ -458,10 +458,10 @@ class karotz extends eqLogic {
 		$couleurstatut->setType('info');
 		$couleurstatut->setEventOnly(1);
 		$couleurstatut->setSubType('string');
-        $couleurstatut->setEqLogic_id($this->getId());
-        $couleurstatut->save();
-        
-        $refresh = $this->getCmd(null, 'refresh');
+		$couleurstatut->setEqLogic_id($this->getId());
+		$couleurstatut->save();
+
+		$refresh = $this->getCmd(null, 'refresh');
 		if (!is_object($refresh)) {
 			$refresh = new karotzCmd();
 			$refresh->setLogicalId('refresh');
@@ -472,176 +472,156 @@ class karotz extends eqLogic {
 		$refresh->setSubType('other');
 		$refresh->setEqLogic_id($this->getId());
 		$refresh->save();
-    }
-    
-    public function toHtml($_version = 'dashboard') {
-    	if ($this->getIsEnable() != 1) {
-			return '';
-		}
-		if (!$this->hasRight('r')) {
-			return '';
+	}
+
+	public function toHtml($_version = 'dashboard') {
+		$replace = $this->preToHtml($_version);
+		if (!is_array($replace)) {
+			return $replace;
 		}
 		$version = jeedom::versionAlias($_version);
-		if ($this->getDisplay('hideOn' . $version) == 1) {
-			return '';
+		foreach ($this->getCmd('info') as $cmd) {
+			$replace['#' . $cmd->getLogicalId() . '#'] = $cmd->execCmd();
+			$replace['#' . $cmd->getLogicalId() . '_id#'] = $cmd->getId();
+			if ($cmd->getIsHistorized() == 1) {
+				$replace['#' . $cmd->getLogicalId() . '_history#'] = 'history cursor';
+			}
 		}
-		$mc = cache::byKey('karotzWidget' . jeedom::versionAlias($_version) . $this->getId());
-		if ($mc->getValue() != '') {
-			return preg_replace("/" . preg_quote(self::UIDDELIMITER) . "(.*?)" . preg_quote(self::UIDDELIMITER) . "/", self::UIDDELIMITER . mt_rand() . self::UIDDELIMITER, $mc->getValue());
-		}
-        if (is_object($this->getCmd(null,'etat')) && $this->getCmd(null,'etat')->execCmd()=='Réveillé'){
-			$state='awake';
-            $action='Endormir le Karotz';
+
+		if (is_object($this->getCmd(null, 'etat')) && $this->getCmd(null, 'etat')->execCmd() == 'Réveillé') {
+			$replace['#state#'] = 'awake';
+			$replace['#actionstate#'] = __('Endormir le Karotz', __FILE__);
 		} else {
-			$state='sleep';
-            $action='Réveiller le Karotz';
+			$replace['#state#'] = 'sleep';
+			$replace['#actionstate#'] = __('Réveiller le Karotz', __FILE__);
 		}
-		$background=$this->getBackgroundColor($_version);
-		$replace = array(
-			'#name#' => $this->getName(),
-			'#id#' => $this->getId(),
-			'#background_color#' => $background,
-			'#uid#' => 'karotz' . $this->getId() . self::UIDDELIMITER . mt_rand() . self::UIDDELIMITER,
-			'#eqLink#' => $this->getLinkToConfiguration(),
-			'#state#' => $state,
-            '#actionstate#'=> $action,
-		);
+
 		foreach ($this->getCmd('info') as $cmd) {
 			$replace['#' . $cmd->getLogicalId() . '_history#'] = '';
-                $replace['#' . $cmd->getLogicalId() . '_id#'] = $cmd->getId();
-				$replace['#' . $cmd->getLogicalId() . '#'] = $cmd->execCmd();
-				$replace['#' . $cmd->getLogicalId() . '_collect#'] = $cmd->getCollectDate();
-				if ($cmd->getIsHistorized() == 1) {
-					$replace['#' . $cmd->getLogicalId() . '_history#'] = 'history cursor';
-				}
-			
+			$replace['#' . $cmd->getLogicalId() . '_id#'] = $cmd->getId();
+			$replace['#' . $cmd->getLogicalId() . '#'] = $cmd->execCmd();
+			$replace['#' . $cmd->getLogicalId() . '_collect#'] = $cmd->getCollectDate();
+			if ($cmd->getIsHistorized() == 1) {
+				$replace['#' . $cmd->getLogicalId() . '_history#'] = 'history cursor';
+			}
+
 		}
 
 		foreach ($this->getCmd('action') as $cmd) {
 			$replace['#' . $cmd->getLogicalId() . '_id#'] = $cmd->getId();
 		}
-        
-		$parameters = $this->getDisplay('parameters');
-		if (is_array($parameters)) {
-			foreach ($parameters as $key => $value) {
-				$replace['#' . $key . '#'] = $value;
-			}
-		}
 
-		$html = template_replace($replace, getTemplate('core', $_version, 'karotz', 'karotz'));
-		cache::set('karotzWidget' . $_version . $this->getId(), $html, 0);
+		$html = template_replace($replace, getTemplate('core', $version, 'karotz', 'karotz'));
+		cache::set('widgetHtml' . $version . $this->getId(), $html, 0);
 		return $html;
+
 	}
 }
 
 class karotzCmd extends cmd {
-    /*     * *************************Attributs****************************** */
+	/*     * *************************Attributs****************************** */
 
+	/*     * ***********************Methode static*************************** */
 
-    /*     * ***********************Methode static*************************** */
+	/*     * *********************Methode d'instance************************* */
 
-
-    /*     * *********************Methode d'instance************************* */
-
-    public function execute($_options = null) {
-    	if ($this->getType() == '') {
+	public function execute($_options = null) {
+		if ($this->getType() == '') {
 			return '';
 		}
-        $karotz = $this->getEqLogic();
-        if ($this->getLogicalId() == 'refresh') {
-            $karotz->cron30($karotz->getId());
-            return true;
-        }
-        if ($this->type == 'action') {
-            $requestHeader = 'http://' . $karotz->getConfiguration('addr') . '/cgi-bin/';
-            $type=$this->getConfiguration('request');
-            
-            if ($this->getConfiguration('parameters') == '') {
-                $request = $requestHeader.$type;
-            } else {
-                $parameters = $this->getConfiguration('parameters');
-			
-            if ($_options != null) {
-                switch ($this->subType) {
-                    case 'message':
-                        $type=$this->getConfiguration('request');
-                        if ($this->getLogicalId() == 'tts' || $this->getLogicalId() == 'ttsnocache') {
-                            $parameters = str_replace('#message#',rawurlencode($_options['message']), $parameters);
-                            if ($_options['title'] != null && $_options['title']){
-                                $parameters = str_replace('#title#',rawurlencode($_options['title']), $parameters);
-                            } else {
-                                $parameters = str_replace('#title#','', $parameters);
-                            }
-                        }
-                        elseif ($this->getLogicalId() == 'pulsecolor') {
-                            $parameters = str_replace('#message#',rawurlencode($_options['message']), $parameters);
-                            $finalcolor='none';
-                            switch (strtolower($_options['title'])) {
-                                    case 'bleu':
-                                        $finalcolor='0000FF';
-                                    break;
-                                    case 'vert':
-                                        $finalcolor='00FF00';
-                                    break;
-                                    case 'jaune':
-                                        $finalcolor='FFFF00';
-                                    break;
-                                    case 'rouge':
-                                        $finalcolor='FF0000';
-                                    break;
-                                    case 'cyan':
-                                        $finalcolor='00FFFF';
-                                    break;
-                                    case 'rose':
-                                        $finalcolor='FF00FF';
-                                    break;
-                                    case 'gris':
-                                        $finalcolor='808080';
-                                    break;
-                                    case 'blanc':
-                                        $finalcolor='FFFFFF';
-                                    break;
-                                    case 'noir':
-                                        $finalcolor='000000';
-                                    break;
-                                }
-                             if ($finalcolor=='none'){
-                                $parameters = str_replace('#title#',rawurlencode(substr($_options['title'],1)), $parameters);
-                            } else {
-                                 $parameters = str_replace('#title#',rawurlencode($finalcolor), $parameters);
-                            }
-                        } 
-                        else {
-                            $parameters = str_replace('#message#',$_options['message'], $parameters);
-                            $parameters = str_replace('#title#',rawurlencode($_options['title']), $parameters);
-                        }
-						log::add('karotz','debug','Execution de la commande suivante : ' .$parameters);
-                        break;
-                    case 'slider':
-						$type=$this->getConfiguration('request');
-                        $parameters = str_replace('#slider#', $_options['slider'], $parameters);
-                        break;
-					case 'color':
-						$type=$this->getConfiguration('request');
-                        $parameters = str_replace('#color#', $_options['color'], $parameters);
-						$parameters = str_replace('#', '', $parameters);
-                        break;
-                    default:
-						$type=$this->getConfiguration('request');
-                        break;
-                }
-            }
-        $request = $requestHeader.$type.'?'.$parameters;
+		$karotz = $this->getEqLogic();
+		if ($this->getLogicalId() == 'refresh') {
+			$karotz->cron30($karotz->getId());
+			return true;
 		}
-        $response=$karotz->executerequest($request);
-        if (in_array($this->getLogicalId() , array('debout','deboutsilent','coucher','couleur'))) {
-            sleep(1);
-            $karotz->cron30($karotz->getId());
-        }
-        return $response;
-        }
+		if ($this->type == 'action') {
+			$requestHeader = 'http://' . $karotz->getConfiguration('addr') . '/cgi-bin/';
+			$type = $this->getConfiguration('request');
 
-    /*     * **********************Getteur Setteur*************************** */
-}
+			if ($this->getConfiguration('parameters') == '') {
+				$request = $requestHeader . $type;
+			} else {
+				$parameters = $this->getConfiguration('parameters');
+
+				if ($_options != null) {
+					switch ($this->subType) {
+						case 'message':
+							$type = $this->getConfiguration('request');
+							if ($this->getLogicalId() == 'tts' || $this->getLogicalId() == 'ttsnocache') {
+								$parameters = str_replace('#message#', rawurlencode($_options['message']), $parameters);
+								if ($_options['title'] != null && $_options['title']) {
+									$parameters = str_replace('#title#', rawurlencode($_options['title']), $parameters);
+								} else {
+									$parameters = str_replace('#title#', '', $parameters);
+								}
+							} elseif ($this->getLogicalId() == 'pulsecolor') {
+								$parameters = str_replace('#message#', rawurlencode($_options['message']), $parameters);
+								$finalcolor = 'none';
+								switch (strtolower($_options['title'])) {
+									case 'bleu':
+										$finalcolor = '0000FF';
+										break;
+									case 'vert':
+										$finalcolor = '00FF00';
+										break;
+									case 'jaune':
+										$finalcolor = 'FFFF00';
+										break;
+									case 'rouge':
+										$finalcolor = 'FF0000';
+										break;
+									case 'cyan':
+										$finalcolor = '00FFFF';
+										break;
+									case 'rose':
+										$finalcolor = 'FF00FF';
+										break;
+									case 'gris':
+										$finalcolor = '808080';
+										break;
+									case 'blanc':
+										$finalcolor = 'FFFFFF';
+										break;
+									case 'noir':
+										$finalcolor = '000000';
+										break;
+								}
+								if ($finalcolor == 'none') {
+									$parameters = str_replace('#title#', rawurlencode(substr($_options['title'], 1)), $parameters);
+								} else {
+									$parameters = str_replace('#title#', rawurlencode($finalcolor), $parameters);
+								}
+							} else {
+								$parameters = str_replace('#message#', $_options['message'], $parameters);
+								$parameters = str_replace('#title#', rawurlencode($_options['title']), $parameters);
+							}
+							log::add('karotz', 'debug', 'Execution de la commande suivante : ' . $parameters);
+							break;
+						case 'slider':
+							$type = $this->getConfiguration('request');
+							$parameters = str_replace('#slider#', $_options['slider'], $parameters);
+							break;
+						case 'color':
+							$type = $this->getConfiguration('request');
+							$parameters = str_replace('#color#', $_options['color'], $parameters);
+							$parameters = str_replace('#', '', $parameters);
+							break;
+						default:
+							$type = $this->getConfiguration('request');
+							break;
+					}
+				}
+				$request = $requestHeader . $type . '?' . $parameters;
+			}
+			$response = $karotz->executerequest($request);
+			if (in_array($this->getLogicalId(), array('debout', 'deboutsilent', 'coucher', 'couleur'))) {
+				sleep(1);
+				$karotz->cron30($karotz->getId());
+			}
+			return $response;
+		}
+
+		/*     * **********************Getteur Setteur*************************** */
+	}
 }
 ?>
