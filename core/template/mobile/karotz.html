@@ -4,47 +4,59 @@
     <center>#name#</center></br>
 
     <span class="cmd cmd-widget" data-cmd_id="#refresh_id#" style="display:none;"></span>
-    
-    <center><span style="position : absolute;top :92px;z-index: 2;margin-left:-9px;" class="couleurstatut cursor"><i class="fa fa-circle fa-lg" style="color : #couleurstatut#;"></i></span></center>
-	<center>
-    <img id="statekarotz_#uid#" class="cursor" src="plugins/karotz/core/template/images/#state#.png" alt="Karotz" height="85">
-   </center>
-   <center>
-	<span class="cmd cmd-widget cursor" data-cmd_id="#oreillerandom_id#" style="font-size: 150%;"><i class="fa fa-random"></i></span>
-    <span class="cmd cmd-widget cursor" data-cmd_id="#oreilleraz_id#" style="font-size: 150%;margin-left:15px;">  <i class="fa fa-refresh"></i></span>
-    <span class="cmd cmd-widget cursor" data-cmd_id="#clock_id#" style="font-size: 150%;margin-left:15px;">  <i class="icon divers-circular114"></i></span>
-    <span class="cmd cmd-widget cursor" data-cmd_id="#humeur_id#" style="font-size: 150%;margin-left:15px;">  <i class="icon personne-bear2"></i></span></br>
-    <span class="cmd cmd-widget cursor" data-cmd_id="#squeezeon_id#" style="font-size: 150%;"><i class="fa fa-check"></i></span>
-    <span class="cmd cmd-widget cursor" data-cmd_id="#squeezeoff_id#" style="font-size: 150%;margin-left:15px;">  <i class="fa fa-times"></i></span>
-    <span class="cmd cmd-widget cursor" data-cmd_id="#pulseon_id#" style="font-size: 150%;margin-left:15px;">  <i class="icon jeedom2-lightbulb58"></i></span>
-    <span class="cmd cmd-widget cursor" data-cmd_id="#pulseoff_id#" style="font-size: 150%;margin-left:15px;">  <i class="icon jeedom2-lightbulb25"></i></span>
-    <div class="pulsespeed" style="width: 80px;" value="700"></div>
-	<div class="pulsespeed full-width-slider" style="width: 96%;text-align: right;min-width : 100px;">
-		<input type="range" min="0" max="2000" data-theme="a" value="700"/>
-    </div>
-	<script>
-		$("body").undelegate(".eqLogic[data-eqLogic_uid=#uid#] .pulsespeed",'slidestop');
-		$("body").delegate(".eqLogic[data-eqLogic_uid=#uid#] .pulsespeed",'slidestop', function (event, ui) {
-			jeedom.cmd.execute({id: '#pulsespeed_id#', value: {slider: $(".eqLogic[data-eqLogic_uid=#uid#] .pulsespeed input").value()}});
-		});
-	</script>
-	</center>
 
-    <script>
-        $('.eqLogic[data-eqLogic_uid=#uid#] .refresh').on('click', function () {
-            jeedom.cmd.execute({id: '#refresh_id#'});
-        });
-        $('#statekarotz_#uid#').on('click', function() {
+    <center><span style="position : absolute;top :92px;z-index: 2;margin-left:-9px;" id="couleurstatut_#uid#" class="couleurstatut cursor"><i class="fa fa-circle fa-lg" style="color : #couleurstatut#;"></i></span></center>
+    <center>
+        <img id="statekarotz_#uid#" class="cursor" src="plugins/karotz/core/template/images/#state#.png" alt="Karotz" height="85">
+        <div style="width:80%">
+            <input data-clear-btn="false" data-cmd_id="#couleur_id#" class="cmd" type="color" value="#couleurstatut#">
+        </div>
+    </center>
+    <center>
+     <span class="cmd cmd-widget cursor" data-cmd_id="#oreillerandom_id#" style="font-size: 150%;"><i class="fa fa-random"></i></span>
+     <span class="cmd cmd-widget cursor" data-cmd_id="#oreilleraz_id#" style="font-size: 150%;margin-left:15px;">  <i class="fa fa-refresh"></i></span>
+     <span class="cmd cmd-widget cursor" data-cmd_id="#clock_id#" style="font-size: 150%;margin-left:15px;">  <i class="icon divers-circular114"></i></span>
+     <span class="cmd cmd-widget cursor" data-cmd_id="#humeur_id#" style="font-size: 150%;margin-left:15px;">  <i class="icon personne-bear2"></i></span></br>
+     <span class="cmd cmd-widget cursor" data-cmd_id="#squeezeon_id#" style="font-size: 150%;"><i class="fa fa-check"></i></span>
+     <span class="cmd cmd-widget cursor" data-cmd_id="#squeezeoff_id#" style="font-size: 150%;margin-left:15px;">  <i class="fa fa-times"></i></span>
+     <span class="cmd cmd-widget cursor" data-cmd_id="#pulseon_id#" style="font-size: 150%;margin-left:15px;">  <i class="icon jeedom2-lightbulb58"></i></span>
+     <span class="cmd cmd-widget cursor" data-cmd_id="#pulseoff_id#" style="font-size: 150%;margin-left:15px;">  <i class="icon jeedom2-lightbulb25"></i></span>
+     <div class="pulsespeed" style="width: 80px;" value="700"></div>
+     <div class="pulsespeed full-width-slider" style="width: 96%;text-align: right;min-width : 100px;">
+      <input type="range" min="0" max="2000" data-theme="a" value="700"/>
+  </div>
+  <script>
+      $("body").undelegate(".eqLogic[data-eqLogic_uid=#uid#] .pulsespeed",'slidestop');
+      $("body").delegate(".eqLogic[data-eqLogic_uid=#uid#] .pulsespeed",'slidestop', function (event, ui) {
+       jeedom.cmd.execute({id: '#pulsespeed_id#', value: {slider: $(".eqLogic[data-eqLogic_uid=#uid#] .pulsespeed input").value()}});
+   });
+</script>
+</center>
+
+<script>
+    $('.eqLogic[data-eqLogic_uid=#uid#] .refresh').on('click', function () {
+        jeedom.cmd.execute({id: '#refresh_id#'});
+    });
+    $('#statekarotz_#uid#').on('click', function() {
         if('#state#' == 'awake'){
-			jeedom.cmd.execute({id: '#coucher_id#'});
-		}else{
-			jeedom.cmd.execute({id: '#debout_id#'});
-		}
+           jeedom.cmd.execute({id: '#coucher_id#'});
+       }else{
+           jeedom.cmd.execute({id: '#debout_id#'});
+       }
+   });
+    $('.eqLogic[data-eqLogic_uid=#uid#] .cmd').on('click', function() {
+        if($(this).data('cmd_id') == '#couleur_id#'){
+            return
+        }
+        jeedom.cmd.execute({id: $(this).data('cmd_id')});
+    });
+    $('#couleurstatut_#uid#').on('click', function() {
+            $('.eqLogic[data-eqLogic_uid=#uid#] .cmd[data-cmd_id=#couleur_id#]').click();
         });
-     $('.eqLogic[data-eqLogic_uid=#uid#] .cmd').on('click', function() {
-			jeedom.cmd.execute({id: $(this).data('cmd_id')});
-		});
-    </script>
+    $('.eqLogic[data-eqLogic_uid=#uid#] .cmd[data-cmd_id=#couleur_id#]').on('change', function() {
+        jeedom.cmd.execute({id: $(this).data('cmd_id'),value: {color:$(this).value()}});
+    });
+</script>
 
 </div>
 
