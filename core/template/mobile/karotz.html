@@ -41,8 +41,24 @@
  });
 </script>
 </center>
-
+<style>
+  @-webkit-keyframes blinker {
+    from {opacity: 1.0;}
+    to {opacity: 0.0;}
+  }
+  .blinkKarotz{
+    text-decoration: blink;
+    -webkit-animation-name: blinker;
+    -webkit-animation-duration: 0.8s;
+    -webkit-animation-iteration-count:infinite;
+    -webkit-animation-timing-function:ease-in-out;
+    -webkit-animation-direction: alternate;
+  }
+</style>
 <script>
+  if('#pulsestate#' == 1){
+    $('#couleurstatut_#uid#').addClass('blinkKarotz');
+  }
   if('#enablesqueezebox#' == 0){
     $('.eqLogic[data-eqLogic_uid=#uid#] .squeezeboxControl').hide();
   }
