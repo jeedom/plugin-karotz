@@ -106,6 +106,12 @@ foreach (jeedom::getConfiguration('eqLogic:category') as $key => $value) {
             <input type="checkbox" class="eqLogicAttr" data-l1key="configuration" data-l2key="enablesqueezebox"/>
         </div>
     </div>
+    <div class="form-group">
+        <label class="col-lg-2 control-label">{{Activer clock et moods}}</label>
+        <div class="col-lg-2">
+            <input type="checkbox" class="eqLogicAttr" data-l1key="configuration" data-l2key="enablesclockmoods"/>
+        </div>
+    </div>
 </fieldset>
 </form>
 

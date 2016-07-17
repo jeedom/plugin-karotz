@@ -16,29 +16,36 @@
   <center>
    <span class="cmd cmd-widget cursor" data-cmd_id="#oreillerandom_id#" style="font-size: 150%;"><i class="fa fa-random"></i></span>
    <span class="cmd cmd-widget cursor" data-cmd_id="#oreilleraz_id#" style="font-size: 150%;margin-left:15px;">  <i class="fa fa-refresh"></i></span>
-   <span class="cmd cmd-widget cursor" data-cmd_id="#clock_id#" style="font-size: 150%;margin-left:15px;">  <i class="icon divers-circular114"></i></span>
-   <span class="cmd cmd-widget cursor" data-cmd_id="#humeur_id#" style="font-size: 150%;margin-left:15px;">  <i class="icon personne-bear2"></i></span></br>
-   <span class="squeezeboxControl">
-     <span class="cmd cmd-widget cursor" data-cmd_id="#squeezeon_id#" style="font-size: 150%;"><i class="fa fa-check"></i></span>
-     <span class="cmd cmd-widget cursor" data-cmd_id="#squeezeoff_id#" style="font-size: 150%;margin-left:15px;">  <i class="fa fa-times"></i></span>
+   <span class="enablesclockmoods">
+     <span class="cmd cmd-widget cursor" data-cmd_id="#clock_id#" style="font-size: 150%;margin-left:15px;">  <i class="icon divers-circular114"></i></span>
+     <span class="cmd cmd-widget cursor" data-cmd_id="#humeur_id#" style="font-size: 150%;margin-left:15px;">  <i class="icon personne-bear2"></i></span>
+     </br>
    </span>
-   <span class="cmd cmd-widget cursor" data-cmd_id="#pulseon_id#" style="font-size: 150%;margin-left:15px;">  <i class="icon jeedom2-lightbulb58"></i></span>
-   <span class="cmd cmd-widget cursor" data-cmd_id="#pulseoff_id#" style="font-size: 150%;margin-left:15px;">  <i class="icon jeedom2-lightbulb25"></i></span>
-   <div class="pulsespeed" style="width: 80px;" value="700"></div>
-   <div class="pulsespeed full-width-slider" style="width: 96%;text-align: right;min-width : 100px;">
-    <input type="range" min="0" max="2000" data-theme="a" value="700"/>
-  </div>
-  <script>
-    $("body").undelegate(".eqLogic[data-eqLogic_uid=#uid#] .pulsespeed",'slidestop');
-    $("body").delegate(".eqLogic[data-eqLogic_uid=#uid#] .pulsespeed",'slidestop', function (event, ui) {
-     jeedom.cmd.execute({id: '#pulsespeed_id#', value: {slider: $(".eqLogic[data-eqLogic_uid=#uid#] .pulsespeed input").value()}});
-   });
- </script>
+ <span class="squeezeboxControl">
+   <span class="cmd cmd-widget cursor" data-cmd_id="#squeezeon_id#" style="font-size: 150%;"><i class="fa fa-check"></i></span>
+   <span class="cmd cmd-widget cursor" data-cmd_id="#squeezeoff_id#" style="font-size: 150%;margin-left:15px;">  <i class="fa fa-times"></i></span>
+   </br>
+ </span>
+ <span class="cmd cmd-widget cursor" data-cmd_id="#pulseon_id#" style="font-size: 150%;margin-left:15px;">  <i class="icon jeedom2-lightbulb58"></i></span>
+ <span class="cmd cmd-widget cursor" data-cmd_id="#pulseoff_id#" style="font-size: 150%;margin-left:15px;">  <i class="icon jeedom2-lightbulb25"></i></span>
+ <div class="pulsespeed" style="width: 80px;" value="700"></div>
+ <div class="pulsespeed full-width-slider" style="width: 96%;text-align: right;min-width : 100px;">
+  <input type="range" min="0" max="2000" data-theme="a" value="700"/>
+</div>
+<script>
+  $("body").undelegate(".eqLogic[data-eqLogic_uid=#uid#] .pulsespeed",'slidestop');
+  $("body").delegate(".eqLogic[data-eqLogic_uid=#uid#] .pulsespeed",'slidestop', function (event, ui) {
+   jeedom.cmd.execute({id: '#pulsespeed_id#', value: {slider: $(".eqLogic[data-eqLogic_uid=#uid#] .pulsespeed input").value()}});
+ });
+</script>
 </center>
 
 <script>
   if('#enablesqueezebox#' == 0){
     $('.eqLogic[data-eqLogic_uid=#uid#] .squeezeboxControl').hide();
+  }
+  if('#enablesclockmoods#' == 0){
+    $('.eqLogic[data-eqLogic_uid=#uid#] .enablesclockmoods').hide();
   }
   $('.eqLogic[data-eqLogic_uid=#uid#] .refresh').on('click', function () {
     jeedom.cmd.execute({id: '#refresh_id#'});

@@ -15,73 +15,80 @@
 				Oreilles : 
 				<span class="cmd cmd-widget cursor" data-cmd_id="#oreillerandom_id#"><i class="fa fa-random" title="Oreille Aléatoire"></i></span>
 				<span class="cmd cmd-widget cursor" data-cmd_id="#oreilleraz_id#"><i class="fa fa-refresh" title="Oreille Reset"></i></span>
-				<span title="Position manuelle"><i id="manualear_#uid#" class="fa fa-user cursor"></i></span></br>
+				<span title="Position manuelle"><i id="manualear_#uid#" class="fa fa-user cursor"></i></span>
+			</br>
+			<span class="enablesclockmoods">
 				Actions :
 				<span class="cmd cmd-widget cursor" data-cmd_id="#clock_id#"><i class="icon divers-circular114" title="Horloge"></i></span>
 				<span class="cmd cmd-widget cursor" data-cmd_id="#humeur_id#"><i class="icon personne-bear2" title="Humeur"></i></span>
-				<span class="cmd cmd-widget cursor" data-cmd_id="#snapshot_id#"><i class="fa fa-camera" title="Prendre photo"></i></span></br>
-				<span class="squeezeboxControl">
-					SqueezeBox : 
-					<span class="cmd cmd-widget cursor" data-cmd_id="#squeezeon_id#"><i class="fa fa-check" title="On"></i></span>
-					<span class="cmd cmd-widget cursor" data-cmd_id="#squeezeoff_id#"><i class="fa fa-times" title="Off"></i></span></br>
-				</span>
-				Leds : 
-				<span class="cmd cmd-widget cursor" data-cmd_id="#pulseon_id#"><i class="icon jeedom2-lightbulb58" title="Pulse On"></i></span>
-				<span class="cmd cmd-widget cursor" data-cmd_id="#pulseoff_id#"><i class="icon jeedom2-lightbulb25" title="Pulse Off"></i></span>
-				<div class="pulsespeed" style="width: 80px;" value="700" data-slider-tooltip="hide"></div>
-				<script>
-					$(".eqLogic[data-eqLogic_uid=#uid#] .pulsespeed").bootstrapSlider({
-						min: 0,
-						max: 2000,
-						value: 700,
-					});
-					$(".eqLogic[data-eqLogic_uid=#uid#] .slider.slider-horizontal").css('z-index',1);
-					$(".eqLogic[data-eqLogic_uid=#uid#] .pulsespeed").on('slideStop', function (ev) {
-						jeedom.cmd.execute({id: '#pulsespeed_id#', value: {slider: ev.value}});
-					});
-				</script>   
-			</center>
-		</div>
-	</div>
-
-	<script>
-		if('#enablesqueezebox#' == 0){
-			$('.eqLogic[data-eqLogic_uid=#uid#] .squeezeboxControl').hide();
-		}
-		$('.eqLogic[data-eqLogic_uid=#uid#] .refresh').on('click', function () {
-			jeedom.cmd.execute({id: '#refresh_id#'});
-		});
-		$('#statekarotz_#uid#').on('click', function() {
-			if('#state#' == 'awake'){
-				jeedom.cmd.execute({id: '#coucher_id#'});
-			}else{
-				jeedom.cmd.execute({id: '#debout_id#'});
-			}
-		});
-		$('#couleurstatut_#uid#').on('click', function() {
-			$('.eqLogic[data-eqLogic_uid=#uid#] .cmd[data-cmd_id=#couleur_id#]').click();
-		});
-		$('#manualear_#uid#').on('click', function() {
-			$('#md_modal2').dialog({title: "Changer la position des oreilles"});
-			$('#md_modal2').load('index.php?v=d&plugin=karotz&modal=manualear.karotz&id='+ #id#).dialog('open');
-		});
-		$('.eqLogic[data-eqLogic_uid=#uid#] .cmd').on('click', function() {
-			if($(this).data('cmd_id') == '#couleur_id#'){
-				return
-			}
-			jeedom.cmd.execute({id: $(this).data('cmd_id')});
-		});
-		$('.eqLogic[data-eqLogic_uid=#uid#] .cmd[data-cmd_id=#couleur_id#]').on('change', function() {
-			jeedom.cmd.execute({id: $(this).data('cmd_id'),value: {color:$(this).value()}});
-		});
-
-		$('.eqLogic[data-eqLogic_uid=#uid#] .micro').on('click', function() {
-			bootbox.prompt("Que voulez vous que je dise ?", function (result) {
-				if (result !== null) {
-					jeedom.cmd.execute({id: '#tts_id#',value: {message:result}});
-				}
+				<br/>
+			</span>
+			<span class="squeezeboxControl">
+				SqueezeBox : 
+				<span class="cmd cmd-widget cursor" data-cmd_id="#squeezeon_id#"><i class="fa fa-check" title="On"></i></span>
+				<span class="cmd cmd-widget cursor" data-cmd_id="#squeezeoff_id#"><i class="fa fa-times" title="Off"></i></span>
+			</br>
+		</span>
+		Leds : 
+		<span class="cmd cmd-widget cursor" data-cmd_id="#pulseon_id#"><i class="icon jeedom2-lightbulb58" title="Pulse On"></i></span>
+		<span class="cmd cmd-widget cursor" data-cmd_id="#pulseoff_id#"><i class="icon jeedom2-lightbulb25" title="Pulse Off"></i></span>
+		<div class="pulsespeed" style="width: 80px;" value="700" data-slider-tooltip="hide"></div>
+		<script>
+			$(".eqLogic[data-eqLogic_uid=#uid#] .pulsespeed").bootstrapSlider({
+				min: 0,
+				max: 2000,
+				value: 700,
 			});
+			$(".eqLogic[data-eqLogic_uid=#uid#] .slider.slider-horizontal").css('z-index',1);
+			$(".eqLogic[data-eqLogic_uid=#uid#] .pulsespeed").on('slideStop', function (ev) {
+				jeedom.cmd.execute({id: '#pulsespeed_id#', value: {slider: ev.value}});
+			});
+		</script>   
+	</center>
+</div>
+</div>
+
+<script>
+	if('#enablesqueezebox#' == 0){
+		$('.eqLogic[data-eqLogic_uid=#uid#] .squeezeboxControl').hide();
+	}
+	if('#enablesclockmoods#' == 0){
+		$('.eqLogic[data-eqLogic_uid=#uid#] .enablesclockmoods').hide();
+	}
+	$('.eqLogic[data-eqLogic_uid=#uid#] .refresh').on('click', function () {
+		jeedom.cmd.execute({id: '#refresh_id#'});
+	});
+	$('#statekarotz_#uid#').on('click', function() {
+		if('#state#' == 'awake'){
+			jeedom.cmd.execute({id: '#coucher_id#'});
+		}else{
+			jeedom.cmd.execute({id: '#debout_id#'});
+		}
+	});
+	$('#couleurstatut_#uid#').on('click', function() {
+		$('.eqLogic[data-eqLogic_uid=#uid#] .cmd[data-cmd_id=#couleur_id#]').click();
+	});
+	$('#manualear_#uid#').on('click', function() {
+		$('#md_modal2').dialog({title: "Changer la position des oreilles"});
+		$('#md_modal2').load('index.php?v=d&plugin=karotz&modal=manualear.karotz&id='+ #id#).dialog('open');
+	});
+	$('.eqLogic[data-eqLogic_uid=#uid#] .cmd').on('click', function() {
+		if($(this).data('cmd_id') == '#couleur_id#'){
+			return
+		}
+		jeedom.cmd.execute({id: $(this).data('cmd_id')});
+	});
+	$('.eqLogic[data-eqLogic_uid=#uid#] .cmd[data-cmd_id=#couleur_id#]').on('change', function() {
+		jeedom.cmd.execute({id: $(this).data('cmd_id'),value: {color:$(this).value()}});
+	});
+
+	$('.eqLogic[data-eqLogic_uid=#uid#] .micro').on('click', function() {
+		bootbox.prompt("Que voulez vous que je dise ?", function (result) {
+			if (result !== null) {
+				jeedom.cmd.execute({id: '#tts_id#',value: {message:result}});
+			}
 		});
-	</script>
+	});
+</script>
 </div>
 

@@ -147,33 +147,45 @@ class karotz extends eqLogic {
 		$oreillerandom->setConfiguration('parameters', 'noreset=1');
 		$oreillerandom->save();
 
-		$humeur = $this->getCmd(null, 'humeur');
-		if (!is_object($humeur)) {
-			$humeur = new karotzCmd();
-			$humeur->setLogicalId('humeur');
-			$humeur->setIsVisible(1);
-			$humeur->setName(__('Humeur', __FILE__));
-		}
-		$humeur->setType('action');
-		$humeur->setSubType('other');
-		$humeur->setEqLogic_id($this->getId());
-		$humeur->setConfiguration('request', 'apps/moods');
-		$humeur->setConfiguration('parameters', '');
-		$humeur->save();
+		if ($this->getConfiguration('enablesclockmoods') == 1) {
+			$humeur = $this->getCmd(null, 'humeur');
+			if (!is_object($humeur)) {
+				$humeur = new karotzCmd();
+				$humeur->setLogicalId('humeur');
+				$humeur->setIsVisible(1);
+				$humeur->setName(__('Humeur', __FILE__));
+			}
+			$humeur->setType('action');
+			$humeur->setSubType('other');
+			$humeur->setEqLogic_id($this->getId());
+			$humeur->setConfiguration('request', 'apps/moods');
+			$humeur->setConfiguration('parameters', '');
+			$humeur->save();
 
-		$clock = $this->getCmd(null, 'clock');
-		if (!is_object($clock)) {
-			$clock = new karotzCmd();
-			$clock->setLogicalId('clock');
-			$clock->setIsVisible(1);
-			$clock->setName(__('Horloge', __FILE__));
+			$clock = $this->getCmd(null, 'clock');
+			if (!is_object($clock)) {
+				$clock = new karotzCmd();
+				$clock->setLogicalId('clock');
+				$clock->setIsVisible(1);
+				$clock->setName(__('Horloge', __FILE__));
+			}
+			$clock->setType('action');
+			$clock->setSubType('other');
+			$clock->setEqLogic_id($this->getId());
+			$clock->setConfiguration('request', 'apps/clock');
+			$clock->setConfiguration('parameters', '');
+			$clock->save();
+		} else {
+			$humeur = $this->getCmd(null, 'humeur');
+			if (is_object($humeur)) {
+				$humeur->remove();
+			}
+
+			$clock = $this->getCmd(null, 'clock');
+			if (is_object($clock)) {
+				$clock->remove();
+			}
 		}
-		$clock->setType('action');
-		$clock->setSubType('other');
-		$clock->setEqLogic_id($this->getId());
-		$clock->setConfiguration('request', 'apps/clock');
-		$clock->setConfiguration('parameters', '');
-		$clock->save();
 
 		$tts = $this->getCmd(null, 'tts');
 		if (!is_object($tts)) {
@@ -275,20 +287,6 @@ class karotz extends eqLogic {
 				$squeezeoff->remove();
 			}
 		}
-
-		$snapshot = $this->getCmd(null, 'snapshot');
-		if (!is_object($snapshot)) {
-			$snapshot = new karotzCmd();
-			$snapshot->setLogicalId('snapshot');
-			$snapshot->setIsVisible(1);
-			$snapshot->setName(__('Faire prendre une photo au lapin', __FILE__));
-		}
-		$snapshot->setType('action');
-		$snapshot->setSubType('other');
-		$snapshot->setEqLogic_id($this->getId());
-		$snapshot->setConfiguration('request', 'snapshot');
-		$snapshot->setConfiguration('parameters', 'silent=1');
-		$snapshot->save();
 
 		$pulseon = $this->getCmd(null, 'pulseon');
 		if (!is_object($pulseon)) {
@@ -410,6 +408,7 @@ class karotz extends eqLogic {
 			$replace['#actionstate#'] = __('Réveiller le Karotz', __FILE__);
 		}
 		$replace['#enablesqueezebox#'] = $this->getConfiguration('enablesqueezebox', 0);
+		$replace['#enablesclockmoods#'] = $this->getConfiguration('enablesclockmoods', 0);
 		foreach ($this->getCmd('info') as $cmd) {
 			$replace['#' . $cmd->getLogicalId() . '_history#'] = '';
 			$replace['#' . $cmd->getLogicalId() . '_id#'] = $cmd->getId();
