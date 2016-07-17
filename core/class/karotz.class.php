@@ -30,14 +30,8 @@ class karotz extends eqLogic {
 		foreach ($eqLogics as $karotz) {
 			if ($karotz->getIsEnable() == 1) {
 				$request = 'http://' . $karotz->getConfiguration('addr') . '/cgi-bin/status';
-				$response = $karotz->executerequest($request);
-				$ch = curl_init();
-				curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-				curl_setopt($ch, CURLOPT_URL, $request);
-				curl_setopt($ch, CURLOPT_TIMEOUT, 5);
-				$response = curl_exec($ch);
-				curl_close($ch);
-				$jsonstatus = json_decode($response, true);
+				$request = new com_http($request);
+				$jsonstatus = json_decode($request->exec(5, 1), true);
 				$statut = isset($jsonstatus['sleep']) ? $jsonstatus['sleep'] : "old";
 				$color = isset($jsonstatus['led_color']) ? $jsonstatus['led_color'] : "old";
 				foreach ($karotz->getCmd('info') as $cmd) {
@@ -62,40 +56,6 @@ class karotz extends eqLogic {
 				$karotz->refreshWidget();
 			}
 		}
-	}
-
-	public static function executerequest($request) {
-		$ch = curl_init();
-		curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-		curl_setopt($ch, CURLOPT_URL, $request);
-		curl_setopt($ch, CURLOPT_TIMEOUT, 5);
-		$response = curl_exec($ch);
-		curl_close($ch);
-		return $response;
-	}
-
-	public function moveearkarotz($id, $right, $left) {
-		$karotz = karotz::byId($id);
-		$request = 'http://' . $karotz->getConfiguration('addr') . '/cgi-bin/ears?right=' . $right . '&left=' . $left . '&noreset=1';
-		$karotz->executerequest($request);
-	}
-
-	public function soundkarotz($id, $sound) {
-		$karotz = karotz::byId($id);
-		$request = 'http://' . $karotz->getConfiguration('addr') . '/cgi-bin/sound?id=' . $sound;
-		$karotz->executerequest($request);
-	}
-
-	public function urlkarotz($id, $url) {
-		$karotz = karotz::byId($id);
-		$request = 'http://' . $karotz->getConfiguration('addr') . '/cgi-bin/sound?url=' . $url;
-		$karotz->executerequest($request);
-	}
-
-	public function stopkarotz($id) {
-		$karotz = karotz::byId($id);
-		$request = 'http://' . $karotz->getConfiguration('addr') . '/cgi-bin/sound_control?cmd=quit';
-		$karotz->executerequest($request);
 	}
 
 	public function postUpdate() {
@@ -277,19 +237,44 @@ class karotz extends eqLogic {
 		$url->setConfiguration('parameters', 'url=#message#');
 		$url->save();
 
-		$squeezeon = $this->getCmd(null, 'squeezeon');
-		if (!is_object($squeezeon)) {
-			$squeezeon = new karotzCmd();
-			$squeezeon->setLogicalId('squeezeon');
-			$squeezeon->setIsVisible(1);
-			$squeezeon->setName(__('SqueezeBox On', __FILE__));
+		if ($this->getConfiguration('enablesqueezebox') == 1) {
+			$squeezeon = $this->getCmd(null, 'squeezeon');
+			if (!is_object($squeezeon)) {
+				$squeezeon = new karotzCmd();
+				$squeezeon->setLogicalId('squeezeon');
+				$squeezeon->setIsVisible(1);
+				$squeezeon->setName(__('SqueezeBox On', __FILE__));
+			}
+			$squeezeon->setType('action');
+			$squeezeon->setSubType('other');
+			$squeezeon->setEqLogic_id($this->getId());
+			$squeezeon->setConfiguration('request', 'squeezebox');
+			$squeezeon->setConfiguration('parameters', 'cmd=start');
+			$squeezeon->save();
+
+			$squeezeoff = $this->getCmd(null, 'squeezeoff');
+			if (!is_object($squeezeoff)) {
+				$squeezeoff = new karotzCmd();
+				$squeezeoff->setLogicalId('squeezeoff');
+				$squeezeoff->setIsVisible(1);
+				$squeezeoff->setName(__('SqueezeBox Off', __FILE__));
+			}
+			$squeezeoff->setType('action');
+			$squeezeoff->setSubType('other');
+			$squeezeoff->setEqLogic_id($this->getId());
+			$squeezeoff->setConfiguration('request', 'squeezebox');
+			$squeezeoff->setConfiguration('parameters', 'cmd=stop');
+			$squeezeoff->save();
+		} else {
+			$squeezeon = $this->getCmd(null, 'squeezeon');
+			if (is_object($squeezeon)) {
+				$squeezeon->remove();
+			}
+			$squeezeoff = $this->getCmd(null, 'squeezeoff');
+			if (is_object($squeezeoff)) {
+				$squeezeoff->remove();
+			}
 		}
-		$squeezeon->setType('action');
-		$squeezeon->setSubType('other');
-		$squeezeon->setEqLogic_id($this->getId());
-		$squeezeon->setConfiguration('request', 'squeezebox');
-		$squeezeon->setConfiguration('parameters', 'cmd=start');
-		$squeezeon->save();
 
 		$snapshot = $this->getCmd(null, 'snapshot');
 		if (!is_object($snapshot)) {
@@ -304,20 +289,6 @@ class karotz extends eqLogic {
 		$snapshot->setConfiguration('request', 'snapshot');
 		$snapshot->setConfiguration('parameters', 'silent=1');
 		$snapshot->save();
-
-		$squeezeoff = $this->getCmd(null, 'squeezeoff');
-		if (!is_object($squeezeoff)) {
-			$squeezeoff = new karotzCmd();
-			$squeezeoff->setLogicalId('squeezeoff');
-			$squeezeoff->setIsVisible(1);
-			$squeezeoff->setName(__('SqueezeBox Off', __FILE__));
-		}
-		$squeezeoff->setType('action');
-		$squeezeoff->setSubType('other');
-		$squeezeoff->setEqLogic_id($this->getId());
-		$squeezeoff->setConfiguration('request', 'squeezebox');
-		$squeezeoff->setConfiguration('parameters', 'cmd=stop');
-		$squeezeoff->save();
 
 		$pulseon = $this->getCmd(null, 'pulseon');
 		if (!is_object($pulseon)) {
@@ -362,22 +333,6 @@ class karotz extends eqLogic {
 		$pulsespeed->setConfiguration('request', 'leds');
 		$pulsespeed->setConfiguration('parameters', 'speed=#slider#&pulse=1');
 		$pulsespeed->save();
-
-		$pulsecolor = $this->getCmd(null, 'pulsecolor');
-		if (!is_object($pulsecolor)) {
-			$pulsecolor = new karotzCmd();
-			$pulsecolor->setLogicalId('pulsecolor');
-			$pulsecolor->setIsVisible(1);
-			$pulsecolor->setName(__('Pulse avec couleur secondaire', __FILE__));
-		}
-		$pulsecolor->setType('action');
-		$pulsecolor->setSubType('message');
-		$pulsecolor->setDisplay('message_placeholder', __('Vitesse [0-2000]', __FILE__));
-		$pulsecolor->setDisplay('title_placeholder', __('Couleur', __FILE__));
-		$pulsecolor->setEqLogic_id($this->getId());
-		$pulsecolor->setConfiguration('request', 'leds');
-		$pulsecolor->setConfiguration('parameters', 'speed=#message#&pulse=1&color2=#title#');
-		$pulsecolor->save();
 
 		$oreillepos = $this->getCmd(null, 'oreillepos');
 		if (!is_object($oreillepos)) {
@@ -447,7 +402,6 @@ class karotz extends eqLogic {
 				$replace['#' . $cmd->getLogicalId() . '_history#'] = 'history cursor';
 			}
 		}
-
 		if (is_object($this->getCmd(null, 'etat')) && $this->getCmd(null, 'etat')->execCmd() == 'Réveillé') {
 			$replace['#state#'] = 'awake';
 			$replace['#actionstate#'] = __('Endormir le Karotz', __FILE__);
@@ -455,7 +409,7 @@ class karotz extends eqLogic {
 			$replace['#state#'] = 'sleep';
 			$replace['#actionstate#'] = __('Réveiller le Karotz', __FILE__);
 		}
-
+		$replace['#enablesqueezebox#'] = $this->getConfiguration('enablesqueezebox', 0);
 		foreach ($this->getCmd('info') as $cmd) {
 			$replace['#' . $cmd->getLogicalId() . '_history#'] = '';
 			$replace['#' . $cmd->getLogicalId() . '_id#'] = $cmd->getId();
@@ -466,16 +420,26 @@ class karotz extends eqLogic {
 			}
 
 		}
-
 		foreach ($this->getCmd('action') as $cmd) {
 			$replace['#' . $cmd->getLogicalId() . '_id#'] = $cmd->getId();
 		}
-
 		$html = template_replace($replace, getTemplate('core', $version, 'karotz', 'karotz'));
 		cache::set('widgetHtml' . $version . $this->getId(), $html, 0);
 		return $html;
-
 	}
+
+	public function moveearkarotz($right, $left) {
+		if (!is_numeric($right) || !is_numeric($left)) {
+			throw new Exception('Veuillez saisir un nombre SVP');
+		}
+		if ($right < 0 || $right > 16 || $left < 0 || $left > 16) {
+			throw new Exception('Veuillez saisir une valeur comprise entre 1 et 16');
+		}
+		$request = 'http://' . $this->getConfiguration('addr') . '/cgi-bin/ears?right=' . $right . '&left=' . $left . '&noreset=1';
+		$request = new com_http($request);
+		$request->exec(1, 1);
+	}
+
 }
 
 class karotzCmd extends cmd {
@@ -486,102 +450,58 @@ class karotzCmd extends cmd {
 	/*     * *********************Methode d'instance************************* */
 
 	public function execute($_options = null) {
-		if ($this->getType() == '') {
-			return '';
-		}
 		$karotz = $this->getEqLogic();
 		if ($this->getLogicalId() == 'refresh') {
 			$karotz->cron30($karotz->getId());
 			return true;
 		}
-		if ($this->type == 'action') {
-			$requestHeader = 'http://' . $karotz->getConfiguration('addr') . '/cgi-bin/';
-			$type = $this->getConfiguration('request');
-			if ($this->getConfiguration('parameters') == '') {
-				$request = $requestHeader . $type;
-			} else {
-				$parameters = $this->getConfiguration('parameters');
-				if ($_options != null) {
-					switch ($this->subType) {
-						case 'message':
-							$type = $this->getConfiguration('request');
-							if ($this->getLogicalId() == 'tts') {
-								$parameters = str_replace('#message#', rawurlencode($_options['message']), $parameters);
-								if ($_options['title'] != null && $_options['title'] && strpos($_options['title'], ' ') === false) {
-									$parameters = str_replace('#title#', $_options['title'], $parameters);
-								} else {
-									$parameters = str_replace('#title#', '', $parameters);
-								}
-								$parameters = trim($parameters, '&');
-								if ($karotz->getConfiguration('ttsengine') != 0 && strpos($parameters, 'engine') === false) {
-									$parameters .= '&engine=' . $karotz->getConfiguration('ttsengine');
-								}
-							} elseif ($this->getLogicalId() == 'pulsecolor') {
-								$parameters = str_replace('#message#', rawurlencode($_options['message']), $parameters);
-								$finalcolor = 'none';
-								switch (strtolower($_options['title'])) {
-									case 'bleu':
-										$finalcolor = '0000FF';
-										break;
-									case 'vert':
-										$finalcolor = '00FF00';
-										break;
-									case 'jaune':
-										$finalcolor = 'FFFF00';
-										break;
-									case 'rouge':
-										$finalcolor = 'FF0000';
-										break;
-									case 'cyan':
-										$finalcolor = '00FFFF';
-										break;
-									case 'rose':
-										$finalcolor = 'FF00FF';
-										break;
-									case 'gris':
-										$finalcolor = '808080';
-										break;
-									case 'blanc':
-										$finalcolor = 'FFFFFF';
-										break;
-									case 'noir':
-										$finalcolor = '000000';
-										break;
-								}
-								if ($finalcolor == 'none') {
-									$parameters = str_replace('#title#', rawurlencode(substr($_options['title'], 1)), $parameters);
-								} else {
-									$parameters = str_replace('#title#', rawurlencode($finalcolor), $parameters);
-								}
-							} else {
-								$parameters = str_replace('#message#', $_options['message'], $parameters);
-								$parameters = str_replace('#title#', rawurlencode($_options['title']), $parameters);
-							}
-							break;
-						case 'slider':
-							$type = $this->getConfiguration('request');
-							$parameters = str_replace('#slider#', $_options['slider'], $parameters);
-							break;
-						case 'color':
-							$type = $this->getConfiguration('request');
-							$parameters = str_replace('#', '', str_replace('#color#', $_options['color'], $parameters));
-							break;
-						default:
-							$type = $this->getConfiguration('request');
-							break;
-					}
-				}
-				$request = $requestHeader . $type . '?' . $parameters;
-			}
-			$response = $karotz->executerequest($request);
-			if (in_array($this->getLogicalId(), array('debout', 'deboutsilent', 'coucher', 'couleur'))) {
-				sleep(1);
-				$karotz->cron30($karotz->getId());
-			}
-			return $response;
+		if ($this->type != 'action') {
+			return;
 		}
-
-		/*     * **********************Getteur Setteur*************************** */
+		$requestHeader = 'http://' . $karotz->getConfiguration('addr') . '/cgi-bin/';
+		$type = $this->getConfiguration('request');
+		if ($this->getConfiguration('parameters') == '') {
+			$request = $requestHeader . $type;
+		} else {
+			$parameters = $this->getConfiguration('parameters');
+			if ($_options != null) {
+				switch ($this->getSubType()) {
+					case 'message':
+						if ($this->getLogicalId() == 'tts') {
+							$parameters = str_replace('#message#', rawurlencode($_options['message']), $parameters);
+							if ($_options['title'] != null && $_options['title'] && strpos($_options['title'], ' ') === false) {
+								$parameters = str_replace('#title#', $_options['title'], $parameters);
+							} else {
+								$parameters = str_replace('#title#', '', $parameters);
+							}
+							$parameters = trim($parameters, '&');
+							if ($karotz->getConfiguration('ttsengine') != 0 && strpos($parameters, 'engine') === false) {
+								$parameters .= '&engine=' . $karotz->getConfiguration('ttsengine');
+							}
+						} else {
+							$parameters = str_replace('#message#', $_options['message'], $parameters);
+							$parameters = str_replace('#title#', rawurlencode($_options['title']), $parameters);
+						}
+						break;
+					case 'slider':
+						$parameters = str_replace('#slider#', $_options['slider'], $parameters);
+						break;
+					case 'color':
+						$parameters = str_replace('#', '', str_replace('#color#', $_options['color'], $parameters));
+						break;
+				}
+			}
+			$request = $requestHeader . $type . '?' . $parameters;
+		}
+		$request = new com_http($request);
+		$request->exec(5, 1);
+		if (in_array($this->getLogicalId(), array('debout', 'deboutsilent', 'coucher', 'couleur'))) {
+			sleep(1);
+			$karotz->cron30($karotz->getId());
+		}
+		return $response;
 	}
+
+	/*     * **********************Getteur Setteur*************************** */
 }
 ?>

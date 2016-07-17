@@ -32,43 +32,13 @@ if (!is_object($karotz)) {
 			<textarea class="form-control" id="ttstext" rows="4" name='<?php echo $id; ?>'></textarea>
 		</div>
 	</div>
-	<div class="form-group">
-		<label class="col-sm-2 control-label">{{TTS Voix}}</label>
-		<div class="col-sm-10">
-			<input class="form-control" id="ttsvoice" type='text' name='<?php echo $id; ?>'/>
-		</div>
-	</div>
-	<div class="form-group">
-		<label class="col-sm-2 control-label">{{Son  Id}}</label>
-		<div class="col-sm-10">
-			<input class="form-control" id="soundid" type='text' name='<?php echo $id; ?>'/>
-		</div>
-	</div>
-	<div class="form-group">
-		<label class="col-sm-2 control-label">{{Url}}</label>
-		<div class="col-sm-10">
-			<input class="form-control" id="soundurl" type='text' name='<?php echo $id; ?>' size="55"/>
-		</div>
-	</div>
 </form>
 <div class='pull-right'>
 <a class="btn btn-success tts"><i class="icon loisir-microphone52"></i> Faire parler</a>
-<a class="btn btn-success sound"><i class="icon loisir-musical"></i> Jouer un son</a>
-<a class="btn btn-success url"><i class="icon loisir-musical81"></i> Jouer une url</a>
-<a class="btn btn-danger stop"><i class="fa fa-stop"></i> Arrêter le son</a>
 </div>
 <script>
 	$('.tts').on('click', function() {
 		tts($('#ttsvoice').attr('name'),$('input[id=ttsvoice]').val(),$('textarea[id=ttstext]').val());
-	})
-	$('.sound').on('click', function() {
-		sound($('#soundid').attr('name'),$('input[id=soundid]').val());
-	})
-	$('.url').on('click', function() {
-		url($('#soundurl').attr('name'),$('input[id=soundurl]').val());
-	})
-	$('.stop').on('click', function() {
-		stop($('#soundurl').attr('name'));
 	})
 	function tts(_id,_voice,_message) {
 		$.ajax({
@@ -79,70 +49,6 @@ if (!is_object($karotz)) {
 				id: _id,
 				voice: _voice,
 				message: _message
-			},
-			dataType: 'json',
-			error: function(request, status, error) {
-				handleAjaxError(request, status, error);
-			},
-			success: function(data) {
-				if (data.state != 'ok') {
-					$('#div_alert').showAlert({message:  data.result,level: 'danger'});
-					return;
-				}
-			}
-		});
-	}
-
-	function sound(_id,_sound) {
-		$.ajax({
-			type: "POST",
-			url: "plugins/karotz/core/ajax/karotz.ajax.php",
-			data: {
-				action: "sound",
-				id: _id,
-				sound: _sound,
-			},
-			dataType: 'json',
-			error: function(request, status, error) {
-				handleAjaxError(request, status, error);
-			},
-			success: function(data) {
-				if (data.state != 'ok') {
-					$('#div_alert').showAlert({message:  data.result,level: 'danger'});
-					return;
-				}
-			}
-		});
-	}
-
-	function url(_id,_url) {
-		$.ajax({
-			type: "POST",
-			url: "plugins/karotz/core/ajax/karotz.ajax.php",
-			data: {
-				action: "url",
-				id: _id,
-				url: _url
-			},
-			dataType: 'json',
-			error: function(request, status, error) {
-				handleAjaxError(request, status, error);
-			},
-			success: function(data) {
-				if (data.state != 'ok') {
-					$('#div_alert').showAlert({message:  data.result,level: 'danger'});
-					return;
-				}
-			}
-		});
-	}
-	function stop(_id) {
-		$.ajax({
-			type: "POST",
-			url: "plugins/karotz/core/ajax/karotz.ajax.php",
-			data: {
-				action: "stop",
-				id: _id
 			},
 			dataType: 'json',
 			error: function(request, status, error) {

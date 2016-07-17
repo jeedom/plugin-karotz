@@ -100,6 +100,12 @@ foreach (jeedom::getConfiguration('eqLogic:category') as $key => $value) {
             <input type="text" class="eqLogicAttr form-control" data-l1key="configuration" data-l2key="ttsengine" placeholder="{{Moteur TTS}}"/>
         </div>
     </div>
+    <div class="form-group">
+        <label class="col-lg-2 control-label">{{Activer squeezebox}}</label>
+        <div class="col-lg-2">
+            <input type="checkbox" class="eqLogicAttr" data-l1key="configuration" data-l2key="enablesqueezebox"/>
+        </div>
+    </div>
 </fieldset>
 </form>
 
@@ -111,9 +117,7 @@ foreach (jeedom::getConfiguration('eqLogic:category') as $key => $value) {
             <th>{{Action}}</th>
         </tr>
     </thead>
-    <tbody>
-
-    </tbody>
+    <tbody></tbody>
 </table>
 
 <form class="form-horizontal">
