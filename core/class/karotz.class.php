@@ -74,25 +74,9 @@ class karotz extends eqLogic {
 		return $response;
 	}
 
-	public function changeventrekarotz($id, $color) {
-		$karotz = karotz::byId($id);
-		$request = 'http://' . $karotz->getConfiguration('addr') . '/cgi-bin/leds?color=' . str_replace('#', '', $color);
-		$karotz->executerequest($request);
-		$karotz->cron30($id);
-	}
-
 	public function moveearkarotz($id, $right, $left) {
 		$karotz = karotz::byId($id);
 		$request = 'http://' . $karotz->getConfiguration('addr') . '/cgi-bin/ears?right=' . $right . '&left=' . $left . '&noreset=1';
-		$karotz->executerequest($request);
-	}
-
-	public function ttskarotz($id, $voice, $message) {
-		$karotz = karotz::byId($id);
-		$request = 'http://' . $karotz->getConfiguration('addr') . '/cgi-bin/tts?voice=' . $voice . '&text=' . rawurlencode($message);
-		if ($karotz->getConfiguration('ttsengine') != 0) {
-			$request .= '&engine=' . $karotz->getConfiguration('ttsengine');
-		}
 		$karotz->executerequest($request);
 	}
 
