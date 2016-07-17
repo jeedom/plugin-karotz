@@ -32,28 +32,42 @@ class karotz extends eqLogic {
 				$request = 'http://' . $karotz->getConfiguration('addr') . '/cgi-bin/status';
 				$request = new com_http($request);
 				$jsonstatus = json_decode($request->exec(5, 1), true);
-				$statut = isset($jsonstatus['sleep']) ? $jsonstatus['sleep'] : "old";
-				$color = isset($jsonstatus['led_color']) ? $jsonstatus['led_color'] : "old";
-				foreach ($karotz->getCmd('info') as $cmd) {
-					switch ($cmd->getName()) {
-						case 'Statut':
-							$value = 'Réveillé';
-							if ($statut == 1) {
-								$value = 'Endormi';
-							}
-							break;
-						case 'Statut Couleur':
-							$value = $color;
-							if ($color != 'old') {
-								$value = '#' . $color;
-							}
-							break;
-					}
-					if ($value == 0 || $value != 'old') {
-						$cmd->event($value);
+				$change = false;
+				if (isset($jsonstatus['sleep'])) {
+					$cmd = $karotz->getCmd('info', 'etat');
+					if (is_object($cmd)) {
+						$value = ($jsonstatus['sleep'] == 1) ? 'Endormi' : 'Réveillé';
+						if ($cmd->execCmd() !== $cmd->formatValue($value)) {
+							$cmd->setCollectDate('');
+							$cmd->event($value);
+							$change = true;
+						}
 					}
 				}
-				$karotz->refreshWidget();
+				if (isset($jsonstatus['led_color'])) {
+					$cmd = $karotz->getCmd('info', 'couleurstatut');
+					if (is_object($cmd)) {
+						if ($cmd->execCmd() !== $cmd->formatValue('#' . $jsonstatus['led_color'])) {
+							$cmd->setCollectDate('');
+							$cmd->event('#' . $jsonstatus['led_color']);
+							$change = true;
+						}
+					}
+				}
+
+				if (isset($jsonstatus['led_pulse'])) {
+					$cmd = $karotz->getCmd('info', 'pulsestate');
+					if (is_object($cmd)) {
+						if ($cmd->execCmd() !== $cmd->formatValue($jsonstatus['led_pulse'])) {
+							$cmd->setCollectDate('');
+							$cmd->event($jsonstatus['led_pulse']);
+							$change = true;
+						}
+					}
+				}
+				if ($change) {
+					$karotz->refreshWidget();
+				}
 			}
 		}
 	}
@@ -316,6 +330,18 @@ class karotz extends eqLogic {
 		$pulseoff->setConfiguration('parameters', 'pulse=0');
 		$pulseoff->save();
 
+		$pulsestate = $this->getCmd(null, 'pulsestate');
+		if (!is_object($pulsestate)) {
+			$pulsestate = new karotzCmd();
+			$pulsestate->setLogicalId('pulsestate');
+			$pulsestate->setIsVisible(1);
+			$pulsestate->setName(__('Clignotement', __FILE__));
+		}
+		$pulsestate->setType('info');
+		$pulsestate->setSubType('binary');
+		$pulsestate->setEqLogic_id($this->getId());
+		$pulsestate->save();
+
 		$pulsespeed = $this->getCmd(null, 'pulsespeed');
 		if (!is_object($pulsespeed)) {
 			$pulsespeed = new karotzCmd();
@@ -482,7 +508,16 @@ class karotzCmd extends cmd {
 		}
 		$request = new com_http($request);
 		$request->exec(5, 1);
-		if (in_array($this->getLogicalId(), array('debout', 'deboutsilent', 'coucher', 'couleur'))) {
+		if ($this->getLogicalId() == 'couleur') {
+			$pulsestate = $karotz->getCmd('info', 'pulsestate');
+			if (is_object($pulsestate) && $pulsestate->execCmd() == 1) {
+				$pulseon = $karotz->getCmd(null, 'pulseon');
+				if (is_object($pulseon)) {
+					$pulseon->execCmd();
+				}
+			}
+		}
+		if (in_array($this->getLogicalId(), array('debout', 'deboutsilent', 'coucher', 'couleur', 'pulseon', 'pulseoff'))) {
 			sleep(1);
 			$karotz->cron30($karotz->getId());
 		}
