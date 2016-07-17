@@ -5,6 +5,7 @@
   <center>#name#</center></br>
 
   <span class="cmd cmd-widget" data-cmd_id="#refresh_id#" style="display:none;"></span>
+  <span class="cmd cmd-widget" data-cmd_id="#oreillepos_id#" style="display:none;"></span>
 
   <center><span style="position : absolute;top :92px;z-index: 2;margin-left:-9px;" id="couleurstatut_#uid#" class="couleurstatut cursor"><i class="fa fa-circle fa-lg" style="color : #couleurstatut#;"></i></span></center>
   <center>
@@ -14,22 +15,23 @@
     </div>
   </center>
   <center>
-   <span class="cmd cmd-widget cursor" data-cmd_id="#oreillerandom_id#" style="font-size: 150%;"><i class="fa fa-random"></i></span>
-   <span class="cmd cmd-widget cursor" data-cmd_id="#oreilleraz_id#" style="font-size: 150%;margin-left:15px;">  <i class="fa fa-refresh"></i></span>
+   <span class="cmd cmd-widget cursor" data-cmd_id="#oreillerandom_id#" style="font-size: 1.2em;"><i class="fa fa-random"></i></span>
+   <span class="cmd cmd-widget cursor" data-cmd_id="#oreilleraz_id#" style="font-size: 1.2em;margin-left:15px;">  <i class="fa fa-refresh"></i></span>
+   <span title="Position manuelle"><i class="fa fa-user cursor ears" style="font-size: 1.2em;margin-left:15px;"></i></span>
    <span class="enablesclockmoods">
-     <span class="cmd cmd-widget cursor" data-cmd_id="#clock_id#" style="font-size: 150%;margin-left:15px;">  <i class="icon divers-circular114"></i></span>
-     <span class="cmd cmd-widget cursor" data-cmd_id="#humeur_id#" style="font-size: 150%;margin-left:15px;">  <i class="icon personne-bear2"></i></span>
-     </br>
-   </span>
- <span class="squeezeboxControl">
-   <span class="cmd cmd-widget cursor" data-cmd_id="#squeezeon_id#" style="font-size: 150%;"><i class="fa fa-check"></i></span>
-   <span class="cmd cmd-widget cursor" data-cmd_id="#squeezeoff_id#" style="font-size: 150%;margin-left:15px;">  <i class="fa fa-times"></i></span>
+     <span class="cmd cmd-widget cursor" data-cmd_id="#clock_id#" style="font-size: 1.2em;margin-left:15px;">  <i class="icon divers-circular114"></i></span>
+     <span class="cmd cmd-widget cursor" data-cmd_id="#humeur_id#" style="font-size: 1.2em;margin-left:15px;">  <i class="icon personne-bear2"></i></span>
    </br>
  </span>
- <span class="cmd cmd-widget cursor" data-cmd_id="#pulseon_id#" style="font-size: 150%;margin-left:15px;">  <i class="icon jeedom2-lightbulb58"></i></span>
- <span class="cmd cmd-widget cursor" data-cmd_id="#pulseoff_id#" style="font-size: 150%;margin-left:15px;">  <i class="icon jeedom2-lightbulb25"></i></span>
- <div class="pulsespeed" style="width: 80px;" value="700"></div>
- <div class="pulsespeed full-width-slider" style="width: 96%;text-align: right;min-width : 100px;">
+ <span class="squeezeboxControl">
+   <span class="cmd cmd-widget cursor" data-cmd_id="#squeezeon_id#" style="font-size: 1.2em;"><i class="fa fa-check"></i></span>
+   <span class="cmd cmd-widget cursor" data-cmd_id="#squeezeoff_id#" style="font-size: 1.2em;margin-left:15px;">  <i class="fa fa-times"></i></span>
+ </br>
+</span>
+<span class="cmd cmd-widget cursor" data-cmd_id="#pulseon_id#" style="font-size: 1.2em;margin-left:15px;">  <i class="icon jeedom2-lightbulb58"></i></span>
+<span class="cmd cmd-widget cursor" data-cmd_id="#pulseoff_id#" style="font-size: 1.2em;margin-left:15px;">  <i class="icon jeedom2-lightbulb25"></i></span>
+<div class="pulsespeed" style="width: 80px;" value="700"></div>
+<div class="pulsespeed full-width-slider" style="width: 96%;text-align: right;min-width : 100px;">
   <input type="range" min="0" max="2000" data-theme="a" value="700"/>
 </div>
 <script>
@@ -75,6 +77,12 @@
     if (result !== null) {
       jeedom.cmd.execute({id: '#tts_id#',value: {message:result}});
     }
+  });
+
+  $('.eqLogic[data-eqLogic_uid=#uid#] .ears').on('click', function() {
+    var rightear = prompt("Position oreille droite (0-16) ?")
+    var leftear = prompt("Position oreille gauche (0-16) ?")
+    jeedom.cmd.execute({id: '#oreillepos_id#',value: {message:rightear,title:leftear}});
   });
 </script>
 

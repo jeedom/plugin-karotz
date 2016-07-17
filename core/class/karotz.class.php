@@ -427,18 +427,6 @@ class karotz extends eqLogic {
 		return $html;
 	}
 
-	public function moveearkarotz($right, $left) {
-		if (!is_numeric($right) || !is_numeric($left)) {
-			throw new Exception('Veuillez saisir un nombre SVP');
-		}
-		if ($right < 0 || $right > 16 || $left < 0 || $left > 16) {
-			throw new Exception('Veuillez saisir une valeur comprise entre 1 et 16');
-		}
-		$request = 'http://' . $this->getConfiguration('addr') . '/cgi-bin/ears?right=' . $right . '&left=' . $left . '&noreset=1';
-		$request = new com_http($request);
-		$request->exec(1, 1);
-	}
-
 }
 
 class karotzCmd extends cmd {
