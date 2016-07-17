@@ -462,6 +462,10 @@ class karotzCmd extends cmd {
 
 	/*     * *********************Methode d'instance************************* */
 
+	public function dontRemoveCmd() {
+		return true;
+	}
+
 	public function execute($_options = null) {
 		$karotz = $this->getEqLogic();
 		if ($this->getLogicalId() == 'refresh') {
