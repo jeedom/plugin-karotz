@@ -4,111 +4,99 @@
 	<i class='icon loisir-microphone52 pull-left cursor micro' style="margin-top: 3px;margin-left: 5px;" title="Gérer le son"></i>
 	<center><a href="#eqLink#" style="font-size : 1.5em;"> #name# </a></center>
 	<span class="cmd cmd-widget" data-cmd_id="#refresh_id#" style="display:none;"></span>
-	<span class="cmd cmd-widget" data-cmd_id="#oreillepos_id#" style="display:none;"></span>
+	<span class="cmd cmd-widget" data-cmd_id="#earspos_id#" style="display:none;"></span>
+	<span class="cmd cmd-widget" data-cmd_id="#tts_id#" style="display:none;"></span>
+	<span class="cmd cmd-widget" data-cmd_id="#sleeping_id#" style="display:none;"></span>
+	<span class="cmd cmd-widget" data-cmd_id="#wakeup_id#" style="display:none;"></span>
 	<div class="row">
 		<div class="col-xs-4">
-			<span id="couleurstatut_#uid#" style="position : absolute;left : 49px;top :52px;z-index: 2;" class="couleurstatut cursor"><i class="fa fa-circle fa-lg" style="color : #couleurstatut#; Cursor:pointer"></i></span>
-			<img id="statekarotz_#uid#" class="cursor" src="plugins/karotz/core/template/images/#state#.png" alt="Karotz" title="#actionstate#" height="85" style="margin-left: 3px;">
-			<center><input data-cmd_id="#couleur_id#" class="cmd" type="color" value="#couleurstatut#" style="margin-left:20px;"></center>
+			<span style="position : absolute;left : 49px;top :52px;z-index: 2;" class="led_color cursor"><i class="fa fa-circle fa-lg" style="color : #led_color#; Cursor:pointer"></i></span>
+			<img class="cursor state" src="plugins/karotz/core/template/images/#state#.png" alt="Karotz" title="#actionstate#" height="85" style="margin-left: 3px;">
+			<center><input data-cmd_id="#couleur_id#" class="cmd" type="color" value="#led_color#" style="margin-left:20px;"></center>
 		</div>
 		<div class="col-xs-7" style="cursor : default;">
 			<center>
-				Oreilles : 
-				<span class="cmd cmd-widget cursor" data-cmd_id="#oreillerandom_id#"><i class="fa fa-random" title="Oreille Aléatoire"></i></span>
-				<span class="cmd cmd-widget cursor" data-cmd_id="#oreilleraz_id#"><i class="fa fa-refresh" title="Oreille Reset"></i></span>
-				<span title="Position manuelle"><i class="fa fa-user cursor ears"></i></span>
-			</br>
-			<span class="enablesclockmoods">
-				Actions :
-				<span class="cmd cmd-widget cursor" data-cmd_id="#clock_id#"><i class="icon divers-circular114" title="Horloge"></i></span>
-				<span class="cmd cmd-widget cursor" data-cmd_id="#humeur_id#"><i class="icon personne-bear2" title="Humeur"></i></span>
-				<br/>
-			</span>
-			<span class="squeezeboxControl">
-				SqueezeBox : 
-				<span class="cmd cmd-widget cursor" data-cmd_id="#squeezeon_id#"><i class="fa fa-check" title="On"></i></span>
-				<span class="cmd cmd-widget cursor" data-cmd_id="#squeezeoff_id#"><i class="fa fa-times" title="Off"></i></span>
-			</br>
-		</span>
-		Leds : 
-		<span class="cmd cmd-widget cursor" data-cmd_id="#pulseon_id#"><i class="icon jeedom2-lightbulb58" title="Pulse On"></i></span>
-		<span class="cmd cmd-widget cursor" data-cmd_id="#pulseoff_id#"><i class="icon jeedom2-lightbulb25" title="Pulse Off"></i></span>
-		<div class="pulsespeed" style="width: 80px;" value="700" data-slider-tooltip="hide"></div>
-		<script>
-			$(".eqLogic[data-eqLogic_uid=#uid#] .pulsespeed").bootstrapSlider({
-				min: 0,
-				max: 2000,
-				value: 700,
-			});
-			$(".eqLogic[data-eqLogic_uid=#uid#] .slider.slider-horizontal").css('z-index',1);
-			$(".eqLogic[data-eqLogic_uid=#uid#] .pulsespeed").on('slideStop', function (ev) {
-				jeedom.cmd.execute({id: '#pulsespeed_id#', value: {slider: ev.value}});
-			});
-		</script>   
-	</center>
-</div>
-</div>
-<style>
-	@-webkit-keyframes blinker {
-		from {opacity: 1.0;}
-		to {opacity: 0.0;}
-	}
-	.blinkKarotz{
-		text-decoration: blink;
-		-webkit-animation-name: blinker;
-		-webkit-animation-duration: 0.8s;
-		-webkit-animation-iteration-count:infinite;
-		-webkit-animation-timing-function:ease-in-out;
-		-webkit-animation-direction: alternate;
-	}
-</style>
-<script>
-	if('#pulsestate#' == 1){
-		$('#couleurstatut_#uid#').addClass('blinkKarotz');
-	}
-	if('#enablesqueezebox#' == 0){
-		$('.eqLogic[data-eqLogic_uid=#uid#] .squeezeboxControl').hide();
-	}
-	if('#enablesclockmoods#' == 0){
-		$('.eqLogic[data-eqLogic_uid=#uid#] .enablesclockmoods').hide();
-	}
-	$('.eqLogic[data-eqLogic_uid=#uid#] .refresh').on('click', function () {
-		jeedom.cmd.execute({id: '#refresh_id#'});
-	});
-	$('#statekarotz_#uid#').on('click', function() {
-		if('#state#' == 'awake'){
-			jeedom.cmd.execute({id: '#coucher_id#'});
-		}else{
-			jeedom.cmd.execute({id: '#debout_id#'});
+				<span class="cmd cmd-widget cursor" data-cmd_id="#earraz_id#" style="font-size:2em;"><i class="fa fa-crop" title="Oreille Reset"></i></span>
+				<span title="Position manuelle" style="font-size:2em;margin-left:5px;"><i class="fa fa-user cursor ears"></i></span>
+				<span class="enableclock">
+					<span class="cmd cmd-widget cursor" data-cmd_id="#clock_id#" style="font-size:2em;margin-left:5px;"><i class="icon divers-circular114" title="Horloge"></i></span>
+				</span>
+				<span class="enablemoods">
+					<span class="cmd cmd-widget cursor" data-cmd_id="#moods_id#" style="font-size:2em;margin-left:5px;"><i class="icon personne-bear2" title="Humeur"></i></span>
+				</span>
+				<span class="squeezeboxControl">
+					<span class="cmd cmd-widget cursor" data-cmd_id="#squeezeon_id#" style="font-size:2em;margin-left:5px;"><i class="fa fa-check" title="On"></i></span>
+					<span class="cmd cmd-widget cursor" data-cmd_id="#squeezeoff_id#" style="font-size:2em;margin-left:5px;"><i class="fa fa-times" title="Off"></i></span>
+				</span> 
+				<span class="cmd cmd-widget cursor" data-cmd_id="#pulseon_id#" style="font-size:2em;margin-left:5px;"><i class="icon jeedom2-lightbulb58" title="Pulse On"></i></span>
+				<span class="cmd cmd-widget cursor" data-cmd_id="#pulseoff_id#" style="font-size:2em;margin-left:5px;"><i class="icon jeedom2-lightbulb25" title="Pulse Off"></i></span>
+			</center>
+		</div>
+	</div>
+	<style>
+		@-webkit-keyframes blinker {
+			from {opacity: 1.0;}
+			to {opacity: 0.0;}
 		}
-	});
-	$('#couleurstatut_#uid#').on('click', function() {
-		$('.eqLogic[data-eqLogic_uid=#uid#] .cmd[data-cmd_id=#couleur_id#]').click();
-	});
-	$('.eqLogic[data-eqLogic_uid=#uid#] .ears').on('click', function() {
-		bootbox.prompt("Position oreille droite (0-16) ?", function (rightear) {
-			bootbox.prompt("Position oreille gauche (0-16) ?", function (leftear) {
-				jeedom.cmd.execute({id: '#oreillepos_id#',value: {message:rightear,title:leftear}});
-			});
+		.blinkKarotz{
+			text-decoration: blink;
+			-webkit-animation-name: blinker;
+			-webkit-animation-duration: 0.8s;
+			-webkit-animation-iteration-count:infinite;
+			-webkit-animation-timing-function:ease-in-out;
+			-webkit-animation-direction: alternate;
+		}
+	</style>
+	<script>
+		if('#led_pulse#' == 1){
+			$('.eqLogic[data-eqLogic_uid=#uid#] .led_color').addClass('blinkKarotz');
+		}
+		if('#enablesqueezebox#' == 0){
+			$('.eqLogic[data-eqLogic_uid=#uid#] .squeezeboxControl').hide();
+		}
+		if('#enableclock#' == 0){
+			$('.eqLogic[data-eqLogic_uid=#uid#] .enableclock').hide();
+		}
+		if('#enablemoods#' == 0){
+			$('.eqLogic[data-eqLogic_uid=#uid#] .enablemoods').hide();
+		}
+		$('.eqLogic[data-eqLogic_uid=#uid#] .refresh').on('click', function () {
+			jeedom.cmd.execute({id: '#refresh_id#'});
 		});
-	});
-	$('.eqLogic[data-eqLogic_uid=#uid#] .cmd').on('click', function() {
-		if($(this).data('cmd_id') == '#couleur_id#'){
-			return
-		}
-		jeedom.cmd.execute({id: $(this).data('cmd_id')});
-	});
-	$('.eqLogic[data-eqLogic_uid=#uid#] .cmd[data-cmd_id=#couleur_id#]').on('change', function() {
-		jeedom.cmd.execute({id: $(this).data('cmd_id'),value: {color:$(this).value()}});
-	});
-
-	$('.eqLogic[data-eqLogic_uid=#uid#] .micro').on('click', function() {
-		bootbox.prompt("Que voulez vous que je dise ?", function (result) {
-			if (result !== null) {
-				jeedom.cmd.execute({id: '#tts_id#',value: {message:result}});
+		$('.eqLogic[data-eqLogic_uid=#uid#] .state').on('click', function() {
+			if('#sleep#' == '0'){
+				jeedom.cmd.execute({id: '#sleeping_id#'});
+			}else{
+				jeedom.cmd.execute({id: '#wakeup_id#'});
 			}
 		});
-	});
-</script>
+		$('.eqLogic[data-eqLogic_uid=#uid#] .led_color').on('click', function() {
+			$('.eqLogic[data-eqLogic_uid=#uid#] .cmd[data-cmd_id=#color_id#]').click();
+		});
+		$('.eqLogic[data-eqLogic_uid=#uid#] .ears').on('click', function() {
+			bootbox.prompt("Position oreille droite (0-16) ?", function (rightear) {
+				bootbox.prompt("Position oreille gauche (0-16) ?", function (leftear) {
+					jeedom.cmd.execute({id: '#earspos_id#',value: {message:rightear,title:leftear}});
+				});
+			});
+		});
+		$('.eqLogic[data-eqLogic_uid=#uid#] .cmd').on('click', function() {
+			if($(this).data('cmd_id') == '#color_id#'){
+				return
+			}
+			jeedom.cmd.execute({id: $(this).data('cmd_id')});
+		});
+		$('.eqLogic[data-eqLogic_uid=#uid#] .cmd[data-cmd_id=#color_id#]').on('change', function() {
+			jeedom.cmd.execute({id: $(this).data('cmd_id'),value: {color:$(this).value()}});
+		});
+
+		$('.eqLogic[data-eqLogic_uid=#uid#] .micro').on('click', function() {
+			bootbox.prompt("Que voulez vous que je dise ?", function (result) {
+				if (result !== null) {
+					jeedom.cmd.execute({id: '#tts_id#',value: {message:result}});
+				}
+			});
+		});
+	</script>
 </div>
 

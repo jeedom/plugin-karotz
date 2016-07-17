@@ -33,36 +33,18 @@ class karotz extends eqLogic {
 				$request = new com_http($request);
 				$jsonstatus = json_decode($request->exec(5, 1), true);
 				$change = false;
-				if (isset($jsonstatus['sleep'])) {
-					$cmd = $karotz->getCmd('info', 'etat');
-					if (is_object($cmd)) {
-						$value = ($jsonstatus['sleep'] == 1) ? 'Endormi' : 'Réveillé';
-						if ($cmd->execCmd() !== $cmd->formatValue($value)) {
-							$cmd->setCollectDate('');
-							$cmd->event($value);
-							$change = true;
-						}
+				foreach ($karotz->getCmd() as $cmd) {
+					if (!isset($jsonstatus[$cmd->getLogicalId()])) {
+						continue;
 					}
-				}
-				if (isset($jsonstatus['led_color'])) {
-					$cmd = $karotz->getCmd('info', 'couleurstatut');
-					if (is_object($cmd)) {
-						if ($cmd->execCmd() !== $cmd->formatValue('#' . $jsonstatus['led_color'])) {
-							$cmd->setCollectDate('');
-							$cmd->event('#' . $jsonstatus['led_color']);
-							$change = true;
-						}
+					$value = $jsonstatus[$cmd->getLogicalId()];
+					if ($cmd->getLogicalId() == 'led_color') {
+						$value = '#' . $value;
 					}
-				}
-
-				if (isset($jsonstatus['led_pulse'])) {
-					$cmd = $karotz->getCmd('info', 'pulsestate');
-					if (is_object($cmd)) {
-						if ($cmd->execCmd() !== $cmd->formatValue($jsonstatus['led_pulse'])) {
-							$cmd->setCollectDate('');
-							$cmd->event($jsonstatus['led_pulse']);
-							$change = true;
-						}
+					if ($cmd->execCmd() !== $cmd->formatValue($value)) {
+						$cmd->setCollectDate('');
+						$cmd->event($value);
+						$change = true;
 					}
 				}
 				if ($change) {
@@ -77,340 +59,297 @@ class karotz extends eqLogic {
 	}
 
 	public function postSave() {
-		$coucher = $this->getCmd(null, 'coucher');
-		if (!is_object($coucher)) {
-			$coucher = new karotzCmd();
-			$coucher->setLogicalId('coucher');
-			$coucher->setIsVisible(1);
-			$coucher->setName(__('Coucher', __FILE__));
+		$cmd = $this->getCmd(null, 'sleeping');
+		if (!is_object($cmd)) {
+			$cmd = new karotzCmd();
+			$cmd->setLogicalId('sleeping');
+			$cmd->setIsVisible(1);
+			$cmd->setName(__('Coucher', __FILE__));
 		}
-		$coucher->setType('action');
-		$coucher->setSubType('other');
-		$coucher->setEqLogic_id($this->getId());
-		$coucher->setConfiguration('request', 'sleep');
-		$coucher->setConfiguration('parameters', '');
-		$coucher->save();
+		$cmd->setType('action');
+		$cmd->setSubType('other');
+		$cmd->setEqLogic_id($this->getId());
+		$cmd->setConfiguration('request', 'sleep');
+		$cmd->setConfiguration('parameters', '');
+		$cmd->save();
 
-		$debout = $this->getCmd(null, 'debout');
-		if (!is_object($debout)) {
-			$debout = new karotzCmd();
-			$debout->setLogicalId('debout');
-			$debout->setIsVisible(1);
-			$debout->setName(__('Debout', __FILE__));
+		$cmd = $this->getCmd(null, 'wakeup');
+		if (!is_object($cmd)) {
+			$cmd = new karotzCmd();
+			$cmd->setLogicalId('wakeup');
+			$cmd->setIsVisible(1);
+			$cmd->setName(__('Debout', __FILE__));
 		}
-		$debout->setType('action');
-		$debout->setSubType('other');
-		$debout->setEqLogic_id($this->getId());
-		$debout->setConfiguration('request', 'wakeup');
-		$debout->setConfiguration('parameters', 'silent=0');
-		$debout->save();
+		$cmd->setType('action');
+		$cmd->setSubType('other');
+		$cmd->setEqLogic_id($this->getId());
+		$cmd->setConfiguration('request', 'wakeup');
+		$cmd->setConfiguration('parameters', 'silent=0');
+		$cmd->save();
 
-		$deboutsilent = $this->getCmd(null, 'deboutsilent');
-		if (!is_object($deboutsilent)) {
-			$deboutsilent = new karotzCmd();
-			$deboutsilent->setLogicalId('deboutsilent');
-			$deboutsilent->setIsVisible(1);
-			$deboutsilent->setName(__('Debout Silencieux', __FILE__));
+		$cmd = $this->getCmd(null, 'color');
+		if (!is_object($cmd)) {
+			$cmd = new karotzCmd();
+			$cmd->setLogicalId('color');
+			$cmd->setIsVisible(1);
+			$cmd->setName(__('Couleur Led', __FILE__));
 		}
-		$deboutsilent->setType('action');
-		$deboutsilent->setSubType('other');
-		$deboutsilent->setEqLogic_id($this->getId());
-		$deboutsilent->setConfiguration('request', 'wakeup');
-		$deboutsilent->setConfiguration('parameters', 'silent=1');
-		$deboutsilent->save();
+		$cmd->setType('action');
+		$cmd->setSubType('color');
+		$cmd->setEqLogic_id($this->getId());
+		$cmd->setConfiguration('request', 'leds');
+		$cmd->setConfiguration('parameters', 'color=#color#');
+		$cmd->save();
 
-		$couleur = $this->getCmd(null, 'couleur');
-		if (!is_object($couleur)) {
-			$couleur = new karotzCmd();
-			$couleur->setLogicalId('couleur');
-			$couleur->setIsVisible(1);
-			$couleur->setName(__('Couleur Led', __FILE__));
+		$cmd = $this->getCmd(null, 'earraz');
+		if (!is_object($cmd)) {
+			$cmd = new karotzCmd();
+			$cmd->setLogicalId('earraz');
+			$cmd->setIsVisible(1);
+			$cmd->setName(__('Oreille RAZ', __FILE__));
 		}
-		$couleur->setType('action');
-		$couleur->setSubType('color');
-		$couleur->setEqLogic_id($this->getId());
-		$couleur->setConfiguration('request', 'leds');
-		$couleur->setConfiguration('parameters', 'color=#color#');
-		$couleur->save();
+		$cmd->setType('action');
+		$cmd->setSubType('other');
+		$cmd->setEqLogic_id($this->getId());
+		$cmd->setConfiguration('request', 'ears_reset');
+		$cmd->setConfiguration('parameters', '');
+		$cmd->save();
 
-		$oreilleraz = $this->getCmd(null, 'oreilleraz');
-		if (!is_object($oreilleraz)) {
-			$oreilleraz = new karotzCmd();
-			$oreilleraz->setLogicalId('oreilleraz');
-			$oreilleraz->setIsVisible(1);
-			$oreilleraz->setName(__('Oreille RAZ', __FILE__));
-		}
-		$oreilleraz->setType('action');
-		$oreilleraz->setSubType('other');
-		$oreilleraz->setEqLogic_id($this->getId());
-		$oreilleraz->setConfiguration('request', 'ears_reset');
-		$oreilleraz->setConfiguration('parameters', '');
-		$oreilleraz->save();
-
-		$oreillerandom = $this->getCmd(null, 'oreillerandom');
-		if (!is_object($oreillerandom)) {
-			$oreillerandom = new karotzCmd();
-			$oreillerandom->setLogicalId('oreillerandom');
-			$oreillerandom->setIsVisible(1);
-			$oreillerandom->setName(__('Oreille Aléatoire', __FILE__));
-		}
-		$oreillerandom->setType('action');
-		$oreillerandom->setSubType('other');
-		$oreillerandom->setEqLogic_id($this->getId());
-		$oreillerandom->setConfiguration('request', 'ears_random');
-		$oreillerandom->setConfiguration('parameters', 'noreset=1');
-		$oreillerandom->save();
-
-		if ($this->getConfiguration('enablesclockmoods') == 1) {
-			$humeur = $this->getCmd(null, 'humeur');
-			if (!is_object($humeur)) {
-				$humeur = new karotzCmd();
-				$humeur->setLogicalId('humeur');
-				$humeur->setIsVisible(1);
-				$humeur->setName(__('Humeur', __FILE__));
+		if ($this->getConfiguration('enablemoods') == 1) {
+			$cmd = $this->getCmd(null, 'moods');
+			if (!is_object($cmd)) {
+				$cmd = new karotzCmd();
+				$cmd->setLogicalId('moods');
+				$cmd->setIsVisible(1);
+				$cmd->setName(__('Humeur', __FILE__));
 			}
-			$humeur->setType('action');
-			$humeur->setSubType('other');
-			$humeur->setEqLogic_id($this->getId());
-			$humeur->setConfiguration('request', 'apps/moods');
-			$humeur->setConfiguration('parameters', '');
-			$humeur->save();
+			$cmd->setType('action');
+			$cmd->setSubType('other');
+			$cmd->setEqLogic_id($this->getId());
+			$cmd->setConfiguration('request', 'apps/moods');
+			$cmd->setConfiguration('parameters', '');
+			$cmd->save();
 
-			$clock = $this->getCmd(null, 'clock');
-			if (!is_object($clock)) {
-				$clock = new karotzCmd();
-				$clock->setLogicalId('clock');
-				$clock->setIsVisible(1);
-				$clock->setName(__('Horloge', __FILE__));
-			}
-			$clock->setType('action');
-			$clock->setSubType('other');
-			$clock->setEqLogic_id($this->getId());
-			$clock->setConfiguration('request', 'apps/clock');
-			$clock->setConfiguration('parameters', '');
-			$clock->save();
 		} else {
-			$humeur = $this->getCmd(null, 'humeur');
-			if (is_object($humeur)) {
-				$humeur->remove();
-			}
-
-			$clock = $this->getCmd(null, 'clock');
-			if (is_object($clock)) {
-				$clock->remove();
+			$cmd = $this->getCmd(null, 'moods');
+			if (is_object($cmd)) {
+				$cmd->remove();
 			}
 		}
-
-		$tts = $this->getCmd(null, 'tts');
-		if (!is_object($tts)) {
-			$tts = new karotzCmd();
-			$tts->setLogicalId('tts');
-			$tts->setIsVisible(1);
-			$tts->setName(__('TTS', __FILE__));
+		if ($this->getConfiguration('enableclock') == 1) {
+			$cmd = $this->getCmd(null, 'clock');
+			if (!is_object($cmd)) {
+				$cmd = new karotzCmd();
+				$cmd->setLogicalId('clock');
+				$cmd->setIsVisible(1);
+				$cmd->setName(__('Horloge', __FILE__));
+			}
+			$cmd->setType('action');
+			$cmd->setSubType('other');
+			$cmd->setEqLogic_id($this->getId());
+			$cmd->setConfiguration('request', 'apps/clock');
+			$cmd->setConfiguration('parameters', '');
+			$cmd->save();
+		} else {
+			$cmd = $this->getCmd(null, 'clock');
+			if (is_object($cmd)) {
+				$cmd->remove();
+			}
 		}
-		$tts->setType('action');
-		$tts->setSubType('message');
-		$tts->setEqLogic_id($this->getId());
-		$tts->setDisplay('title_placeholder', __('Options', __FILE__));
-		$tts->setDisplay('message_placeholder', __('Phrase', __FILE__));
-		$tts->setConfiguration('request', 'tts');
-		$tts->setConfiguration('parameters', 'text=#message#&#title#');
-		$tts->save();
 
-		$sound = $this->getCmd(null, 'sound');
-		if (!is_object($sound)) {
-			$sound = new karotzCmd();
-			$sound->setLogicalId('sound');
-			$sound->setIsVisible(1);
-			$sound->setName(__('Son du Karotz', __FILE__));
+		$cmd = $this->getCmd(null, 'tts');
+		if (!is_object($cmd)) {
+			$cmd = new karotzCmd();
+			$cmd->setLogicalId('tts');
+			$cmd->setIsVisible(1);
+			$cmd->setName(__('Dit', __FILE__));
 		}
-		$sound->setType('action');
-		$sound->setSubType('message');
-		$sound->setEqLogic_id($this->getId());
-		$sound->setDisplay('title_disable', 1);
-		$sound->setConfiguration('request', 'sound');
-		$sound->setDisplay('message_placeholder', __('Id du son', __FILE__));
-		$sound->setConfiguration('parameters', 'id=#message#');
-		$sound->save();
+		$cmd->setType('action');
+		$cmd->setSubType('message');
+		$cmd->setEqLogic_id($this->getId());
+		$cmd->setDisplay('title_placeholder', __('Options', __FILE__));
+		$cmd->setDisplay('message_placeholder', __('Phrase', __FILE__));
+		$cmd->setConfiguration('request', 'tts');
+		$cmd->setConfiguration('parameters', 'text=#message#&#title#');
+		$cmd->save();
 
-		$stopsound = $this->getCmd(null, 'stopsound');
-		if (!is_object($stopsound)) {
-			$stopsound = new karotzCmd();
-			$stopsound->setLogicalId('stopsound');
-			$stopsound->setIsVisible(1);
-			$stopsound->setName(__('Arrêter son', __FILE__));
+		$cmd = $this->getCmd(null, 'sound');
+		if (!is_object($cmd)) {
+			$cmd = new karotzCmd();
+			$cmd->setLogicalId('sound');
+			$cmd->setIsVisible(1);
+			$cmd->setName(__('Son du Karotz', __FILE__));
 		}
-		$stopsound->setType('action');
-		$stopsound->setSubType('other');
-		$stopsound->setEqLogic_id($this->getId());
-		$stopsound->setConfiguration('request', 'sound_control');
-		$stopsound->setConfiguration('parameters', 'cmd=quit');
-		$stopsound->save();
+		$cmd->setType('action');
+		$cmd->setSubType('message');
+		$cmd->setEqLogic_id($this->getId());
+		$cmd->setDisplay('title_disable', 1);
+		$cmd->setConfiguration('request', 'sound');
+		$cmd->setDisplay('message_placeholder', __('Id du son', __FILE__));
+		$cmd->setConfiguration('parameters', 'id=#message#');
+		$cmd->save();
 
-		$url = $this->getCmd(null, 'url');
-		if (!is_object($url)) {
-			$url = new karotzCmd();
-			$url->setLogicalId('url');
-			$url->setIsVisible(1);
-			$url->setName(__('Son url', __FILE__));
+		$cmd = $this->getCmd(null, 'stopsound');
+		if (!is_object($cmd)) {
+			$cmd = new karotzCmd();
+			$cmd->setLogicalId('stopsound');
+			$cmd->setIsVisible(1);
+			$cmd->setName(__('Arrêter son', __FILE__));
 		}
-		$url->setType('action');
-		$url->setSubType('message');
-		$url->setEqLogic_id($this->getId());
-		$url->setDisplay('title_disable', 1);
-		$url->setConfiguration('request', 'sound');
-		$url->setDisplay('message_placeholder', __('Url à Jouer', __FILE__));
-		$url->setConfiguration('parameters', 'url=#message#');
-		$url->save();
+		$cmd->setType('action');
+		$cmd->setSubType('other');
+		$cmd->setEqLogic_id($this->getId());
+		$cmd->setConfiguration('request', 'sound_control');
+		$cmd->setConfiguration('parameters', 'cmd=quit');
+		$cmd->save();
+
+		$cmd = $this->getCmd(null, 'url');
+		if (!is_object($cmd)) {
+			$cmd = new karotzCmd();
+			$cmd->setLogicalId('url');
+			$cmd->setName(__('Son url', __FILE__));
+		}
+		$cmd->setType('action');
+		$cmd->setSubType('message');
+		$cmd->setEqLogic_id($this->getId());
+		$cmd->setDisplay('title_disable', 1);
+		$cmd->setConfiguration('request', 'sound');
+		$cmd->setDisplay('message_placeholder', __('Url à Jouer', __FILE__));
+		$cmd->setConfiguration('parameters', 'url=#message#');
+		$cmd->save();
 
 		if ($this->getConfiguration('enablesqueezebox') == 1) {
-			$squeezeon = $this->getCmd(null, 'squeezeon');
-			if (!is_object($squeezeon)) {
-				$squeezeon = new karotzCmd();
-				$squeezeon->setLogicalId('squeezeon');
-				$squeezeon->setIsVisible(1);
-				$squeezeon->setName(__('SqueezeBox On', __FILE__));
+			$cmd = $this->getCmd(null, 'squeezeon');
+			if (!is_object($cmd)) {
+				$cmd = new karotzCmd();
+				$cmd->setLogicalId('squeezeon');
+				$cmd->setIsVisible(1);
+				$cmd->setName(__('SqueezeBox On', __FILE__));
 			}
-			$squeezeon->setType('action');
-			$squeezeon->setSubType('other');
-			$squeezeon->setEqLogic_id($this->getId());
-			$squeezeon->setConfiguration('request', 'squeezebox');
-			$squeezeon->setConfiguration('parameters', 'cmd=start');
-			$squeezeon->save();
+			$cmd->setType('action');
+			$cmd->setSubType('other');
+			$cmd->setEqLogic_id($this->getId());
+			$cmd->setConfiguration('request', 'squeezebox');
+			$cmd->setConfiguration('parameters', 'cmd=start');
+			$cmd->save();
 
-			$squeezeoff = $this->getCmd(null, 'squeezeoff');
-			if (!is_object($squeezeoff)) {
-				$squeezeoff = new karotzCmd();
-				$squeezeoff->setLogicalId('squeezeoff');
-				$squeezeoff->setIsVisible(1);
-				$squeezeoff->setName(__('SqueezeBox Off', __FILE__));
+			$cmd = $this->getCmd(null, 'squeezeoff');
+			if (!is_object($cmd)) {
+				$cmd = new karotzCmd();
+				$cmd->setLogicalId('squeezeoff');
+				$cmd->setIsVisible(1);
+				$cmd->setName(__('SqueezeBox Off', __FILE__));
 			}
-			$squeezeoff->setType('action');
-			$squeezeoff->setSubType('other');
-			$squeezeoff->setEqLogic_id($this->getId());
-			$squeezeoff->setConfiguration('request', 'squeezebox');
-			$squeezeoff->setConfiguration('parameters', 'cmd=stop');
-			$squeezeoff->save();
+			$cmd->setType('action');
+			$cmd->setSubType('other');
+			$cmd->setEqLogic_id($this->getId());
+			$cmd->setConfiguration('request', 'squeezebox');
+			$cmd->setConfiguration('parameters', 'cmd=stop');
+			$cmd->save();
 		} else {
-			$squeezeon = $this->getCmd(null, 'squeezeon');
-			if (is_object($squeezeon)) {
-				$squeezeon->remove();
+			$cmd = $this->getCmd(null, 'squeezeon');
+			if (is_object($cmd)) {
+				$cmd->remove();
 			}
-			$squeezeoff = $this->getCmd(null, 'squeezeoff');
+			$cmd = $this->getCmd(null, 'squeezeoff');
 			if (is_object($squeezeoff)) {
 				$squeezeoff->remove();
 			}
 		}
 
-		$pulseon = $this->getCmd(null, 'pulseon');
-		if (!is_object($pulseon)) {
-			$pulseon = new karotzCmd();
-			$pulseon->setLogicalId('pulseon');
-			$pulseon->setIsVisible(1);
-			$pulseon->setName(__('Clignotement On', __FILE__));
+		$cmd = $this->getCmd(null, 'pulseon');
+		if (!is_object($cmd)) {
+			$cmd = new karotzCmd();
+			$cmd->setLogicalId('pulseon');
+			$cmd->setIsVisible(1);
+			$cmd->setName(__('Clignotement On', __FILE__));
 		}
-		$pulseon->setType('action');
-		$pulseon->setSubType('other');
-		$pulseon->setEqLogic_id($this->getId());
-		$pulseon->setConfiguration('request', 'leds');
-		$pulseon->setConfiguration('parameters', 'pulse=1');
-		$pulseon->save();
+		$cmd->setType('action');
+		$cmd->setSubType('other');
+		$cmd->setEqLogic_id($this->getId());
+		$cmd->setConfiguration('request', 'leds');
+		$cmd->setConfiguration('parameters', 'pulse=1');
+		$cmd->save();
 
-		$pulseoff = $this->getCmd(null, 'pulseoff');
-		if (!is_object($pulseoff)) {
-			$pulseoff = new karotzCmd();
-			$pulseoff->setLogicalId('pulseoff');
-			$pulseoff->setIsVisible(1);
-			$pulseoff->setName(__('Clignotement Off', __FILE__));
+		$cmd = $this->getCmd(null, 'pulseoff');
+		if (!is_object($cmd)) {
+			$cmd = new karotzCmd();
+			$cmd->setLogicalId('pulseoff');
+			$cmd->setIsVisible(1);
+			$cmd->setName(__('Clignotement Off', __FILE__));
 		}
-		$pulseoff->setType('action');
-		$pulseoff->setSubType('other');
-		$pulseoff->setEqLogic_id($this->getId());
-		$pulseoff->setConfiguration('request', 'leds');
-		$pulseoff->setConfiguration('parameters', 'pulse=0');
-		$pulseoff->save();
+		$cmd->setType('action');
+		$cmd->setSubType('other');
+		$cmd->setEqLogic_id($this->getId());
+		$cmd->setConfiguration('request', 'leds');
+		$cmd->setConfiguration('parameters', 'pulse=0');
+		$cmd->save();
 
-		$pulsestate = $this->getCmd(null, 'pulsestate');
-		if (!is_object($pulsestate)) {
-			$pulsestate = new karotzCmd();
-			$pulsestate->setLogicalId('pulsestate');
-			$pulsestate->setIsVisible(1);
-			$pulsestate->setName(__('Clignotement', __FILE__));
+		$cmd = $this->getCmd(null, 'led_pulse');
+		if (!is_object($cmd)) {
+			$cmd = new karotzCmd();
+			$cmd->setLogicalId('led_pulse');
+			$cmd->setIsVisible(1);
+			$cmd->setName(__('Clignotement', __FILE__));
 		}
-		$pulsestate->setType('info');
-		$pulsestate->setSubType('binary');
-		$pulsestate->setEqLogic_id($this->getId());
-		$pulsestate->save();
+		$cmd->setType('info');
+		$cmd->setSubType('binary');
+		$cmd->setEqLogic_id($this->getId());
+		$cmd->save();
 
-		$pulsespeed = $this->getCmd(null, 'pulsespeed');
-		if (!is_object($pulsespeed)) {
-			$pulsespeed = new karotzCmd();
-			$pulsespeed->setLogicalId('pulsespeed');
-			$pulsespeed->setIsVisible(1);
-			$pulsespeed->setName(__('Vitesse Pulse', __FILE__));
+		$cmd = $this->getCmd(null, 'earspos');
+		if (!is_object($cmd)) {
+			$cmd = new karotzCmd();
+			$cmd->setLogicalId('earspos');
+			$cmd->setIsVisible(1);
+			$cmd->setName(__('Oreilles Positions', __FILE__));
 		}
-		$pulsespeed->setType('action');
-		$pulsespeed->setSubType('slider');
-		$pulsespeed->setConfiguration('minValue', 0);
-		$pulsespeed->setConfiguration('maxValue', 2000);
-		$pulsespeed->setEqLogic_id($this->getId());
-		$pulsespeed->setConfiguration('request', 'leds');
-		$pulsespeed->setConfiguration('parameters', 'speed=#slider#&pulse=1');
-		$pulsespeed->save();
+		$cmd->setType('action');
+		$cmd->setSubType('message');
+		$cmd->setDisplay('message_placeholder', __('Oreille Droite [0-16]', __FILE__));
+		$cmd->setDisplay('title_placeholder', __('Oreille Gauche [0-16]', __FILE__));
+		$cmd->setEqLogic_id($this->getId());
+		$cmd->setConfiguration('request', 'ears');
+		$cmd->setConfiguration('parameters', 'right=#message#&left=#title#&noreset=1');
+		$cmd->save();
 
-		$oreillepos = $this->getCmd(null, 'oreillepos');
-		if (!is_object($oreillepos)) {
-			$oreillepos = new karotzCmd();
-			$oreillepos->setLogicalId('oreillepos');
-			$oreillepos->setIsVisible(1);
-			$oreillepos->setName(__('Oreilles Positions', __FILE__));
+		$cmd = $this->getCmd(null, 'sleep');
+		if (!is_object($cmd)) {
+			$cmd = new karotzCmd();
+			$cmd->setLogicalId('sleep');
+			$cmd->setIsVisible(1);
+			$cmd->setName(__('Statut', __FILE__));
 		}
-		$oreillepos->setType('action');
-		$oreillepos->setSubType('message');
-		$oreillepos->setDisplay('message_placeholder', __('Oreille Droite [0-16]', __FILE__));
-		$oreillepos->setDisplay('title_placeholder', __('Oreille Gauche [0-16]', __FILE__));
-		$oreillepos->setEqLogic_id($this->getId());
-		$oreillepos->setConfiguration('request', 'ears');
-		$oreillepos->setConfiguration('parameters', 'right=#message#&left=#title#&noreset=1');
-		$oreillepos->save();
+		$cmd->setType('info');
+		$cmd->setSubType('binary');
+		$cmd->setEventOnly(1);
+		$cmd->setEqLogic_id($this->getId());
+		$cmd->save();
 
-		$etat = $this->getCmd(null, 'etat');
-		if (!is_object($etat)) {
-			$etat = new karotzCmd();
-			$etat->setLogicalId('etat');
-			$etat->setIsVisible(1);
-			$etat->setName(__('Statut', __FILE__));
+		$cmd = $this->getCmd(null, 'led_color');
+		if (!is_object($cmd)) {
+			$cmd = new karotzCmd();
+			$cmd->setLogicalId('led_color');
+			$cmd->setIsVisible(1);
+			$cmd->setName(__('Statut Couleur', __FILE__));
 		}
-		$etat->setType('info');
-		$etat->setSubType('string');
-		$etat->setEventOnly(1);
-		$etat->setEqLogic_id($this->getId());
-		$etat->save();
+		$cmd->setType('info');
+		$cmd->setEventOnly(1);
+		$cmd->setSubType('string');
+		$cmd->setEqLogic_id($this->getId());
+		$cmd->save();
 
-		$couleurstatut = $this->getCmd(null, 'couleurstatut');
-		if (!is_object($couleurstatut)) {
-			$couleurstatut = new karotzCmd();
-			$couleurstatut->setLogicalId('couleurstatut');
-			$couleurstatut->setIsVisible(1);
-			$couleurstatut->setName(__('Statut Couleur', __FILE__));
+		$cmd = $this->getCmd(null, 'refresh');
+		if (!is_object($cmd)) {
+			$cmd = new karotzCmd();
+			$cmd->setLogicalId('refresh');
+			$cmd->setIsVisible(1);
+			$cmd->setName(__('Rafraichir', __FILE__));
 		}
-		$couleurstatut->setType('info');
-		$couleurstatut->setEventOnly(1);
-		$couleurstatut->setSubType('string');
-		$couleurstatut->setEqLogic_id($this->getId());
-		$couleurstatut->save();
-
-		$refresh = $this->getCmd(null, 'refresh');
-		if (!is_object($refresh)) {
-			$refresh = new karotzCmd();
-			$refresh->setLogicalId('refresh');
-			$refresh->setIsVisible(1);
-			$refresh->setName(__('Rafraichir', __FILE__));
-		}
-		$refresh->setType('action');
-		$refresh->setSubType('other');
-		$refresh->setEqLogic_id($this->getId());
-		$refresh->save();
+		$cmd->setType('action');
+		$cmd->setSubType('other');
+		$cmd->setEqLogic_id($this->getId());
+		$cmd->save();
 	}
 
 	public function toHtml($_version = 'dashboard') {
@@ -426,7 +365,7 @@ class karotz extends eqLogic {
 				$replace['#' . $cmd->getLogicalId() . '_history#'] = 'history cursor';
 			}
 		}
-		if (is_object($this->getCmd(null, 'etat')) && $this->getCmd(null, 'etat')->execCmd() == 'Réveillé') {
+		if ($replace['#sleep#'] == 0) {
 			$replace['#state#'] = 'awake';
 			$replace['#actionstate#'] = __('Endormir le Karotz', __FILE__);
 		} else {
@@ -434,7 +373,8 @@ class karotz extends eqLogic {
 			$replace['#actionstate#'] = __('Réveiller le Karotz', __FILE__);
 		}
 		$replace['#enablesqueezebox#'] = $this->getConfiguration('enablesqueezebox', 0);
-		$replace['#enablesclockmoods#'] = $this->getConfiguration('enablesclockmoods', 0);
+		$replace['#enablemoods#'] = $this->getConfiguration('enablemoods', 0);
+		$replace['#enableclock#'] = $this->getConfiguration('enableclock', 0);
 		foreach ($this->getCmd('info') as $cmd) {
 			$replace['#' . $cmd->getLogicalId() . '_history#'] = '';
 			$replace['#' . $cmd->getLogicalId() . '_id#'] = $cmd->getId();
@@ -511,17 +451,17 @@ class karotzCmd extends cmd {
 			$request = $requestHeader . $type . '?' . $parameters;
 		}
 		$request = new com_http($request);
-		$request->exec(5, 1);
-		if ($this->getLogicalId() == 'couleur') {
-			$pulsestate = $karotz->getCmd('info', 'pulsestate');
-			if (is_object($pulsestate) && $pulsestate->execCmd() == 1) {
+		$request->exec(10, 1);
+		if ($this->getLogicalId() == 'color') {
+			$led_pulse = $karotz->getCmd('info', 'led_pulse');
+			if (is_object($led_pulse) && $led_pulse->execCmd() == 1) {
 				$pulseon = $karotz->getCmd(null, 'pulseon');
 				if (is_object($pulseon)) {
 					$pulseon->execCmd();
 				}
 			}
 		}
-		if (in_array($this->getLogicalId(), array('debout', 'deboutsilent', 'coucher', 'couleur', 'pulseon', 'pulseoff'))) {
+		if (in_array($this->getLogicalId(), array('wakeup', 'sleeping', 'color', 'pulseon', 'pulseoff'))) {
 			sleep(1);
 			$karotz->cron30($karotz->getId());
 		}
