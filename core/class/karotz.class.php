@@ -465,7 +465,7 @@ class karotzCmd extends cmd {
 			sleep(1);
 			$karotz->cron30($karotz->getId());
 		}
-		return $response;
+		return;
 	}
 
 	/*     * **********************Getteur Setteur*************************** */
