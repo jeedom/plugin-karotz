@@ -426,7 +426,7 @@ class karotzCmd extends cmd {
 					case 'message':
 						if ($this->getLogicalId() == 'tts') {
 							$parameters = str_replace('#message#', rawurlencode($_options['message']), $parameters);
-							if ($_options['title'] != null && $_options['title'] && strpos($_options['title'], ' ') === false) {
+							if (isset($_options['title']) && $_options['title'] != null && strpos($_options['title'], ' ') === false) {
 								$parameters = str_replace('#title#', $_options['title'], $parameters);
 							} else {
 								$parameters = str_replace('#title#', '', $parameters);
