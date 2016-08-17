@@ -388,9 +388,7 @@ class karotz extends eqLogic {
 		foreach ($this->getCmd('action') as $cmd) {
 			$replace['#' . $cmd->getLogicalId() . '_id#'] = $cmd->getId();
 		}
-		$html = template_replace($replace, getTemplate('core', $version, 'karotz', 'karotz'));
-		cache::set('widgetHtml' . $version . $this->getId(), $html, 0);
-		return $html;
+		return $this->postToHtml($_version, template_replace($replace, getTemplate('core', $version, 'karotz', 'karotz')));
 	}
 
 }
