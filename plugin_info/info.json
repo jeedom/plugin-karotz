@@ -1,0 +1,9 @@
+{
+	"id" : "karotz",
+	"name" : "Karotz",
+	"description" : "Plugin pour commander le Karotz",
+	"licence" : "AGPL",
+	"author" : "Loïc",
+	"require" : "2.3",
+	"category" : "devicecommunication"
+}

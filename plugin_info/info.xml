@@ -5,10 +5,8 @@
     <description>Plugin pour commander le Karotz</description>
     <icon>fa fa-play-circle</icon>
     <licence>AGPL</licence>
-    <author>Thomas Martinez</author>
-    <installation>Aucune</installation>
-    <require>1.10</require>
-    <version>1.0</version>
+    <author>Loïc</author>
+    <require>2.2</require>
     <category>devicecommunication</category>
 </info>
 
