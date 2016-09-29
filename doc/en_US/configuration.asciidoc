@@ -1,0 +1,59 @@
+=== Configuration du plugin Jeedom :
+
+*Installation/Création*
+
+Afin d'utiliser le plugin, vous devez le télécharger, l'installer et l'activer comme tout plugin Jeedom.
+
+Rendez vous dans le menu Plugins/Communication, vous y trouverez le plugin Karotz.
+
+Vous arriverez sur la page qui listera vos équipements (vous pouvez avoir plusieurs Karotz) et qui vous permettra d'en créer :
+
+image:../images/karotz_screenshot4.jpg[width=380]
+
+Cliquez sur le bouton Ajouter :
+
+Vous arriverez ensuite sur la page de configuration de votre karotz:
+
+image:../images/configkarotz.jpg[width=680]
+
+* *Commandes*
+
+Vous n'avez rien à faire dans cette section. Les commandes seront créées automatiquement.
+
+* Rafraîchir: bouton permettant de rafraîchir le widget si besoin
+* Clignotement OFF : permet de couper le clignotement de la led
+* Clignotement ON : permet d'activer le clignotement de la led
+* Arrêter son : permet d'arrêter une musique ou un son en cours
+* Coucher : permet de faire dormir le lapin
+* Debout : permet de réveiller le lapin
+* Debout silencieux : permet de réveiller le lapin en mode silencieux
+* Horloge : permet de lancer le mode horloge du lapin
+* Humeur : permet de lancer le mode humeur du lapin
+* Oreille aléatoire : permet de bouger les oreilles de manière aléatoire
+* Oreille raz : permet de remettre les oreilles en position initiale
+* Oreilles positions : permet de regler la position précise des deux oreilles
+* Son du karotz : permet de lancer un son du Karotz (bip par exemple)
+* Son url : permet de faire lire une url au Karotz (station de radio par exemple)
+* Squeezebox on : permet d'activer le mode squeezebox du Karotz
+* Squeezebox off : permet de désactiver le mode squeezebox du Karotz
+* Statut : permet d'avoir le statut du Karotz (réveillé, endormi)
+* Statut couleur : permet d'avoir la couleur actuellement sur le ventre du Karotz
+* TTS : permet de faire parler le lapin en choisissant la voix et le message
+* Vitesse pulse : permet de régler la vitesse du clignotement
+
+Toutes ces commandes sont disponibles via les scénarios.
+
+
+=== Commande TTS
+
+La commande TTS peut prendre plusieurs options séparées par des & :
+
+- engine : le numéro du moteur de voix
+- voice : le nom de la voix
+- nocache : ne pas utiliser le cache
+
+Exemple : 
+
+----
+engine=3&nocache=1
+----
