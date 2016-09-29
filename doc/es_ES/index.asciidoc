@@ -20,3 +20,5 @@ include::informations.asciidoc[]
 include::FAQ.asciidoc[]
 
 "
+
+include::changelog.asciidoc[]
