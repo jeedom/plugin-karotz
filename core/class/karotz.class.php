@@ -42,7 +42,6 @@ class karotz extends eqLogic {
 						$value = '#' . $value;
 					}
 					if ($cmd->execCmd() !== $cmd->formatValue($value)) {
-						$cmd->setCollectDate('');
 						$cmd->event($value);
 						$change = true;
 					}
