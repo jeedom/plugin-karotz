@@ -2,5 +2,88 @@
     "plugins/karotz/plugin_info/info.xml": {
         "Plugin pour commander le Karotz": "Plugin pour commander le Karotz",
         "Aucune": "Нет"
+    },
+    "plugins/karotz/desktop/php/karotz.php": {
+        "Ajouter un Karotz": "Ajouter un Karotz",
+        "Rechercher": "Искать",
+        "Mes Karotzs": "Mes Karotzs",
+        "Général": "Главная",
+        "Nom de l'équipement porkfolio": "Nom de l'équipement porkfolio",
+        "Objet parent": "Родительский объект",
+        "Aucun": "Нет",
+        "Catégorie": "Категория",
+        "Activer": "Активировать",
+        "Visible": "Видимый",
+        "Adresse IP": "IP Адрес ",
+        "Nom": "Имя",
+        "Action": "Действие",
+        "Supprimer": "Удалить",
+        "Sauvegarder": "Сохранить",
+        "Nom de l'équipement": "Название оборудования",
+        "Moteur de TTS": "Moteur de TTS",
+        "Moteur TTS": "Moteur TTS",
+        "Activer squeezebox": "Activer squeezebox",
+        "Activer clock": "Activer clock",
+        "Activer moods": "Activer moods",
+        "Activer clock et moods": "Activer clock et moods",
+        "Equipement": "Оборудование",
+        "Commandes": "Команды"
+    },
+    "plugins/karotz/desktop/js/karotz.js": {
+        "Tester": "Тест"
+    },
+    "plugins/karotz/core/class/karotz.class.php": {
+        "Coucher": "Coucher",
+        "Debout": "Debout",
+        "Debout Silencieux": "Debout Silencieux",
+        "Couleur Led": "Couleur Led",
+        "Oreille RAZ": "Oreille RAZ",
+        "Oreille Aléatoire": "Oreille Aléatoire",
+        "Humeur": "Humeur",
+        "Horloge": "Horloge",
+        "TTS": "TTS",
+        "Voix": "Voix",
+        "Phrase": "Фраза",
+        "TTS sans cache": "TTS sans cache",
+        "Son du Karotz": "Son du Karotz",
+        "Id du son": "Id du son",
+        "Arrêter son": "Arrêter son",
+        "Son url": "Son url",
+        "Url à Jouer": "Url à Jouer",
+        "SqueezeBox On": "SqueezeBox On",
+        "Faire prendre une photo au lapin": "Faire prendre une photo au lapin",
+        "SqueezeBox Off": "SqueezeBox Off",
+        "Clignotement On": "Clignotement On",
+        "Clignotement Off": "Clignotement Off",
+        "Vitesse Pulse": "Vitesse Pulse",
+        "Pulse avec couleur secondaire": "Pulse avec couleur secondaire",
+        "Vitesse [0-2000]": "Vitesse [0-2000]",
+        "Couleur": "Цвет",
+        "Oreilles Positions": "Oreilles Positions",
+        "Oreille Droite [0-16]": "Oreille Droite [0-16]",
+        "Oreille Gauche [0-16]": "Oreille Gauche [0-16]",
+        "Statut": "Статус",
+        "Statut Couleur": "Statut Couleur",
+        "Rafraichir": "Обновить",
+        "Endormir le Karotz": "Endormir le Karotz",
+        "Options": "Опции",
+        "Réveiller le Karotz": "Réveiller le Karotz",
+        "Clignotement": "Clignotement",
+        "Oreille gauche": "Oreille gauche",
+        "Oreille droite": "Oreille droite"
+    },
+    "plugins/karotz/desktop/modal/micro.karotz.php": {
+        "Message": "Сообщение",
+        "TTS Voix": "TTS Voix",
+        "Son  Id": "Son  Id",
+        "Url": "Url"
+    },
+    "plugins/karotz/desktop/modal/manualear.karotz.php": {
+        "Choisissez la position des oreilles (valeur de 0 à 16)": "Choisissez la position des oreilles (valeur de 0 à 16)",
+        "Oreille droite": "Oreille droite",
+        "Oreille gauche": "Oreille gauche"
+    },
+    "plugins/karotz/plugin_info/info.json": {
+        "Plugin pour commander le Karotz": "Plugin pour commander le Karotz"
     }
 }
