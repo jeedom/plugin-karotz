@@ -5,36 +5,36 @@
     },
     "plugins/karotz/desktop/php/karotz.php": {
         "Ajouter un Karotz": "Ajouter un Karotz",
-        "Rechercher": "Rechercher",
+        "Rechercher": "Search",
         "Mes Karotzs": "Mes Karotzs",
-        "Général": "Général",
-        "Nom de l'équipement porkfolio": "Nom de l'équipement porkfolio",
-        "Objet parent": "Objet parent",
-        "Aucun": "Aucun",
-        "Catégorie": "Catégorie",
-        "Activer": "Activer",
+        "Général": "Main",
+        "Nom de l'équipement porkfolio": "Name of PorkFolio device",
+        "Objet parent": "Parent object",
+        "Aucun": "None",
+        "Catégorie": "Category",
+        "Activer": "Activate",
         "Visible": "Visible",
-        "Adresse IP": "Adresse IP",
-        "Nom": "Nom",
+        "Adresse IP": "IP address",
+        "Nom": "Name",
         "Action": "Action",
-        "Supprimer": "Supprimer",
-        "Sauvegarder": "Sauvegarder",
-        "Nom de l'équipement": "Nom de l'équipement",
+        "Supprimer": "Delete",
+        "Sauvegarder": "Save",
+        "Nom de l'équipement": "Name of the equipment",
         "Moteur de TTS": "Moteur de TTS",
-        "Moteur TTS": "Moteur TTS",
+        "Moteur TTS": "TTS motor",
         "Activer squeezebox": "Activer squeezebox",
         "Activer clock": "Activer clock",
         "Activer moods": "Activer moods",
         "Activer clock et moods": "Activer clock et moods",
-        "Equipement": "Equipement",
-        "Commandes": "Commandes"
+        "Equipement": "Device",
+        "Commandes": "Commands"
     },
     "plugins/karotz/desktop/js/karotz.js": {
-        "Tester": "Tester"
+        "Tester": "Test"
     },
     "plugins/karotz/core/class/karotz.class.php": {
-        "Coucher": "Coucher",
-        "Debout": "Debout",
+        "Coucher": "Laying",
+        "Debout": "Standing",
         "Debout Silencieux": "Debout Silencieux",
         "Couleur Led": "Couleur Led",
         "Oreille RAZ": "Oreille RAZ",
@@ -42,8 +42,8 @@
         "Humeur": "Humeur",
         "Horloge": "Horloge",
         "TTS": "TTS",
-        "Voix": "Voix",
-        "Phrase": "Phrase",
+        "Voix": "Voice",
+        "Phrase": "Sentence",
         "TTS sans cache": "TTS sans cache",
         "Son du Karotz": "Son du Karotz",
         "Id du son": "Id du son",
@@ -58,19 +58,19 @@
         "Vitesse Pulse": "Vitesse Pulse",
         "Pulse avec couleur secondaire": "Pulse avec couleur secondaire",
         "Vitesse [0-2000]": "Vitesse [0-2000]",
-        "Couleur": "Couleur",
+        "Couleur": "Color",
         "Oreilles Positions": "Oreilles Positions",
         "Oreille Droite [0-16]": "Oreille Droite [0-16]",
         "Oreille Gauche [0-16]": "Oreille Gauche [0-16]",
-        "Statut": "Statut",
+        "Statut": "Status",
         "Statut Couleur": "Statut Couleur",
-        "Rafraichir": "Rafraichir",
+        "Rafraichir": "Refresh",
         "Endormir le Karotz": "Endormir le Karotz",
         "Options": "Options",
         "Réveiller le Karotz": "Réveiller le Karotz",
         "Clignotement": "Clignotement",
-        "Oreille gauche": "Oreille gauche",
-        "Oreille droite": "Oreille droite"
+        "Oreille gauche": "Left ear",
+        "Oreille droite": "Right ear"
     },
     "plugins/karotz/desktop/modal/micro.karotz.php": {
         "Message": "Message",
@@ -80,10 +80,10 @@
     },
     "plugins/karotz/desktop/modal/manualear.karotz.php": {
         "Choisissez la position des oreilles (valeur de 0 à 16)": "Choisissez la position des oreilles (valeur de 0 à 16)",
-        "Oreille droite": "Oreille droite",
-        "Oreille gauche": "Oreille gauche"
+        "Oreille droite": "Right ear",
+        "Oreille gauche": "Left ear"
     },
     "plugins/karotz/plugin_info/info.json": {
-        "Plugin pour commander le Karotz": "Plugin pour commander le Karotz"
+        "Plugin pour commander le Karotz": "Plugin to control Karotz"
     }
 }
