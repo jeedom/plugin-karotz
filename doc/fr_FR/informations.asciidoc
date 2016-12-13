@@ -2,7 +2,7 @@
 
 image:../images/widget.jpg[width=380]
 
-* A : Permet d'accéder à la page de choix de son
+* A : Permet d'accéder à la page de choix du son
 
 image:../images/karotz_screenshot5.jpg[width=380]
 
