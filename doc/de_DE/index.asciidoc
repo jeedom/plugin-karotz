@@ -1,6 +1,6 @@
 = Karotz
 
-== Description
+== Beschreibung
 Ce plugin permet de contrôler son Karotz (fonctionnant sous http://www.openkarotz.org/[OpenKarotz]). Cela va de sa led ventrale, à ses oreilles en passant par les sons, la synthèse vocale et plein d'autres.
 
 image:../images/karotz_screenshot1.jpg[width=256]
