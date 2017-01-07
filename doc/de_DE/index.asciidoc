@@ -8,7 +8,7 @@ image:../images/karotz_screenshot2.jpg[width=256]
 image:../images/karotz_screenshot3.jpg[width=256]
 
 '''
-== Configuration
+== Konfiguration
 include::configuration.asciidoc[]
 
 ...
