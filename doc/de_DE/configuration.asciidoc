@@ -31,9 +31,9 @@ Vous n'avez rien à faire dans cette section. Les commandes seront créées auto
 * Humeur : permet de lancer le mode humeur du lapin
 * Oreille aléatoire : permet de bouger les oreilles de manière aléatoire
 * Oreille raz : permet de remettre les oreilles en position initiale
-* Oreilles positions : permet de regler la position précise des deux oreilles
+* Oreilles positions : permet de régler la position précise des deux oreilles
 * Son du karotz : permet de lancer un son du Karotz (bip par exemple)
-* Son url : permet de faire lire une url au Karotz (station de radio par exemple)
+* Son URL : permet de faire lire une URL au Karotz (station de radio par exemple)
 * Squeezebox on : permet d'activer le mode squeezebox du Karotz
 * Squeezebox off : permet de désactiver le mode squeezebox du Karotz
 * Statut : permet d'avoir le statut du Karotz (réveillé, endormi)
@@ -46,7 +46,7 @@ Toutes ces commandes sont disponibles via les scénarios.
 
 === Commande TTS
 
-La commande TTS peut prendre plusieurs options séparées par des & :
+La commande TTS peut comporter plusieurs options séparées par des & :
 
 - engine : le numéro du moteur de voix
 - voice : le nom de la voix
