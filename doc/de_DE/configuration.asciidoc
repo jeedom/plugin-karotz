@@ -16,7 +16,7 @@ Vous arriverez ensuite sur la page de configuration de votre karotz:
 
 image:../images/configkarotz.jpg[width=680]
 
-* *Commandes*
+* *Befehle*
 
 Vous n'avez rien à faire dans cette section. Les commandes seront créées automatiquement.
 
