@@ -6,15 +6,11 @@ Um das Plugin zu benutzen, müssen sie es herunterladen, installieren und aktivi
 
 Rendez vous dans le menu Plugins/Communication, vous y trouverez le plugin Karotz.
 
-Vous arriverez sur la page qui listera vos équipements (vous pouvez avoir plusieurs Karotz) et qui vous permettra d'en créer :
-
-image:../images/karotz_screenshot4.jpg[width=380]
+Vous arriverez sur la page qui listera vos équipements (vous pouvez avoir plusieurs Karotz) et qui vous permettra d'en créer.
 
 Cliquez sur le bouton Ajouter :
 
-Vous arriverez ensuite sur la page de configuration de votre karotz:
-
-image:../images/configkarotz.jpg[width=680]
+Vous arriverez ensuite sur la page de configuration de votre karotz.
 
 * *Befehle*
 
