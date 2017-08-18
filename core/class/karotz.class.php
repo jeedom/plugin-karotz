@@ -418,7 +418,7 @@ class karotzCmd extends cmd {
 			$request = $requestHeader . $type;
 		} else {
 			$parameters = $this->getConfiguration('parameters');
-			if ($_options != null) {
+			if ($_options !== null) {
 				switch ($this->getSubType()) {
 					case 'message':
 						if ($this->getLogicalId() == 'tts') {
@@ -467,4 +467,4 @@ class karotzCmd extends cmd {
 
 	/*     * **********************Getteur Setteur*************************** */
 }
-?>
+ 
