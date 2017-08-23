@@ -21,6 +21,12 @@ require_once dirname(__FILE__) . '/../../../../core/php/core.inc.php';
 
 class karotz extends eqLogic {
 
+	/***************************Attributs*******************************/
+
+	public static $_widgetPossibility = array('custom' => true, 'custom::layout' => false);
+
+	/*     * ***********************Methode static*************************** */
+
 	public function cron30($_eqlogic_id = null) {
 		if ($_eqlogic_id !== null) {
 			$eqLogics = array(eqLogic::byId($_eqlogic_id));
