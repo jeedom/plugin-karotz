@@ -418,7 +418,7 @@ class karotzCmd extends cmd {
 		if ($this->type != 'action') {
 			return;
 		}
-		$timeout = 10;
+		$timeout = 20;
 		$requestHeader = 'http://' . $karotz->getConfiguration('addr') . '/cgi-bin/';
 		$type = $this->getConfiguration('request');
 		if ($this->getConfiguration('parameters') == '') {
