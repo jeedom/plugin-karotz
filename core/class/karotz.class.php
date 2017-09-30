@@ -418,6 +418,7 @@ class karotzCmd extends cmd {
 		if ($this->type != 'action') {
 			return;
 		}
+		$timeout = 20;
 		$requestHeader = 'http://' . $karotz->getConfiguration('addr') . '/cgi-bin/';
 		$type = $this->getConfiguration('request');
 		if ($this->getConfiguration('parameters') == '') {
@@ -428,6 +429,7 @@ class karotzCmd extends cmd {
 				switch ($this->getSubType()) {
 					case 'message':
 						if ($this->getLogicalId() == 'tts') {
+							$timeout = 999;
 							$parameters = str_replace('#message#', rawurlencode($_options['message']), $parameters);
 							if (isset($_options['title']) && $_options['title'] != null && strpos($_options['title'], ' ') === false) {
 								$parameters = str_replace('#title#', $_options['title'], $parameters);
@@ -454,7 +456,7 @@ class karotzCmd extends cmd {
 			$request = $requestHeader . $type . '?' . $parameters;
 		}
 		$request = new com_http($request);
-		$request->exec(10, 1);
+		$request->exec($timeout, 1);
 		if ($this->getLogicalId() == 'color') {
 			$led_pulse = $karotz->getCmd('info', 'led_pulse');
 			if (is_object($led_pulse) && $led_pulse->execCmd() == 1) {
