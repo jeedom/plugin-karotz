@@ -101,9 +101,25 @@ foreach (jeedom::getConfiguration('eqLogic:category') as $key => $value) {
         </div>
     </div>
     <div class="form-group">
-        <label class="col-lg-2 control-label">{{Moteur de TTS}}</label>
+        <label class="col-lg-2 control-label">{{Voix TTS}}</label>
         <div class="col-lg-2">
-            <input type="text" class="eqLogicAttr form-control" data-l1key="configuration" data-l2key="ttsengine" placeholder="{{Moteur TTS}}"/>
+            <!--input type="text" class="eqLogicAttr form-control" data-l1key="configuration" data-l2key="ttsVoice" placeholder="{{Voix TTS}}"/-->
+            <select id="sel_voice" class="form-control eqLogicAttr" data-l1key="configuration" data-l2key="ttsVoice" placeholder="{{Voix TTS}}">
+										<option value="1">{{fr Female}}</option>
+										<option value="2">{{fr Male}}</option>
+										<option value="3">{{ca Female}}</option>
+										<option value="4">{{ca Male}}</option>
+										<option value="5">{{us Female}}</option>
+										<option value="6">{{us Male}}</option>
+										<option value="7">{{uk Female}}</option>
+										<option value="8">{{uk Male}}</option>
+										<option value="9">{{de Female}}</option>
+										<option value="10">{{de Male}}</option>
+										<option value="11">{{it Female}}</option>
+										<option value="12">{{it Male}}</option>
+										<option value="13">{{spain Female}}</option>
+										<option value="14">{{spain Male}}</option>
+			</select>
         </div>
     </div>
     <div class="form-group">

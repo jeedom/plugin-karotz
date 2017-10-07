@@ -92,6 +92,20 @@ class karotz extends eqLogic {
 		$cmd->setConfiguration('parameters', 'silent=0');
 		$cmd->save();
 
+		$cmd = $this->getCmd(null, 'wakeupSilent');
+		if (!is_object($cmd)) {
+		    $cmd = new karotzCmd();
+		    $cmd->setLogicalId('wakeupSilent');
+		    $cmd->setIsVisible(1);
+		    $cmd->setName(__('Debout Silencieux', __FILE__));
+		}
+		$cmd->setType('action');
+		$cmd->setSubType('other');
+		$cmd->setEqLogic_id($this->getId());
+		$cmd->setConfiguration('request', 'wakeup');
+		$cmd->setConfiguration('parameters', 'silent=1');
+		$cmd->save();
+		
 		$cmd = $this->getCmd(null, 'color');
 		if (!is_object($cmd)) {
 			$cmd = new karotzCmd();
@@ -162,12 +176,12 @@ class karotz extends eqLogic {
 			}
 		}
 
-		$cmd = $this->getCmd(null, 'tts');
+		$cmd = $this->getCmd(null, 'ttsNoCache');
 		if (!is_object($cmd)) {
 			$cmd = new karotzCmd();
-			$cmd->setLogicalId('tts');
+			$cmd->setLogicalId('ttsNoCache');
 			$cmd->setIsVisible(1);
-			$cmd->setName(__('Dit', __FILE__));
+			$cmd->setName(__('TTS sans cache', __FILE__));
 		}
 		$cmd->setType('action');
 		$cmd->setSubType('message');
@@ -175,9 +189,25 @@ class karotz extends eqLogic {
 		$cmd->setDisplay('title_placeholder', __('Options', __FILE__));
 		$cmd->setDisplay('message_placeholder', __('Phrase', __FILE__));
 		$cmd->setConfiguration('request', 'tts');
-		$cmd->setConfiguration('parameters', 'text=#message#&#title#');
+		$cmd->setConfiguration('parameters', 'text=#message#&voice=#title#&nocache=1');
 		$cmd->save();
 
+		$cmd = $this->getCmd(null, 'tts');
+		if (!is_object($cmd)) {
+		    $cmd = new karotzCmd();
+		    $cmd->setLogicalId('tts');
+		    $cmd->setIsVisible(1);
+		    $cmd->setName(__('TTS', __FILE__));
+		}
+		$cmd->setType('action');
+		$cmd->setSubType('message');
+		$cmd->setEqLogic_id($this->getId());
+		$cmd->setDisplay('title_placeholder', __('Options', __FILE__));
+		$cmd->setDisplay('message_placeholder', __('Phrase', __FILE__));
+		$cmd->setConfiguration('request', 'tts');
+		$cmd->setConfiguration('parameters', 'text=#message#&voice=#title#');
+		$cmd->save();
+		
 		$cmd = $this->getCmd(null, 'sound');
 		if (!is_object($cmd)) {
 			$cmd = new karotzCmd();
@@ -318,6 +348,19 @@ class karotz extends eqLogic {
 		$cmd->setConfiguration('parameters', 'right=#message#&left=#title#&noreset=1');
 		$cmd->save();
 
+		$cmd = $this->getCmd(null, 'ears_random');
+		if (!is_object($cmd)) {
+		    $cmd = new karotzCmd();
+		    $cmd->setLogicalId('ears_random');
+		    $cmd->setIsVisible(1);
+		    $cmd->setName(__('Oreille Aléatoire', __FILE__));
+		}
+		$cmd->setType('action');
+		$cmd->setSubType('other');
+		$cmd->setEqLogic_id($this->getId());
+		$cmd->setConfiguration('request', 'ears_random');
+		$cmd->save();
+		
 		$cmd = $this->getCmd(null, 'sleep');
 		if (!is_object($cmd)) {
 			$cmd = new karotzCmd();
@@ -354,6 +397,58 @@ class karotz extends eqLogic {
 		$cmd->setType('action');
 		$cmd->setSubType('other');
 		$cmd->setEqLogic_id($this->getId());
+		$cmd->save();
+		
+		$cmd = $this->getCmd(null, 'karotz_percent_used_space');
+		if (!is_object($cmd)) {
+		    $cmd = new karotzCmd();
+		    $cmd->setLogicalId('karotz_percent_used_space');
+		    $cmd->setIsVisible(1);
+		    $cmd->setName(__('% Espace occupé', __FILE__));
+		}
+		$cmd->setType('info');
+		$cmd->setEventOnly(1);
+		$cmd->setSubType('numeric');
+		$cmd->setEqLogic_id($this->getId());
+		$cmd->save();
+		
+		$cmd = $this->getCmd(null, 'karotz_free_space');
+		if (!is_object($cmd)) {
+		    $cmd = new karotzCmd();
+		    $cmd->setLogicalId('karotz_free_space');
+		    $cmd->setIsVisible(1);
+		    $cmd->setName(__('Espace libre', __FILE__));
+		}
+		$cmd->setType('info');
+		$cmd->setEventOnly(1);
+		$cmd->setSubType('string');
+		$cmd->setEqLogic_id($this->getId());
+		$cmd->save();
+		
+		$cmd = $this->getCmd(null, 'reboot');
+		if (!is_object($cmd)) {
+		    $cmd = new karotzCmd();
+		    $cmd->setLogicalId('reboot');
+		    $cmd->setIsVisible(1);
+		    $cmd->setName(__('Redémarrage', __FILE__));
+		}
+		$cmd->setType('action');
+		$cmd->setSubType('other');
+		$cmd->setEqLogic_id($this->getId());
+		$cmd->setConfiguration('request', 'reboot');
+		$cmd->save();
+
+		$cmd = $this->getCmd(null, 'setclock');
+		if (!is_object($cmd)) {
+		    $cmd = new karotzCmd();
+		    $cmd->setLogicalId('setclock');
+		    $cmd->setIsVisible(1);
+		    $cmd->setName(__('Mise à l\'heure', __FILE__));
+		}
+		$cmd->setType('action');
+		$cmd->setSubType('other');
+		$cmd->setEqLogic_id($this->getId());
+		$cmd->setConfiguration('request', 'setclock');
 		$cmd->save();
 	}
 
@@ -410,6 +505,7 @@ class karotzCmd extends cmd {
 	}
 
 	public function execute($_options = null) {
+	    log::add('karotz', 'debug', 'Start execute command');
 		$karotz = $this->getEqLogic();
 		if ($this->getLogicalId() == 'refresh') {
 			$karotz->cron30($karotz->getId());
@@ -418,7 +514,7 @@ class karotzCmd extends cmd {
 		if ($this->type != 'action') {
 			return;
 		}
-		$timeout = 20;
+		$timeout = 21;
 		$requestHeader = 'http://' . $karotz->getConfiguration('addr') . '/cgi-bin/';
 		$type = $this->getConfiguration('request');
 		if ($this->getConfiguration('parameters') == '') {
@@ -428,17 +524,17 @@ class karotzCmd extends cmd {
 			if ($_options != null) {
 				switch ($this->getSubType()) {
 					case 'message':
-						if ($this->getLogicalId() == 'tts') {
+					    if ( $this->getLogicalId() == 'tts' or $this->getLogicalId() == 'ttsNoCache') {
 							$timeout = 999;
 							$parameters = str_replace('#message#', rawurlencode($_options['message']), $parameters);
 							if (isset($_options['title']) && $_options['title'] != null && strpos($_options['title'], ' ') === false) {
 								$parameters = str_replace('#title#', $_options['title'], $parameters);
 							} else {
-								$parameters = str_replace('#title#', '', $parameters);
+								$parameters = str_replace('&voice=#title#', '', $parameters);
 							}
 							$parameters = trim($parameters, '&');
-							if ($karotz->getConfiguration('ttsengine') != 0 && strpos($parameters, 'engine') === false) {
-								$parameters .= '&engine=' . $karotz->getConfiguration('ttsengine');
+							if ($karotz->getConfiguration('ttsVoice') != 0 && strpos($parameters, 'voice') === false) {
+								$parameters .= '&voice=' . $karotz->getConfiguration('ttsVoice');
 							}
 						} else {
 							$parameters = str_replace('#message#', $_options['message'], $parameters);
@@ -455,8 +551,10 @@ class karotzCmd extends cmd {
 			}
 			$request = $requestHeader . $type . '?' . $parameters;
 		}
+		log::add('karotz', 'debug', 'Before http request : '.$request);
 		$request = new com_http($request);
 		$request->exec($timeout, 1);
+		log::add('karotz', 'debug', 'After http request');
 		if ($this->getLogicalId() == 'color') {
 			$led_pulse = $karotz->getCmd('info', 'led_pulse');
 			if (is_object($led_pulse) && $led_pulse->execCmd() == 1) {
