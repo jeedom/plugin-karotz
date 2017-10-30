@@ -1,0 +1,11 @@
+#!/bin/bash
+
+source /www/cgi-bin/setup.inc
+source /www/cgi-bin/url.inc
+source /www/cgi-bin/utils.inc
+ReadUrlParam
+VOLUME=${URLParam[volume]}
+rm $CNF_DATADIR/Run/volume
+echo $VOLUME > $CNF_DATADIR/Run/volume
+DATA='{"return":"0","volume":"'${VOLUME}'"}'
+SendResponse "$DATA"
