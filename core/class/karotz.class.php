@@ -48,12 +48,12 @@ class karotz extends eqLogic {
 						$value = '#' . $value;
 					}
 					if ($cmd->getLogicalId() == 'volume') {
-					    log::add('karotz', 'debug', 'raw volume db : '.$value);
+					    //log::add('karotz', 'debug', 'raw volume db : '.$value);
 					    if ($value=="") {
 					        $value=-10;
 					    }
 					    $value = ($value+30)*100/40;
-					    log::add('karotz', 'debug', '% volume : '.$value);
+					    //log::add('karotz', 'debug', '% volume : '.$value);
 					}
 					if ($cmd->execCmd() !== $cmd->formatValue($value)) {
 						$cmd->event($value);
@@ -238,7 +238,20 @@ class karotz extends eqLogic {
 		$cmd->setConfiguration('request', 'tts');
 		$cmd->setConfiguration('parameters', 'text=#message#&voice=#title#&nocache=1');
 		$cmd->save();
-
+		
+		$cmd = $this->getCmd(null, 'clear_cache');
+		if (!is_object($cmd)) {
+		    $cmd = new karotzCmd();
+		    $cmd->setLogicalId('clear_cache');
+		    $cmd->setIsVisible(1);
+		}
+		$cmd->setName(__('TTS cache effacer', __FILE__));
+		$cmd->setType('action');
+		$cmd->setSubType('other');
+		$cmd->setEqLogic_id($this->getId());
+		$cmd->setConfiguration('request', 'clear_cache');
+		$cmd->save();
+		
 		$cmd = $this->getCmd(null, 'tts');
 		if (!is_object($cmd)) {
 		    $cmd = new karotzCmd();
@@ -429,7 +442,7 @@ class karotz extends eqLogic {
 			$cmd->setLogicalId('sleep');
 			$cmd->setIsVisible(1);
         }
-        $cmd->setName(__('Statut', __FILE__));
+        $cmd->setName(__('Endormi', __FILE__));
         $cmd->setType('info');
 		$cmd->setSubType('binary');
 		$cmd->setEventOnly(1);
@@ -493,7 +506,7 @@ class karotz extends eqLogic {
 		    $cmd->setLogicalId('reboot');
 		    $cmd->setIsVisible(1);
 		}
-		$cmd->setName(__('Redémarrage', __FILE__));
+		$cmd->setName(__('Redémarrer', __FILE__));
 		$cmd->setType('action');
 		$cmd->setSubType('other');
 		$cmd->setEqLogic_id($this->getId());
@@ -506,7 +519,7 @@ class karotz extends eqLogic {
 		    $cmd->setLogicalId('setclock');
 		    $cmd->setIsVisible(1);
 		}
-		$cmd->setName(__('Mise à l heure', __FILE__));
+		$cmd->setName(__('Mettre à l heure', __FILE__));
 		$cmd->setType('action');
 		$cmd->setSubType('other');
 		$cmd->setEqLogic_id($this->getId());
@@ -519,7 +532,7 @@ class karotz extends eqLogic {
 		    $cmd->setLogicalId('volume');
 		    $cmd->setIsVisible(0);
 		}
-		$cmd->setName(__('Volume status', __FILE__));
+		$cmd->setName(__('Niveau du volume', __FILE__));
 		$cmd->setUnite('%');
 		$cmd->setType('info');
 		$cmd->setEventOnly(1);
@@ -605,7 +618,7 @@ class karotz extends eqLogic {
     		    $cmd->setLogicalId('snapshot_list_refresh');
     		    $cmd->setIsVisible(1);
     		}
-    		$cmd->setName(__('Photos refesh listing', __FILE__));
+    		$cmd->setName(__('Photos refresh listing', __FILE__));
     		$cmd->setType('action');
     		$cmd->setSubType('other');
     		$cmd->setEqLogic_id($this->getId());
@@ -659,6 +672,78 @@ class karotz extends eqLogic {
 		        $cmd->remove();
 		    }
 		}
+	}
+	
+	public function checkVolumeControl() {
+	    $eqLogics = eqLogic::byType('karotz');
+	    $return=array();
+	    foreach ($eqLogics as $karotz) {
+	        if ($karotz->getIsEnable() == 1) {
+	            $request = 'http://' . $karotz->getConfiguration('addr') . '/cgi-bin/status';
+	            $request = new com_http($request);
+	            $jsonstatus = json_decode($request->exec(5, 1), true);
+	            if (isset($jsonstatus['volume'])) {
+	                $return[]=array('name'=>$karotz->getName(),'volumeControl'=>true);
+	            } else {
+	                $return[]=array('name'=>$karotz->getName(),'volumeControl'=>false);
+	            }
+	        }
+	    }
+	    
+	    return $return;
+	    //return array(array('name'=>'192.168.0.24','volumeControl'=>true),array('name'=>'192.168.0.25','volumeControl'=>false'));
+	}
+	
+	public function installVolumeControl() {
+	    $eqLogics = eqLogic::byType('karotz');
+	    $return=array();
+	    foreach ($eqLogics as $karotz) {
+	        if ($karotz->getIsEnable() == 1) {
+	            $request = 'http://' . $karotz->getConfiguration('addr') . '/cgi-bin/status';
+	            $request = new com_http($request);
+	            $jsonstatus = json_decode($request->exec(5, 1), true);
+	            if (isset($jsonstatus['volume'])) {
+	                $return[]=array('addr'=>$karotz->getName(),'volumeControl'=>true);
+	            } else {
+	                //copy files to karotz
+	                log::add('karotz', 'info', 'Lancement installation du volume pour '.$karotz->getName());
+	                $cmd = 'chmod a+x '.realpath(dirname(__FILE__)).'/../../resources/ftpInstallFiles.sh';
+	                //log::add('karotz', 'debug', 'Commande complète pour rendre executable la commande : ' . $cmd);
+	                if ($_debug = true) {
+	                    $result = exec( $cmd . ' >> ' . log::getPathToLog('karotz') . ' 2>&1 ');
+	                } else {
+	                    $result = exec($cmd);
+	                }
+	                $cmd = realpath(dirname(__FILE__)).'/../../resources/ftpInstallFiles.sh '.$karotz->getConfiguration('addr').' '.realpath(dirname(__FILE__)).'/../../resources/';
+	                //log::add('karotz', 'debug', 'Commande complète pour lancer la copie : ' . $cmd);
+	                if ($_debug = true) {
+	                    $result = exec( $cmd . ' >> ' . log::getPathToLog('karotz') . ' 2>&1 ');
+	                } else {
+	                    $result = exec($cmd);
+	                }
+	                $cmd = 'nice -n 19 /usr/bin/python '.realpath(dirname(__FILE__)).'/../../resources/makeInstallExecutable.py '.$karotz->getConfiguration('addr');
+	                //log::add('karotz', 'debug', 'Commande complète pour lancer la copie : ' . $cmd);
+	                if ($_debug = true) {
+	                    $result = exec( $cmd . ' >> ' . log::getPathToLog('karotz') . ' 2>&1 ');
+	                } else {
+	                    $result = exec($cmd);
+	                }
+	                $request = 'http://' . $karotz->getConfiguration('addr') . '/cgi-bin/install/install';
+	                $request = new com_http($request);
+	                $jsonstatus = json_decode($request->exec(5, 1), true);
+	                $request = 'http://' . $karotz->getConfiguration('addr') . '/cgi-bin/status';
+	                $request = new com_http($request);
+	                $jsonstatus = json_decode($request->exec(5, 1), true);
+	                if (!isset($jsonstatus['volume'])) {
+	                   $return[]=array('name'=>$karotz->getName(),'volumeControl'=>true);
+	                } else {
+	                   $return[]=array('name'=>$karotz->getName(),'volumeControl'=>false);
+	                }
+	            }
+	        }
+	    }
+	    return $return;
+	    //return array(array('name'=>'192.168.0.24','volumeControl'=>true),array('name'=>'192.168.0.25','volumeControl'=>false));
 	}
 
 	public function toHtml($_version = 'dashboard') {
@@ -714,8 +799,8 @@ class karotzCmd extends cmd {
 	}
 
 	public function execute($_options = null) {
-	    $a=print_r($_options,true);
-	    log::add('karotz', 'debug', 'Start execute command:'.$a);
+	    //$a=print_r($_options,true);
+	    //log::add('karotz', 'debug', 'Start execute command:'.$a);
 		$karotz = $this->getEqLogic();
 		if ($this->getLogicalId() == 'refresh') {
 			$karotz->cron30($karotz->getId());
@@ -735,7 +820,7 @@ class karotzCmd extends cmd {
 			$request = $requestHeader . $type;
 		} else {
 			$parameters = $this->getConfiguration('parameters');
-			log::add('karotz', 'debug', 'execute command with parameters :'.$parameters);
+			//log::add('karotz', 'debug', 'execute command with parameters :'.$parameters);
 			if ($this->getLogicalId() == 'vol+' || $this->getLogicalId() == 'vol-') {
 			    if ($karotz->getConfiguration('volume_inc') == '' or $karotz->getConfiguration('volume_inc') > 21) {
 			        $pas = 5;
@@ -750,7 +835,7 @@ class karotzCmd extends cmd {
 			    }
 			    //TODO calcul le nouveau volume $newVolume
 			    $volume = $karotz->getCmd(null, 'volume')->execCmd();
-			    log::add('karotz', 'debug', 'volume : '.$volume);
+			    //log::add('karotz', 'debug', 'volume : '.$volume);
 			    if ($volume =="") {
 			        $volume='50';
 			    };
@@ -796,7 +881,7 @@ class karotzCmd extends cmd {
 					        if ($_options['slider'] > 100) {
 					            $_options['slider'] = 100;
 					        }
-					        log::add('karotz', 'debug', 'volume slider change : '.$_options['slider']);
+					        //log::add('karotz', 'debug', 'volume slider change : '.$_options['slider']);
 					        $newVolume=($_options['slider']*40/100)-30;
 					        log::add('karotz', 'debug', 'new volume slider change : '.$newVolume.' - parameters='.$parameters);
 					        $parameters = str_replace('#volume#', $newVolume, $parameters);
@@ -812,7 +897,7 @@ class karotzCmd extends cmd {
 			}
 			$request = $requestHeader . $type . '?' . $parameters;
 		}
-		log::add('karotz', 'debug', 'Before http request : '.$request.' timeout='.$timeout);
+		//log::add('karotz', 'debug', 'Before http request : '.$request.' timeout='.$timeout);
 		$request = new com_http($request);
 		$response=$request->exec($timeout, 1);
 		log::add('karotz', 'debug', 'After http request :'.$response);
@@ -826,22 +911,21 @@ class karotzCmd extends cmd {
 			}
 		}
 		if ($this->getLogicalId() == 'snapshot_list_refresh') {
-		    log::add('karotz', 'debug', 'After snapshot_list_refresh request :'.$response);
+		    //log::add('karotz', 'debug', 'After snapshot_list_refresh request :'.$response);
 		    $snapshot_list_cmd = $karotz->getCmd('info', 'snapshot_list');
 		    if (is_object($snapshot_list_cmd))  {
-		        //{ "snapshots": [{ "id":"snapshot_1970_01_01_02_25_54.jpg"}], "return":"0" }
 		        $jsonResponse = json_decode($response, true);
 		        $value='';
 		        $sep='';
 		        foreach ($jsonResponse['snapshots'] as $snapshot) {
-		            log::add('karotz', 'debug', 'After snapshot_list_refresh json decode :'.$snapshot['id']);
+		            //log::add('karotz', 'debug', 'After snapshot_list_refresh json decode :'.$snapshot['id']);
 		            $value.=$sep.$snapshot['id'];
 		            $sep=',';
 		        }
 		        
-		        log::add('karotz', 'debug', 'After snapshot_list_refresh json decode value :'.$value);
+		        //log::add('karotz', 'debug', 'After snapshot_list_refresh json decode value :'.$value);
 		        if ($snapshot_list_cmd->execCmd() !== $snapshot_list_cmd->formatValue($value)) {
-		            log::add('karotz', 'debug', 'After snapshot_list_refresh before update cmd :'.$value);
+		            //log::add('karotz', 'debug', 'After snapshot_list_refresh before update cmd :'.$value);
 		            $snapshot_list_cmd->event($value);
 		        }
 		    }

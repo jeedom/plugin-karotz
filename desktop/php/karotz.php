@@ -5,6 +5,8 @@ if (! isConnect('admin')) {
 $plugin = plugin::byId('karotz');
 sendVarToJS('eqType', $plugin->getId());
 $eqLogics = eqLogic::byType($plugin->getId());
+$volumeControlEnable=config::byKey('volumeControlEnable', 'karotz', '0');
+sendVarToJS('volumeControlEnable', $volumeControlEnable);
 ?>
 
 <div class="row row-overflow">
@@ -161,7 +163,7 @@ $eqLogics = eqLogic::byType($plugin->getId());
 										<option value="14">{{spain Male}}</option>
 									</select>
 								</div>
-								<div class="col-sm-5 volume">
+								<div class="col-sm-5 volume volumeControlEnable">
     									<label class="col-sm-6 control-label" >{{Variation volume}}
         								<sup>
         									<i class="fa fa-question-circle tooltips" title="Sensibilité en % [1-20] de la variation sonore pour le réglage du volume : une valeur de 5 est recommandée." style="font-size : 1em;color:grey;"></i>
@@ -185,7 +187,7 @@ $eqLogics = eqLogic::byType($plugin->getId());
                                     <input type="checkbox" class="eqLogicAttr" data-l1key="configuration" data-l2key="enablemoods" />{{Moods}}</label>
                                     <label class="checkbox-inline">
                                     <input type="checkbox" class="eqLogicAttr" data-l1key="configuration" data-l2key="enablesnapshot" id="snapshot" />{{Photo}}</label>
-                                    <label class="checkbox-inline">
+                                    <label class="checkbox-inline volumeControlEnable">
                                     <input type="checkbox" class="eqLogicAttr" data-l1key="configuration" data-l2key="enablevolume" id="volume" />{{Volume}}<sup>
         									<i class="fa fa-question-circle tooltips" title="Commande du volume. Nécessite une version modifiée d'openkarotz." style="font-size : 1em;color:grey;"></i>
         								</sup></label>

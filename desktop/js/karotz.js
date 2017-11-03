@@ -1,4 +1,3 @@
-
 /* This file is part of Jeedom.
  *
  * Jeedom is free software: you can redistribute it and/or modify
@@ -28,6 +27,9 @@ $(document).ready(function(){
         else
         	$('.snapshotFtp').fadeOut('slow');
     });
+    if (volumeControlEnable==0){
+    	$('.volumeControlEnable').hide();
+    }
 	if ($('#volume').checked){
 	    $('.volume').fadeIn('slow');
 	} else {

@@ -42,6 +42,15 @@ try {
         ajax::success();
     }
     
+    if (init('action') == 'checkvolumecontrol') {
+        $return=json_encode(karotz::checkVolumeControl());
+        ajax::success($return);
+    }
+    
+    if (init('action') == 'installvolumecontrol') {
+        $return=json_encode(karotz::installVolumeControl());
+        ajax::success($return);
+    }
     
 	if (init('action') == 'moveear') {
 		$id = init('id');
