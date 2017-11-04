@@ -2,7 +2,11 @@
 #$1 = [host]
 #$2 = directory of files
 cd $2
-#set -x
+set -x
+which lftp
+if [ $? == 1 ]; then
+	sudo apt-get install lftp
+fi
 lftp <<EOF
 set ftp:ssl-allow no
 set ftp:passive-mode true
