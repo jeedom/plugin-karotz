@@ -1,4 +1,3 @@
-
 /* This file is part of Jeedom.
  *
  * Jeedom is free software: you can redistribute it and/or modify
@@ -14,6 +13,93 @@
  * You should have received a copy of the GNU General Public License
  * along with Jeedom. If not, see <http://www.gnu.org/licenses/>.
  */
+
+
+$(document).ready(function(){
+	if ($('#snapshot').checked){
+	    $('.snapshotFtp').fadeIn('slow');
+	} else {
+	   	$('.snapshotFtp').fadeOut('slow');
+	};
+    $('#snapshot').change(function(){
+    	if(this.checked)
+        	$('.snapshotFtp').fadeIn('slow');
+        else
+        	$('.snapshotFtp').fadeOut('slow');
+    });
+    if (volumeControlEnable==0){
+    	$('.volumeControlEnable').hide();
+    }
+	if ($('#volume').checked){
+	    $('.volume').fadeIn('slow');
+	} else {
+	   	$('.volume').fadeOut('slow');
+	};
+    $('#volume').change(function(){
+    	if(this.checked)
+        	$('.volume').fadeIn('slow');
+        else
+        	$('.volume').fadeOut('slow');
+    });
+});
+
+$('#bt_replaceCmd').on('click', function () {
+
+    bootbox.confirm('{{Etes-vous sûr de vouloir récréer toutes les commandes ? Cela va supprimer les commandes existantes}}', function (result) {
+        if (result) {
+            $.ajax({
+                type: "POST", // méthode de transmission des données au fichier php
+                url: "plugins/karotz/core/ajax/karotz.ajax.php", 
+                data: {
+                    action: "replaceCmd",
+                    id: $('.eqLogicAttr[data-l1key=id]').value(),
+                },
+                dataType: 'json',
+                global: false,
+                error: function (request, status, error) {
+                    handleAjaxError(request, status, error);
+                },
+                success: function (data) { 
+                    if (data.state != 'ok') {
+                        $('#div_alert').showAlert({message: data.result, level: 'danger'});
+                        return;
+                    }
+                    $('#div_alert').showAlert({message: '{{Opération réalisée avec succès}}', level: 'success'});
+                    $('.li_eqLogic[data-eqLogic_id=' + $('.eqLogicAttr[data-l1key=id]').value() + ']').click();
+                }
+            });
+        }
+    });
+});
+
+$('#bt_refreshCmd').on('click', function () {
+
+    bootbox.confirm('{{Etes-vous sûr de vouloir mettre à jour toutes les commandes ? Cela va conserver les commandes existantes}}', function (result) {
+        if (result) {
+            $.ajax({
+                type: "POST", // méthode de transmission des données au fichier php
+                url: "plugins/karotz/core/ajax/karotz.ajax.php", 
+                data: {
+                    action: "refreshCmd",
+                    id: $('.eqLogicAttr[data-l1key=id]').value(),
+                },
+                dataType: 'json',
+                global: false,
+                error: function (request, status, error) {
+                    handleAjaxError(request, status, error);
+                },
+                success: function (data) { 
+                    if (data.state != 'ok') {
+                        $('#div_alert').showAlert({message: data.result, level: 'danger'});
+                        return;
+                    }
+                    $('#div_alert').showAlert({message: '{{Opération réalisée avec succès}}', level: 'success'});
+                    $('.li_eqLogic[data-eqLogic_id=' + $('.eqLogicAttr[data-l1key=id]').value() + ']').click();
+                }
+            });
+        }
+    });
+});
 
  $("#table_cmd").sortable({axis: "y", cursor: "move", items: ".cmd", placeholder: "ui-state-highlight", tolerance: "intersect", forcePlaceholderSize: true});
 

@@ -1,38 +1,56 @@
-<div class="eqLogic-widget eqLogic noResize karotz" style="width: 240px;padding : 0px;border:#border#;border-radius:#border-radius#;background-color: #background-color#;color: #color#;#style#;" data-eqLogic_id="#id#" data-eqLogic_uid="#uid#" data-version="dashboard" >
+<div class="eqLogic-widget eqLogic allowResize karotz" style="width: 240px;padding : 0px;border:#border#;border-radius:#border-radius#;background-color: #background-color#;color: #color#;#style#;" data-eqLogic_id="#id#" data-eqLogic_uid="#uid#" data-version="dashboard" >
 	<span class="statusCmd" style="position : absolute;left : 5px;bottom : 5px; width : 30px;z-index: 1030;"></span>
 	<i class='fa fa-refresh pull-right cursor refresh' style="margin-top: 3px;margin-right: 5px;" title="Rafraîchir"></i>
-	<i class='icon loisir-microphone52 pull-left cursor micro' style="margin-top: 3px;margin-left: 5px;" title="Gérer le son"></i>
-	<center><a href="#eqLink#" style="font-size : 1.5em;"> #name# </a></center>
+	<i class='icon loisir-microphone52 pull-left cursor micro' style="margin-top: 3px;margin-left: 5px;" title="Parler"></i>
+	<div class="widget-name">
+  		<span style="display:table;margin:auto;font-size: 1.2em;#hideEqLogicName#"><a href="#eqLink#">#name_display# <span style="font-size: 0.85em;">#object_name#</span></a></span>
+  	</div>
 	<span class="cmd cmd-widget" data-cmd_id="#refresh_id#" style="display:none;"></span>
 	<span class="cmd cmd-widget" data-cmd_id="#earspos_id#" style="display:none;"></span>
 	<span class="cmd cmd-widget" data-cmd_id="#tts_id#" style="display:none;"></span>
 	<span class="cmd cmd-widget" data-cmd_id="#sleeping_id#" style="display:none;"></span>
 	<span class="cmd cmd-widget" data-cmd_id="#wakeup_id#" style="display:none;"></span>
+	
 	<div class="row">
-		<div class="col-xs-4">
-			<span style="position : absolute;left : 49px;top :52px;z-index: 2;" class="led_color cursor"><i class="fa fa-circle fa-lg" style="color : #led_color#; Cursor:pointer"></i></span>
-			<img class="cursor state" src="plugins/karotz/core/template/images/#state#.png" alt="Karotz" title="#actionstate#" height="85" style="margin-left: 3px;">
-			<center><input data-cmd_id="#color_id#" class="cmd" type="color" value="#led_color#" style="margin-left:20px;"></center>
+		<div class="col-xs-3" style="position:relative;">
+			<span style="z-index: 2;position:absolute;top: 52px;left: 34px;" class="led_color cursor"><i class="fa fa-circle fa-lg" style="color : #led_color#; Cursor:pointer"></i></span>
+  			<img class="cursor state" src="plugins/karotz/core/template/images/#state#.png" alt="Karotz" title="#actionstate#" height="85" style="position:absolute;top:0px;left: 3px;">
+			<input data-cmd_id="#color_id#" class="cmd led_color_update" type="color" value="#led_color#" style="position:absolute;top:85px;left:20px;">
 		</div>
-		<div class="col-xs-7" style="cursor : default;">
-			<center>
-				<span class="cmd cmd-widget cursor" data-cmd_id="#earraz_id#" style="font-size:2em;"><i class="fa fa-crop" title="Oreille Reset"></i></span>
-				<span title="Position manuelle" style="font-size:2em;margin-left:5px;"><i class="fa fa-user cursor ears"></i></span>
-				<span class="enableclock">
-					<span class="cmd cmd-widget cursor" data-cmd_id="#clock_id#" style="font-size:2em;margin-left:5px;"><i class="icon divers-circular114" title="Horloge"></i></span>
-				</span>
-				<span class="enablemoods">
-					<span class="cmd cmd-widget cursor" data-cmd_id="#moods_id#" style="font-size:2em;margin-left:5px;"><i class="icon personne-bear2" title="Humeur"></i></span>
-				</span>
-				<span class="squeezeboxControl">
-					<span class="cmd cmd-widget cursor" data-cmd_id="#squeezeon_id#" style="font-size:2em;margin-left:5px;"><i class="fa fa-check" title="On"></i></span>
-					<span class="cmd cmd-widget cursor" data-cmd_id="#squeezeoff_id#" style="font-size:2em;margin-left:5px;"><i class="fa fa-times" title="Off"></i></span>
-				</span> 
-				<span class="cmd cmd-widget cursor" data-cmd_id="#pulseon_id#" style="font-size:2em;margin-left:5px;"><i class="icon jeedom2-lightbulb58" title="Pulse On"></i></span>
-				<span class="cmd cmd-widget cursor" data-cmd_id="#pulseoff_id#" style="font-size:2em;margin-left:5px;"><i class="icon jeedom2-lightbulb25" title="Pulse Off"></i></span>
-			</center>
+		<div class="col-xs-7" style="cursor : default;margin-left:0px;padding:0px;">
+			<div>
+				<div style="display:inline;white-space:nowrap;">
+					<span class="enablevolume">
+						<!--a class="btn btn-circle btn-xs cmd mute" data-cmd_id="#mute_id#" style="position : relative;" title="Activer Muet"><i class="fa fa-times"></i></a-->
+						<a class="btn btn-circle btn-xs cmd vol-" data-cmd_id="#vol-_id#" title="Volume-" style="white-space: nowrap;display:inline-block;"><i class="fa fa-volume-down"></i></a>
+						<div class="volume" style="width: 80%;display:inline-block;" value="#volume#"></div>
+						<a class="btn btn-circle btn-xs cmd vol+" data-cmd_id="#vol+_id#" style="position : relative;" title="Volume+"> <i class="fa fa-volume-up"></i></a>
+						<!--a class="btn btn-circle btn-xs cmd unmute" data-cmd_id="#unmute_id#" style="position : relative;white-space: nowrap;display:inline-block;" title="Désactiver Muet"> <i class="fa fa-check"></i></a-->
+					</span>
+				</div>
+				<div>
+					<span class="cmd cmd-widget cursor earraz" data-cmd_id="#earraz_id#" style="font-size:2em;"><i class="fa fa-crop" title="Oreille Reset"></i></span>
+					<span class="earraz" title="Position manuelle" style="font-size:2em;margin-left:5px;"><i class="fa fa-user cursor ears"></i></span>
+					<span class="enableclock">
+						<span class="cmd cmd-widget cursor" data-cmd_id="#clock_id#" style="font-size:2em;margin-left:5px;"><i class="icon divers-circular114" title="Horloge"></i></span>
+					</span>
+					<span class="enablemoods">
+						<span class="cmd cmd-widget cursor" data-cmd_id="#moods_id#" style="font-size:2em;margin-left:5px;"><i class="icon personne-bear2" title="Humeur"></i></span>
+					</span>
+					<span class="enablesnapshot">
+						<span class="cmd cmd-widget cursor" data-cmd_id="#snapshot_id#" style="font-size:2em;margin-left:5px;"><i class="fa fa-camera" title="Photo"></i></span>
+					</span>
+					<span class="squeezeboxControl">
+						<span class="cmd cmd-widget cursor" data-cmd_id="#squeezeon_id#" style="font-size:2em;margin-left:5px;"><i class="fa fa-check" title="On"></i></span>
+						<span class="cmd cmd-widget cursor" data-cmd_id="#squeezeoff_id#" style="font-size:2em;margin-left:5px;"><i class="fa fa-times" title="Off"></i></span>
+					</span> 
+					<span class="cmd cmd-widget cursor pulseon" data-cmd_id="#pulseon_id#" style="font-size:2em;margin-left:5px;"><i class="icon jeedom2-lightbulb58" title="Pulse On"></i></span>
+					<span class="cmd cmd-widget cursor pulseoff" data-cmd_id="#pulseoff_id#" style="font-size:2em;margin-left:5px;"><i class="icon jeedom2-lightbulb25" title="Pulse Off"></i></span>
+				</div>
+			</div>
 		</div>
 	</div>
+	
 	<style>
 		@-webkit-keyframes blinker {
 			from {opacity: 1.0;}
@@ -47,6 +65,7 @@
 			-webkit-animation-direction: alternate;
 		}
 	</style>
+	
 	<script>
 		if('#led_pulse#' == 1){
 			$('.eqLogic[data-eqLogic_uid=#uid#] .led_color').addClass('blinkKarotz');
@@ -59,6 +78,28 @@
 		}
 		if('#enablemoods#' == 0){
 			$('.eqLogic[data-eqLogic_uid=#uid#] .enablemoods').hide();
+		}
+		if('#enablevolume#' == 0){
+			console.log('enablevolume');
+			$('.eqLogic[data-eqLogic_uid=#uid#] .enablevolume').hide();
+		}
+		if('#enablesnapshot#' == 0){
+			$('.eqLogic[data-eqLogic_uid=#uid#] .enablesnapshot').hide();
+		}
+		if('#enableminimumdisplay#' == 1){
+			$('.eqLogic[data-eqLogic_uid=#uid#] .squeezeboxControl').hide();
+			$('.eqLogic[data-eqLogic_uid=#uid#] .enableclock').hide();
+			$('.eqLogic[data-eqLogic_uid=#uid#] .enablemoods').hide();
+			$('.eqLogic[data-eqLogic_uid=#uid#] .enablesnapshot').hide();
+			$('.eqLogic[data-eqLogic_uid=#uid#] .refresh').hide();
+			$('.eqLogic[data-eqLogic_uid=#uid#] .micro').hide();
+			$('.eqLogic[data-eqLogic_uid=#uid#] .led_color_update').hide();
+			$('.eqLogic[data-eqLogic_uid=#uid#] .earraz').hide();
+			$('.eqLogic[data-eqLogic_uid=#uid#] .pulseon').hide();
+			$('.eqLogic[data-eqLogic_uid=#uid#] .pulseoff').hide();
+			$('.eqLogic[data-eqLogic_uid=#uid#] .enablevolume').hide();
+			//$('.eqLogic').css("width", "80px");
+			//$('.eqLogic').css("height", "120px");
 		}
 		$('.eqLogic[data-eqLogic_uid=#uid#] .refresh').on('click', function () {
 			jeedom.cmd.execute({id: '#refresh_id#'});
@@ -97,6 +138,22 @@
 				}
 			});
 		});
+		
+		$(".eqLogic[data-eqLogic_uid=#uid#] .volume").slider({
+			min: 0,
+			max: 100,
+			range : "min",
+			value: ('#volume#' == '') ? 10 : parseInt('#volume#')
+		});
+        $(".eqLogic[data-eqLogic_uid=#uid#] .slider.slider-horizontal").css('z-index',1);
+		$(".eqLogic[data-eqLogic_uid=#uid#] .volume").on('slidestop', function (event,ui) {
+			jeedom.cmd.execute({id: '#setVolume_id#',value: {slider: ui.value}});
+		});
+		$(".eqLogic[data-eqLogic_uid=#uid#] .ui-slider-handle").css("background","transparent");
+		$(".eqLogic[data-eqLogic_uid=#uid#] .ui-slider-handle").css("border-color","transparent");
+		$(".eqLogic[data-eqLogic_uid=#uid#] .ui-widget-content").css("background","#ff0000");
+		$(".eqLogic[data-eqLogic_uid=#uid#] .ui-slider-handle").append('<i class="fa fa-volume-up" style="color:white;font-size:1.2em;margin-top:-5px;cursor:pointer" title="Volume"></i>');
+	
 	</script>
 </div>
 
