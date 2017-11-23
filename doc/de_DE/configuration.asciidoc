@@ -1,6 +1,6 @@
 === Jeedom Plugin-Konfiguration :
 
-*Installation/Création*
+*Installation/Einrichtung*
 
 Um das Plugin zu benutzen, müssen sie es herunterladen, installieren und aktivieren wie jedes andere Jeedom Plugin.  
 
@@ -64,7 +64,7 @@ La commande TTS peut comporter plusieurs options séparées par des & :
 - voice : le n° de la voix
 - nocache : ne pas utiliser le cache
 
-Exemple : 
+Beispiel : 
 
 ----
 voice=3&nocache=1
