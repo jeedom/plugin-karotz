@@ -55,7 +55,7 @@ if (! isConnect ()) {
     	            type: "POST", // methode de transmission des données au fichier php
     	            url: "plugins/karotz/core/ajax/karotz.ajax.php", // url du fichier php
     	            data: {
-    	            	action: "checkvolumecontrol",
+    	            	action: "checkvolumecontrol"
     	            },
     	            dataType: 'json',
     	            error: function (request, status, error) {
