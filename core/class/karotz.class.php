@@ -752,6 +752,9 @@ class karotz extends eqLogic {
 			return $replace;
 		}
 		$version = jeedom::versionAlias($_version);
+		
+		$replace['#height#'] = $this->getDisplay('height', 'auto');
+		$replace['#width#'] = $this->getDisplay('width', 'auto');
 				
 		$replace['#enablesqueezebox#'] = $this->getConfiguration('enablesqueezebox', 0);
 		$replace['#enablemoods#'] = $this->getConfiguration('enablemoods', 0);
