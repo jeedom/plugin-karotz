@@ -241,7 +241,7 @@ foreach (jeedom::getConfiguration('eqLogic:category') as $key => $value) {
 												</div>
 											</div>
 
-											<div class="form-group expertModeVisible">
+											<div class="form-group">
 												<label class="col-sm-3 control-label">{{Création}}</label>
 												<div class="col-sm-3">
 													<span class="eqLogicAttr label label-default"
