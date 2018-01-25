@@ -134,7 +134,7 @@ La commande TTS peut comporter plusieurs options séparées par des & :
 
 -   nocache : ne pas utiliser le cache
 
-Exemple :
+Beispiel :
 
     voice=3&nocache=1
 
