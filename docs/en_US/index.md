@@ -6,7 +6,7 @@ Ce plugin permet de contrôler son Karotz (fonctionnant sous
 ses oreilles en passant par les sons, la synthèse vocale et plein
 d’autres.
 
-Configuration 
+Configuration
 =============
 
 Configuration du plugin Jeedom : 
