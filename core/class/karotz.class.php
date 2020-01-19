@@ -745,46 +745,6 @@ class karotz extends eqLogic {
 	    return $return;
 	    //return array(array('name'=>'192.168.0.24','volumeControl'=>true),array('name'=>'192.168.0.25','volumeControl'=>false));
 	}
-
-	public function toHtml($_version = 'dashboard') {
-		$replace = $this->preToHtml($_version);
-		if (!is_array($replace)) {
-			return $replace;
-		}
-		$version = jeedom::versionAlias($_version);
-				
-		$replace['#enablesqueezebox#'] = $this->getConfiguration('enablesqueezebox', 0);
-		$replace['#enablemoods#'] = $this->getConfiguration('enablemoods', 0);
-		$replace['#enableclock#'] = $this->getConfiguration('enableclock', 0);
-		$replace['#enablesnapshot#'] = $this->getConfiguration('enablesnapshot', 0);
-		$replace['#enablevolume#'] = $this->getConfiguration('enablevolume', 0);
-		$replace['#enableminimumdisplay#'] = $this->getConfiguration('enableminimumdisplay', 0);
-		
-		foreach ($this->getCmd('info') as $cmd) {
-			$replace['#' . $cmd->getLogicalId() . '_history#'] = '';
-			$replace['#' . $cmd->getLogicalId() . '_id#'] = $cmd->getId();
-			$replace['#' . $cmd->getLogicalId() . '#'] = $cmd->execCmd();
-			$replace['#' . $cmd->getLogicalId() . '_collect#'] = $cmd->getCollectDate();
-			if ($cmd->getIsHistorized() == 1) {
-				$replace['#' . $cmd->getLogicalId() . '_history#'] = 'history cursor';
-			}
-		}
-		
-		if ($replace['#sleep#'] == 0) {
-		    $replace['#state#'] = 'awake';
-		    $replace['#actionstate#'] = __('Endormir le Karotz', __FILE__);
-		} else {
-		    $replace['#state#'] = 'sleep';
-		    $replace['#actionstate#'] = __('Réveiller le Karotz', __FILE__);
-		}
-		
-		foreach ($this->getCmd('action') as $cmd) {
-			$replace['#' . $cmd->getLogicalId() . '_id#'] = $cmd->getId();
-		}
-		
-		return $this->postToHtml($_version, template_replace($replace, getTemplate('core', $version, 'karotz', 'karotz')));
-	}
-
 }
 
 class karotzCmd extends cmd {
