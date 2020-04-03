@@ -179,9 +179,9 @@ Informations/actions sur le dashboard :
 FAQ 
 ===
 
-Quelle est la fréquence de rafraîchissement des infos
+Quelle est la fréquence de rafraîchissement des infos:   
 
-:   Le système récupère les informations toutes les 30 minutes ou après
+ Le système récupère les informations toutes les 30 minutes ou après
     une demande de changement de couleur ou d’état du lapin. Vous pouvez
     cliquer sur la commande Rafraîchir pour rafraîchir manuellement.
 
