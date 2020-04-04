@@ -1,5 +1,5 @@
 {
-    "plugin_info\/configuration.php": {
+    "plugins\/karotz\/plugin_info\/configuration.php": {
         "Général": "Général",
         "Activer le module de contrôle du volume": "Activer le module de contrôle du volume",
         "Gestion du contrôle du volume sur les Karotz": "Gestion du contrôle du volume sur les Karotz",
@@ -12,13 +12,7 @@
         "Installation terminée": "Installation terminée",
         "Installation du support du contrôle du volume": "Installation du support du contrôle du volume"
     },
-    "desktop\/js\/karotz.js": {
-        "Etes-vous sûr de vouloir récréer toutes les commandes ? Cela va supprimer les commandes existantes": "Etes-vous sûr de vouloir récréer toutes les commandes ? Cela va supprimer les commandes existantes",
-        "Opération réalisée avec succès": "Opération réalisée avec succès",
-        "Etes-vous sûr de vouloir mettre à jour toutes les commandes ? Cela va conserver les commandes existantes": "Etes-vous sûr de vouloir mettre à jour toutes les commandes ? Cela va conserver les commandes existantes",
-        "Tester": "Tester"
-    },
-    "desktop\/php\/karotz.php": {
+    "plugins\/karotz\/desktop\/php\/karotz.php": {
         "401 - Accès non autorisé": "401 - Accès non autorisé",
         "Rechercher": "Rechercher",
         "Gestion": "Gestion",
@@ -73,11 +67,17 @@
         "Nom": "Nom",
         "Action": "Action"
     },
-    "core\/ajax\/karotz.ajax.php": {
+    "plugins\/karotz\/desktop\/js\/karotz.js": {
+        "Etes-vous sûr de vouloir récréer toutes les commandes ? Cela va supprimer les commandes existantes": "Etes-vous sûr de vouloir récréer toutes les commandes ? Cela va supprimer les commandes existantes",
+        "Opération réalisée avec succès": "Opération réalisée avec succès",
+        "Etes-vous sûr de vouloir mettre à jour toutes les commandes ? Cela va conserver les commandes existantes": "Etes-vous sûr de vouloir mettre à jour toutes les commandes ? Cela va conserver les commandes existantes",
+        "Tester": "Tester"
+    },
+    "plugins\/karotz\/core\/ajax\/karotz.ajax.php": {
         "Karotz eqLogic non trouvé : ": "Karotz eqLogic non trouvé : ",
         "Aucune methode correspondante à : ": "Aucune methode correspondante à : "
     },
-    "core\/class\/karotz.class.php": {
+    "plugins\/karotz\/core\/class\/karotz.class.php": {
         "Coucher": "Coucher",
         "Debout": "Debout",
         "Debout Silencieux": "Debout Silencieux",
