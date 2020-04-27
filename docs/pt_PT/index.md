@@ -1,4 +1,4 @@
-escription 
+escrição 
 ===========
 
 
@@ -6,33 +6,33 @@ escription
 
 .
 
-Setup 
+onfiguração 
 =============
 
-Jeedom plugin configuration : 
+ : 
 --------------------------------
 
 ****
 
-In order to use the plugin, you need to download, install and
-activate it like any Jeedom plugin.
+
+.
 
 
 .
 
-You will arrive on the page which will list your equipment (you can
-.
-
-lick on the Atdd button :
 
 .
 
--   **ommands**
+ :
 
-You have nothing to do in this section. Orders will be created
-automatically.
+.
 
--   Refresh: button to refresh the widget if necessary
+-   **omandos**
+
+. 
+.
+
+-   Legal: 
 
 -    : 
 
@@ -40,9 +40,9 @@ automatically.
 
 -    : 
 
--   Sleep : 
+-    : 
 
--   Standing : Wakes up the rabbit
+-    : 
 
 -    : 
 
@@ -71,13 +71,13 @@ automatically.
     
 
 -    : 
-    for example)
+    
 
 -    : 
 
 -    : 
 
--   Sleeping : 
+-    : 
     
 
 -    : 
@@ -110,7 +110,7 @@ automatically.
 
 -   Volume- : 
 
--   Picture : 
+-    : 
 
 -    : 
     
@@ -134,11 +134,11 @@ automatically.
 
 -    : 
 
-Example :
+ :
 
     
 
-…
+
 
  
 ========================
@@ -148,12 +148,12 @@ Example :
 
 ![widget](../images/widget.jpg)
 
--   At : 
+-   à : 
 
 ![karotz screenshot5](../images/karotz_screenshot5.jpg)
 
 -    : 
-    olor
+    or
 
 -    : 
     
@@ -162,7 +162,7 @@ Example :
 
 -    : 
 
--   E : 
+-    : 
 
 -    : 
 
@@ -173,17 +173,17 @@ Example :
 -    : 
     
 
--   I : 
+-    : 
     
 
-AtQ 
+ 
 ===
 
 :   
 
  
-    . You can
-    click on the Refresh command to refresh manually.
+    . 
+    .
 
-hangelog detailed :
+ :
 <https://github.com/jeedom/plugin-karotz/commits/stable>
