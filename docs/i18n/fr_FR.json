@@ -6,6 +6,8 @@
     "index.md": {
         "Description": "Description",
         "Ce plugin permet de contrôler son Karotz (fonctionnant sous": "Ce plugin permet de contrôler son Karotz (fonctionnant sous",
+        "OpenKarotz": "OpenKarotz",
+        "). Cela va de sa led ventrale, à": "). Cela va de sa led ventrale, à",
         "ses oreilles en passant par les sons, la synthèse vocale et plein": "ses oreilles en passant par les sons, la synthèse vocale et plein",
         "d'autres": "d'autres",
         "Configuration": "Configuration",
