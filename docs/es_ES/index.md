@@ -23,7 +23,7 @@ Complemento Karotz.
 Llegará a la página que enumerará su equipo (puede
 tener varios Karotz) y que te permitirán crearlos.
 
-Haga clic en el botón A lasgregar :
+Haga clic en el botón Agregar :
 
 Luego llegará a la página de configuración de su karotz.
 
@@ -51,7 +51,7 @@ automatiquement.
 -   Humor : permite que el conejo diga el estado de ánimo seleccionado
 
 -   Estado de ánimo: permite al conejo decir el estado de ánimo indicado por su
-    n °
+    n°
 
 -   Estado de ánimo aleatorio : deja que el conejo diga un humor
     al azar
@@ -62,7 +62,7 @@ automatiquement.
 -   Ear RàZ : permite devolver las orejas a la posición inicial
 
 -   Posiciones de orejas : ajusta la posición precisa de los dos
-    orejas
+    oreilles
 
 -   Sonido de Karotz (nombre) : le permite iniciar un sonido de Karotz (pitido
     por ejemplo) indicando su nombre
@@ -103,12 +103,12 @@ automatiquement.
 
 -   Nivel de volumen : indica en% el nivel de volumen
 
--   Volumenn : permite elegir en% el nivel de volumen (máximo recomendado
+-   Volumen : permite elegir en% el nivel de volumen (máximo recomendado
     50%, riesgo de distorsión arriba)
 
--   Volumenn + : aumenta el nivel de volumen en un 5%
+-   Volumen + : aumenta el nivel de volumen en un 5%
 
--   Volumen- : disminuye el nivel de volumen en un 5%
+-   Volume- : disminuye el nivel de volumen en un 5%
 
 -   Foto : permite tomar una foto por el conejo
 
@@ -148,12 +148,12 @@ Información / acciones en el tablero :
 
 ![widget](../images/widget.jpg)
 
--   A las las : A lascceda a la página de selección de sonido
+-   A las : Acceda a la página de selección de sonido
 
 ![karotz screenshot5](../images/karotz_screenshot5.jpg)
 
--   B : Botón A lasctualizar para solicitar estado y
-    Color
+-   B : Botón Actualizar para solicitar estado y
+    couleur
 
 -   C : Zona de control del oído (aleatorio, reinicio
     cero, personalizado)
@@ -170,11 +170,11 @@ Información / acciones en el tablero :
 
 -   G : Control deslizante de control de velocidad del flash
 
--   H : A lasl hacer clic en el vientre, esto le permite cambiar el color de
+-   H : Al hacer clic en el vientre, esto le permite cambiar el color de
     el led
 
--   Yo : A lasl hacer clic en el conejo, le permite acostarse o
-    quedarse dormido
+-   Yo : Al hacer clic en el conejo, le permite acostarse o
+    s'endormir
 
 Preguntas frecuentes 
 ===
@@ -183,7 +183,7 @@ Preguntas frecuentes
 
  El sistema recupera información cada 30 minutos o después
     una solicitud para cambiar el color o la condición del conejo. Usted puede
-    haga clic en el comando A lasctualizar para actualizar manualmente.
+    haga clic en el comando Actualizar para actualizar manualmente.
 
 Registro de cambios detallado :
 <https://github.com/jeedom/plugin-karotz/commits/stable>

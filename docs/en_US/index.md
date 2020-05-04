@@ -12,18 +12,18 @@ Setup
 Jeedom plugin configuration : 
 --------------------------------
 
-**Installation / VSreation**
+**Installation / Creation**
 
 In order to use the plugin, you need to download, install and
 activate it like any Jeedom plugin.
 
-Go to the Plugins / VSommunication menu, you will find the
+Go to the Plugins / Communication menu, you will find the
 Karotz plugin.
 
 You will arrive on the page which will list your equipment (you can
 have several Karotz) and which will allow you to create them.
 
-Click on the Atdd button :
+Click on the Add button :
 
 You will then arrive on the configuration page of your karotz.
 
@@ -46,12 +46,12 @@ automatiquement.
 
 -   Standing Silent : allows to wake up the rabbit in silent mode
 
--   VSlock : allows launching the rabbit clock mode
+-   Clock : allows launching the rabbit clock mode
 
 -   Mood : allows the rabbit to tell the selected mood
 
 -   Mood No.: allows the rabbit to say the mood indicated by its
-    n °
+    n°
 
 -   Random mood : lets the rabbit say a mood
     random
@@ -62,7 +62,7 @@ automatiquement.
 -   Ear RàZ : allows to return the ears to the initial position
 
 -   Ears Positions : adjusts the precise position of the two
-    ears
+    oreilles
 
 -   Sound of Karotz (name) : lets you start a Karotz sound (beep
     for example) by indicating his name
@@ -80,7 +80,7 @@ automatiquement.
 -   Sleeping : lets you know if the Karotz is asleep (otherwise it
     is awake)
 
--   VSolor Status : allows to have the color currently on the
+-   Color Status : allows to have the color currently on the
     karotz belly
 
 -   TTS : allows the rabbit to speak by choosing the voice and the
@@ -112,15 +112,15 @@ automatiquement.
 
 -   Picture : allows to take a photo by the rabbit
 
--   Pictures delete : allows you to delete all the photos taken by the
+-   Photos delete : allows you to delete all the photos taken by the
     rabbit (frees up disk space)
 
--   Pictures refresh listing : allows updating the list of photos
+-   Photos refresh listing : allows updating the list of photos
     preserved
 
--   Pictures listing : list of photos kept
+-   Photos listing : list of photos kept
 
--   Pictures download : allows to download (by ftp) the photos
+-   Photos download : allows to download (by ftp) the photos
     kept on disk (they are not deleted)
 
 All these commands are available via the scenarios.
@@ -148,19 +148,19 @@ Information / actions on the dashboard :
 
 ![widget](../images/widget.jpg)
 
--   Att : Atccess the sound selection page
+-   At : Access the sound selection page
 
 ![karotz screenshot5](../images/karotz_screenshot5.jpg)
 
 -   B : Refresh button to request status and
-    VSolor
+    couleur
 
 -   VS : Ear control zone (random, reset
     zero, custom)
 
 ![karotz screenshot7](../images/karotz_screenshot7.jpg)
 
--   D : Atctions area (clock / mood)
+-   D : Actions area (clock / mood)
 
 -   E : Squeezebox area (enable / disable)
 
@@ -174,7 +174,7 @@ Information / actions on the dashboard :
     the led
 
 -   I : By clicking on the rabbit, it allows him to lie down or
-    fall asleep
+    s'endormir
 
 FAQ 
 ===

@@ -23,7 +23,7 @@ Karotz plugin.
 Você chegará à página que listará seu equipamento (você pode
 Karotz) e que permitirá que você os crie.
 
-Clique no botão àdicionar :
+Clique no botão Adicionar :
 
 Você chegará à página de configuração do seu karotz.
 
@@ -51,7 +51,7 @@ automatiquement.
 -   Humor : permite que o coelho conte o humor selecionado
 
 -   Humor No.: permite ao coelho dizer o humor indicado pelo seu
-    n °
+    n°
 
 -   Humor aleatório : deixa o coelho dizer um humor
     aleatório
@@ -62,7 +62,7 @@ automatiquement.
 -   Ear RàZ : permite retornar os ouvidos à posição inicial
 
 -   Orelhas Posições : ajusta a posição precisa dos dois
-    ouvidos
+    oreilles
 
 -   Som de Karotz (nome) : permite iniciar um som de Karotz (bip
     por exemplo) indicando o nome dele
@@ -77,7 +77,7 @@ automatiquement.
 
 -   Squeezebox off : permite desativar o modo squeezebox Karotz
 
--   àdormecido : avisa se o Karotz está dormindo (caso contrário,
+-   Adormecido : avisa se o Karotz está dormindo (caso contrário,
     está acordado)
 
 -   Status da cor : permite ter a cor atualmente no
@@ -148,12 +148,12 @@ Informações / ações no painel :
 
 ![widget](../images/widget.jpg)
 
--   à : àcesse a página de seleção de som
+-   à : Acesse a página de seleção de som
 
 ![karotz screenshot5](../images/karotz_screenshot5.jpg)
 
--   B : Botão àtualizar para solicitar status e
-    Cor
+-   B : Botão Atualizar para solicitar status e
+    couleur
 
 -   C : Zona de controle do ouvido (aleatória, redefinida
     zero, personalizado)
@@ -170,11 +170,11 @@ Informações / ações no painel :
 
 -   G : Controle deslizante de velocidade do flash
 
--   H : ào clicar na barriga, isso permite que você altere a cor do
+-   H : Ao clicar na barriga, isso permite que você altere a cor do
     o led
 
--   Eu : ào clicar no coelho, ele permite que ele se deite ou
-    adormecer
+-   Eu : Ao clicar no coelho, ele permite que ele se deite ou
+    s'endormir
 
 Faq 
 ===
@@ -183,7 +183,7 @@ Com que frequência as informações são atualizadas:
 
  O sistema recupera informações a cada 30 minutos ou após
     um pedido para alterar a cor ou condição do coelho. Você pode
-    clique no comando àtualizar para atualizar manualmente.
+    clique no comando Atualizar para atualizar manualmente.
 
 Registro de alterações detalhado :
 <https://github.com/jeedom/plugin-karotz/commits/stable>
