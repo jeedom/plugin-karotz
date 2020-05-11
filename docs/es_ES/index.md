@@ -12,7 +12,7 @@ Configuración
 Configuración del complemento Jeedom : 
 --------------------------------
 
-**Instalación / Creación**
+**Yonstallation/Création**
 
 Para usar el complemento, debe descargar, instalar y
 activarlo como cualquier complemento de Jeedom.
@@ -27,9 +27,9 @@ Haga clic en el botón Agregar :
 
 Luego llegará a la página de configuración de su karotz.
 
--   **Commandes**
+-   **Comandos**
 
-No tienes nada que hacer en esta sección.. Se crearán pedidos
+No tienes nada que hacer en esta sección. Se crearán pedidos
 automatiquement.
 
 -   Refrescar: botón para actualizar el widget si es necesario
@@ -123,7 +123,7 @@ automatiquement.
 -   Descarga de fotos : permite descargar (por ftp) las fotos
     guardado en el disco (no se eliminan)
 
-Todos estos comandos están disponibles a través de los escenarios..
+Todos estos comandos están disponibles a través de los escenarios.
 
 Comando TTS 
 ------------

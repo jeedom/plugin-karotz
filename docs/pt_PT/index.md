@@ -12,7 +12,7 @@ Configuração
 Configuração do plugin Jeedom : 
 --------------------------------
 
-**Instalação / Criação**
+**Eunstallation/Création**
 
 Para usar o plug-in, você precisa baixar, instalar e
 ativá-lo como qualquer plugin Jeedom.
@@ -27,7 +27,7 @@ Clique no botão Adicionar :
 
 Você chegará à página de configuração do seu karotz.
 
--   **Commandes**
+-   **Comandos**
 
 Você não tem nada para fazer nesta seção. Os pedidos serão criados
 automatiquement.
@@ -50,7 +50,7 @@ automatiquement.
 
 -   Humor : permite que o coelho conte o humor selecionado
 
--   Humor No.: permite ao coelho dizer o humor indicado pelo seu
+-   Humor No: permite ao coelho dizer o humor indicado pelo seu
     n°
 
 -   Humor aleatório : deixa o coelho dizer um humor

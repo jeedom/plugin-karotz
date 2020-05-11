@@ -1,7 +1,7 @@
 {
     "plugins\/karotz\/plugin_info\/configuration.php": {
         "Général": "Principal",
-        "Activer le module de contrôle du volume": "Activar el módulo de control de volumen.",
+        "Activer le module de contrôle du volume": "Activar el módulo de control de volumen",
         "Gestion du contrôle du volume sur les Karotz": "Gestión de control de volumen en Karotz",
         "Vérification des Karotz": "Cheque Karotz",
         "Installation du contrôle de volume des Karotz": "Instalación de control de volumen Karotz",
@@ -68,7 +68,7 @@
         "Action": "Acción"
     },
     "plugins\/karotz\/desktop\/js\/karotz.js": {
-        "Etes-vous sûr de vouloir récréer toutes les commandes ? Cela va supprimer les commandes existantes": "¿Seguro que quieres recrear todos los comandos? Esto eliminará los pedidos existentes.",
+        "Etes-vous sûr de vouloir récréer toutes les commandes ? Cela va supprimer les commandes existantes": "¿Seguro que quieres recrear todos los comandos? Esto eliminará los pedidos existentes",
         "Opération réalisée avec succès": "Operación completada con éxito",
         "Etes-vous sûr de vouloir mettre à jour toutes les commandes ? Cela va conserver les commandes existantes": "¿Estás seguro de que deseas actualizar todos los pedidos? Esto mantendrá los pedidos existentes",
         "Tester": "Probar"

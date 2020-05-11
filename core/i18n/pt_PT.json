@@ -75,7 +75,7 @@
     },
     "plugins\/karotz\/core\/ajax\/karotz.ajax.php": {
         "Karotz eqLogic non trouvé : ": "Karotz eqLogic não encontrado:",
-        "Aucune methode correspondante à : ": "Aucune methode correspondante à : "
+        "Aucune methode correspondante à : ": "Aucune methode correspondante à :"
     },
     "plugins\/karotz\/core\/class\/karotz.class.php": {
         "Coucher": "Hora de dormir",
@@ -85,7 +85,7 @@
         "Oreille RàZ": "Ear RàZ",
         "Humeur aléatoire": "Humor aleatório",
         "Humeur": "Humor",
-        "Humeur n°": "Humor No.",
+        "Humeur n°": "Humor No",
         "Id de l\\'humeur": "ID de humor",
         "Horloge": "Relógio",
         "TTS sans cache": "TTS sem cache",

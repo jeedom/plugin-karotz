@@ -12,7 +12,7 @@ Konfiguration
 Jeedom Plugin Konfiguration : 
 --------------------------------
 
-**Installation / Erstellung**
+**Ichnstallation/Création**
 
 Um das Plugin nutzen zu können, müssen Sie herunterladen und installieren
 aktiviere es wie jedes Jeedom Plugin.
@@ -27,7 +27,7 @@ Klicken Sie auf die Schaltfläche Hinzufügen :
 
 Sie gelangen dann auf die Konfigurationsseite Ihres Karotz.
 
--   **Commandes**
+-   **Befehle**
 
 In diesem Abschnitt haben Sie nichts zu tun. Bestellungen werden erstellt
 automatiquement.
@@ -50,7 +50,7 @@ automatiquement.
 
 -   Stimmung : ermöglicht es dem Kaninchen, die ausgewählte Stimmung zu erkennen
 
--   Stimmung Nr.: erlaubt dem Kaninchen, die Stimmung zu sagen, die durch seine angezeigt wird
+-   Stimmung Nr: erlaubt dem Kaninchen, die Stimmung zu sagen, die durch seine angezeigt wird
     n°
 
 -   Zufällige Stimmung : Lass das Kaninchen eine Stimmung sagen
@@ -67,7 +67,7 @@ automatiquement.
 -   Sound of Karotz (Name) : Mit dieser Option können Sie einen Karotz-Sound starten (Piepton)
     zum Beispiel) durch Angabe seines Namens
 
--   Karotz-Sound : ermöglicht das Starten eines Karotz-Sounds (z. B.. Piepton)
+-   Karotz-Sound : ermöglicht das Starten eines Karotz-Sounds (z. B. Piepton)
     indem Sie seinen Namen aus einer Liste auswählen
 
 -   Seine URL : ermöglicht das Lesen einer URL durch den Radiosender Karotz
@@ -94,7 +94,7 @@ automatiquement.
 -   % des Platzes belegt : informiert Sie über den Prozentsatz der verwendeten Festplatte
     das Kaninchen
 
--   Freier Speicherplatz : Wert in MB. freien Speicherplatz auf dem Kaninchen
+-   Freier Speicherplatz : Wert in MB freien Speicherplatz auf dem Kaninchen
 
 -   Neu starten : ermöglicht es Ihnen, das Kaninchen neu zu starten
 
@@ -136,7 +136,7 @@ Der TTS-Befehl kann mehrere Optionen haben, die durch & getrennt sind :
 
 Beispiel :
 
-    Stimme = 3 & Nocache = 1
+    voice = 3 & nocache = 1
 
 …
 

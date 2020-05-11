@@ -12,7 +12,7 @@ Setup
 Jeedom plugin configuration : 
 --------------------------------
 
-**Installation / Creation**
+**Installation/Création**
 
 In order to use the plugin, you need to download, install and
 activate it like any Jeedom plugin.
@@ -27,7 +27,7 @@ Click on the Add button :
 
 You will then arrive on the configuration page of your karotz.
 
--   **Commandes**
+-   **Commands**
 
 You have nothing to do in this section. Orders will be created
 automatiquement.
@@ -50,7 +50,7 @@ automatiquement.
 
 -   Mood : allows the rabbit to tell the selected mood
 
--   Mood No.: allows the rabbit to say the mood indicated by its
+-   Mood No: allows the rabbit to say the mood indicated by its
     n°
 
 -   Random mood : lets the rabbit say a mood
