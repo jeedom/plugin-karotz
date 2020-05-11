@@ -73,31 +73,6 @@ Exemple :
 
 ``voice=3&nocache=1``
 
-# Les informations/actions 
-
-# Informations/actions sur le dashboard
-
-![widget](../images/widget.jpg)
-
--   A : Permet d’accéder à la page de choix du son
-
-![karotz screenshot5](../images/karotz_screenshot5.jpg)
-
--   B : Bouton Rafraîchir pour redemander les valeurs d’état et de couleur
--   C : Zone de contrôle des oreilles (aléatoire, remise à zéro, personnalisé)
-
-![karotz screenshot7](../images/karotz_screenshot7.jpg)
-
--   D : Zone actions (horloge/humeur)
--   E : Zone Squeezebox (activer/désactiver)
--   F : Zone leds (activer clignotement/désactiver)
-
-![karotz screenshot6](../images/karotz_screenshot6.jpg)
-
--   G : Slider de contrôle de la vitesse de clignotement
--   H : En cliquant sur le ventre, cela permet de changer la couleur de la led
--   I : En cliquant sur le lapin, cela permet de le faire se coucher ou s’endormir
-
 # FAQ 
 
 >**Quelle est la fréquence de rafraîchissement des infos**
