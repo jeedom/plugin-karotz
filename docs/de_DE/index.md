@@ -1,6 +1,6 @@
 # Karotz Plugin
 
-Mit diesem Plugin können Sie Ihren Karotz steuern (läuft unter [OpenKarotz](http://www.openkarotz.org/)). Es geht von seiner ventralen Leitung bis zu seinen Ohren durch Geräusche, Sprachsynthese und viele andere.
+Mit diesem Plugin können Sie Ihren Karotz steuern (läuft unter [OpenKarotz](http://www.openkarotz.org/)). Dies geht von seiner Bauch-LED zu seinen Ohren durch Geräusche, Sprachsynthese und viele andere.
 
 # Konfiguration 
 
@@ -36,29 +36,29 @@ In diesem Abschnitt haben Sie nichts zu tun. Bestellungen werden automatisch ers
 -   Zufälliges Ohr : ermöglicht es Ihnen, Ihre Ohren zufällig zu bewegen
 -   Ohr RàZ : ermöglicht es, die Ohren in die Ausgangsposition zurückzubringen
 -   Ohrenpositionen : passt die genaue Position beider Ohren an
--   Sound of Karotz (Name) : Ermöglicht das Starten eines Karotz-Sounds (z. B. Piepton) durch Angabe seines Namens
+-   Klang von Karotz (Name) : Ermöglicht das Starten eines Karotz-Sounds (z. B. Piepton) durch Angabe seines Namens
 -   Karotz-Sound : Mit dieser Option können Sie einen Karotz-Sound (z. B. einen Piepton) starten, indem Sie dessen Namen in einer Liste auswählen
--   Seine URL : ermöglicht Karotz das Lesen einer URL (z. B. Radiosender)
+-   Seine URL : Hier können Sie eine URL zum Karotz lesen (z. B. Radiosender))
 -   SqueezeBox Ein : Mit dieser Option können Sie den Karotz-Squeezebox-Modus aktivieren
 -   SqueezeBox aus : Ermöglicht das Deaktivieren des Karotz-Squeezebox-Modus
--   Schlafend : lässt Sie wissen, ob der Karotz schläft (sonst ist er wach)
+-   Schlafend : ermöglicht es Ihnen zu wissen, ob der Karotz schläft (wenn nicht, ist er wach)
 -   Farbstatus : ermöglicht es, die Farbe aktuell auf dem Bauch des Karotz zu haben
 -   TTS : Ermöglicht dem Kaninchen das Sprechen durch Auswahl der Stimme und der Nachricht (standardmäßig wird die Nachricht zwischengespeichert)
--   TTS ohne Cache : Ermöglicht dem Kaninchen das Sprechen durch Auswahl der Stimme und der Nachricht (die Nachricht wird nicht zwischengespeichert)
+-   TTS ohne Cache : Ermöglicht das Sprechen des Kaninchens durch Auswahl der Stimme und der Nachricht (die Nachricht wird nicht zwischengespeichert)
 -   Pulsgeschwindigkeit : Passt die Geschwindigkeit des Blinkens an
 -   % des Platzes belegt : Hier erfahren Sie, wie viel Prozent der Festplatte auf dem Kaninchen verwendet werden
 -   Freier Speicherplatz : Wert in MB freien Speicherplatz auf dem Kaninchen
 -   Neu starten : ermöglicht es Ihnen, das Kaninchen neu zu starten
--   Zeit einstellen : ermöglicht das automatische Zurücksetzen des Kaninchens (nützlich zum Ändern der Zeit)
+-   Zeit einstellen : Mit dieser Option können Sie das Kaninchen automatisch auf die Uhrzeit zurücksetzen (nützlich zum Ändern der Uhrzeit)
 -   Lautstärke : gibt in% den Lautstärkepegel an
--   Lautstärke : ermöglicht die Auswahl des Lautstärkepegels in% (empfohlen max. 50%, Verzerrungsgefahr oben)
+-   Lautstärke : Mit dieser Option können Sie den Lautstärkepegel in% auswählen (empfohlen max. 50%, Verzerrungsgefahr oben))
 -   Lautstärke + : erhöht die Lautstärke um 5%
 -   Volume- : verringert die Lautstärke um 5%
 -   Foto : erlaubt ein Foto vom Kaninchen zu machen
 -   Fotos löschen : Mit dieser Option können Sie alle vom Kaninchen aufgenommenen Fotos löschen (wodurch Speicherplatz frei wird)
 -   Fotos aktualisieren Liste : Ermöglicht die Aktualisierung der Liste der erhaltenen Fotos
 -   Auflistung der Fotos : Liste der Fotos aufbewahrt
--   Fotos herunterladen : ermöglicht das Herunterladen (auf FTP) der auf der Disc gespeicherten Fotos (sie werden nicht gelöscht)
+-   Fotos herunterladen : Mit dieser Option können Sie die auf der Festplatte gespeicherten Fotos (per FTP) herunterladen (sie werden nicht gelöscht))
 
 Alle diese Befehle sind über die Szenarien verfügbar.
 

@@ -1,6 +1,6 @@
 # Complemento Karotz
 
-Este complemento le permite controlar su Karotz (ejecutándose bajo [OpenKarotz](http://www.openkarotz.org/)) Va desde su dirección ventral, a sus oídos a través de sonidos, síntesis de voz y muchos otros.
+Este complemento le permite controlar su Karotz (ejecutándose bajo [OpenKarotz](http://www.openkarotz.org/)). Esto va desde su vientre LED, a sus oídos a través de sonidos, síntesis de voz y muchos otros.
 
 # Configuración 
 
@@ -36,29 +36,29 @@ No tienes nada que hacer en esta sección. Los pedidos se crearán automáticame
 -   Oreja al azar : le permite mover las orejas al azar
 -   Ear RàZ : permite devolver las orejas a la posición inicial
 -   Posiciones de orejas : ajusta la posición precisa de ambas orejas
--   Sonido de Karotz (nombre) : permite lanzar un sonido Karotz (pitido por ejemplo) indicando su nombre
+-   Sonido de karotz (nombre) : permite lanzar un sonido Karotz (pitido por ejemplo) indicando su nombre
 -   Sonido Karotz : le permite lanzar un sonido Karotz (pitido, por ejemplo) seleccionando su nombre en una lista
--   Su url : permite a Karotz leer una URL (estación de radio, por ejemplo)
+-   Su url : le permite leer una URL a Karotz (estación de radio, por ejemplo)
 -   Squeezebox en : le permite activar el modo Karotz squeezebox
 -   Squeezebox off : permite desactivar el modo Karotz squeezebox
--   Dormido : le permite saber si el Karotz está dormido (de lo contrario, está despierto)
+-   Dormido : le permite saber si el Karotz está dormido (si no está despierto)
 -   Estado de color : permite el color actualmente en el vientre del Karotz
 -   TTS : permite que el conejo hable eligiendo la voz y el mensaje (de forma predeterminada, el mensaje se almacena en caché)
--   TTS sin caché : permite que el conejo hable eligiendo la voz y el mensaje (el mensaje no está en caché)
+-   TTS sin caché : permite que el conejo hable eligiendo la voz y el mensaje (el mensaje no se almacena en caché)
 -   Velocidad de pulso : ajusta la velocidad del parpadeo
 -   % del espacio ocupado : le permite saber el% de disco utilizado en el conejo
 -   Espacio libre : valor en MB de espacio libre en el conejo
 -   Reiniciar : te permite reiniciar el conejo
--   Establecer hora : permite que el conejo se reinicie automáticamente (útil para cambiar la hora)
+-   Establecer hora : le permite restablecer automáticamente el conejo a la hora (útil para cambiar la hora)
 -   Nivel de volumen : indica en% el nivel de volumen
--   Volumen : permite elegir en% el nivel de volumen (máximo recomendado 50%, riesgo de distorsión arriba)
+-   Volumen : le permite elegir el nivel de volumen en% (máximo recomendado 50%, riesgo de distorsión arriba))
 -   Volumen + : aumenta el nivel de volumen en un 5%
 -   Volume- : disminuye el nivel de volumen en un 5%
 -   Foto : permite tomar una foto por el conejo
 -   Fotos borradas : le permite eliminar todas las fotos tomadas por el conejo (libera espacio en disco)
 -   Fotos actualizar listado : permite actualizar la lista de fotos conservadas
 -   Listado de fotos : lista de fotos mantenidas
--   Descarga de fotos : permite descargar (por ftp) las fotos guardadas en el disco (no se eliminan)
+-   Descarga de fotos : le permite descargar (por ftp) las fotos almacenadas en el disco (no se eliminan)
 
 Todos estos comandos están disponibles a través de los escenarios.
 

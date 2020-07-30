@@ -1,6 +1,6 @@
 # Karotz plugin
 
-This plugin allows you to control your Karotz (running under [OpenKarotz](http://www.openkarotz.org/)). It goes from his ventral led, to his ears through sounds, speech synthesis and many others.
+This plugin allows you to control your Karotz (running under [OpenKarotz](http://www.openkarotz.org/)). This goes from his belly LED, to his ears through sounds, speech synthesis and many others.
 
 # Setup 
 
@@ -36,29 +36,29 @@ You have nothing to do in this section. Orders will be created automatically.
 -   Random Ear : allows you to move your ears randomly
 -   Ear RàZ : allows to return the ears to the initial position
 -   Ears Positions : adjusts the precise position of both ears
--   Sound of Karotz (name) : allows to launch a Karotz sound (beep for example) by indicating its name
+-   Sound of karotz (name) : allows to launch a Karotz sound (beep for example) by indicating its name
 -   Karotz sound : allows you to launch a Karotz sound (beep for example) by selecting its name in a list
--   His url : allows Karotz to read a URL (radio station for example)
+-   His url : allows you to read a URL to the Karotz (radio station for example)
 -   Squeezebox on : allows you to activate the Karotz squeezebox mode
 -   Squeezebox off : allows to deactivate the Karotz squeezebox mode
--   Sleeping : lets you know if the Karotz is asleep (otherwise it is awake)
+-   Sleeping : allows you to know if the Karotz is asleep (if not it is awake)
 -   Color Status : allows to have the color currently on the belly of the Karotz
 -   TTS : allows the rabbit to speak by choosing the voice and the message (by default the message is cached)
--   TTS without cache : allows the rabbit to speak by choosing the voice and the message (the message is not cached)
+-   TTS without cache : allows to make the rabbit speak by choosing the voice and the message (the message is not cached)
 -   Pulse speed : adjusts the speed of the flashing
 -   % of space occupied : lets you know the% of disk used on the rabbit
 -   Free space : value in MB of free space on the rabbit
 -   Restart : allows you to reboot the rabbit
--   Set time : allows the rabbit to be reset automatically (useful for changing the time)
+-   Set time : allows you to automatically reset the rabbit to the time (useful for changing the time)
 -   Volume level : indicates in% the volume level
--   Volume : allows to choose in% the volume level (recommended max 50%, risk of distortion above)
+-   Volume : allows you to choose the volume level in% (recommended max 50%, risk of distortion above)
 -   Volume + : increases volume level by 5%
 -   Volume- : decreases the volume level by 5%
 -   Picture : allows to take a photo by the rabbit
 -   Photos delete : allows you to delete all the photos taken by the rabbit (frees up disk space)
 -   Photos refresh listing : allows updating the list of preserved photos
 -   Photos listing : list of photos kept
--   Photos download : allows to download (by ftp) the photos kept on the disc (they are not deleted)
+-   Photos download : allows you to download (by ftp) the photos stored on the disk (they are not deleted)
 
 All these commands are available via the scenarios.
 

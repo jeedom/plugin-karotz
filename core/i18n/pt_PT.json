@@ -38,15 +38,15 @@
         "us Male": "nós Masculino",
         "uk Female": "uk Feminino",
         "uk Male": "uk Masculino",
-        "de Female": "de Female",
-        "de Male": "de Male",
+        "de Female": "por Mulher",
+        "de Male": "por Masculino",
         "it Female": "Feminino",
         "it Male": "Masculino",
         "spain Female": "espanha Feminino",
         "spain Male": "Espanha masculina",
         "Variation volume": "Variação de volume",
         "Activer modules": "Ativar módulos",
-        "Squeezebox": "Squeezebox",
+        "Squeezebox": "Caixa de aperto",
         "Clock": "Relógio",
         "Moods": "Humor",
         "Photo": "Foto",
@@ -124,5 +124,8 @@
         "Photos refresh listing": "Fotos atualizar lista",
         "Photos listing": "Listagem de fotos",
         "Photos télécharger": "Download de fotos"
+    },
+    "info.json": {
+        "Plugin pour commander le Karotz": "Plug-in para encomendar o Karotz"
     }
 }

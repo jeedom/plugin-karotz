@@ -124,5 +124,8 @@
         "Photos refresh listing": "",
         "Photos listing": "",
         "Photos télécharger": ""
+    },
+    "info.json": {
+        "Plugin pour commander le Karotz": ""
     }
 }

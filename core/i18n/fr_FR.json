@@ -124,5 +124,8 @@
         "Photos refresh listing": "Photos refresh listing",
         "Photos listing": "Photos listing",
         "Photos télécharger": "Photos télécharger"
+    },
+    "info.json": {
+        "Plugin pour commander le Karotz": "Plugin pour commander le Karotz"
     }
 }

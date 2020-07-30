@@ -1,7 +1,13 @@
 {
     "id": "karotz",
     "name": "Karotz",
-    "description": "Plugin pour commander le Karotz",
+    "description": {
+        "fr_FR": "Plugin pour commander le Karotz",
+        "en_US": "Plugin to order the Karotz",
+        "es_ES": "Plugin para ordenar el Karotz",
+        "de_DE": "Plugin um den Karotz zu bestellen",
+        "pt_PT": "Plug-in para encomendar o Karotz"
+    },
     "licence": "AGPL",
     "author": "Loïc",
     "require": "3.0",
@@ -9,6 +15,20 @@
     "category": "devicecommunication",
     "changelog": "https:\/\/doc.jeedom.com\/#language#\/plugins\/devicecommunication\/karotz\/changelog",
     "documentation": "https:\/\/doc.jeedom.com\/#language#\/plugins\/devicecommunication\/karotz\/",
-    "language" : ["fr_FR","en_US","de_DE","sp_SP"],
-"compatibility" : ["miniplus","smart","rpi","docker","diy","mobile","v4"]
+    "language": [
+        "fr_FR",
+        "en_US",
+        "es_ES",
+        "de_DE",
+        "pt_PT"
+    ],
+    "compatibility": [
+        "miniplus",
+        "smart",
+        "rpi",
+        "docker",
+        "diy",
+        "mobile",
+        "v4"
+    ]
 }

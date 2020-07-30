@@ -1,6 +1,6 @@
 # Karotz plugin
 
-Este plugin permite que você controle seu Karotz (executando sob [OpenKarotz](http://www.openkarotz.org/)) Vai do led ventral até os ouvidos através de sons, síntese de fala e muitos outros.
+Este plugin permite que você controle seu Karotz (executando sob [OpenKarotz](http://www.openkarotz.org/)). Isso vai do LED da barriga até os ouvidos através de sons, síntese de fala e muitos outros.
 
 # Configuração 
 
@@ -36,29 +36,29 @@ Você não tem nada para fazer nesta seção. Os pedidos serão criados automati
 -   Orelha aleatória : permite que você mova seus ouvidos aleatoriamente
 -   Ear RàZ : permite retornar os ouvidos à posição inicial
 -   Orelhas Posições : ajusta a posição precisa de ambas as orelhas
--   Som de Karotz (nome) : permite iniciar um som de Karotz (sinal sonoro, por exemplo), indicando seu nome
+-   Som de karotz (nome) : permite iniciar um som de Karotz (sinal sonoro, por exemplo), indicando seu nome
 -   Som Karotz : permite iniciar um som de Karotz (bipe, por exemplo), selecionando o nome em uma lista
--   URL dele : permite que Karotz leia um URL (estação de rádio, por exemplo)
+-   URL dele : permite ler um URL para o Karotz (estação de rádio, por exemplo,)
 -   Squeezebox ativado : permite ativar o modo squeezebox Karotz
 -   Squeezebox off : permite desativar o modo squeezebox Karotz
--   Adormecido : avisa se o Karotz está dormindo (caso contrário, está acordado)
+-   Adormecido : permite que você saiba se o Karotz está dormindo (caso contrário, está acordado)
 -   Status da cor : permite ter a cor atualmente na barriga do Karotz
 -   TTS : permite que o coelho fale escolhendo a voz e a mensagem (por padrão, a mensagem é armazenada em cache)
--   TTS sem cache : permite que o coelho fale escolhendo a voz e a mensagem (a mensagem não é armazenada em cache)
+-   TTS sem cache : permite fazer o coelho falar escolhendo a voz e a mensagem (a mensagem não é armazenada em cache)
 -   Velocidade de pulso : ajusta a velocidade do piscar
 -   % de espaço ocupado : permite que você saiba a% de disco usado no coelho
 -   Espaço livre : valor em MB de espaço livre no coelho
 -   Restart : permite reiniciar o coelho
--   Definir hora : permite que o coelho seja redefinido automaticamente (útil para alterar a hora)
+-   Definir hora : permite redefinir automaticamente o coelho para a hora (útil para alterar a hora)
 -   Nível de volume : indica em% o nível do volume
--   Volume : permite escolher em% o nível do volume (máximo recomendado de 50%, risco de distorção acima)
+-   Volume : permite escolher o nível do volume em% (máximo recomendado de 50%, risco de distorção acima)
 -   Volume + : aumenta o nível do volume em 5%
 -   Volume- : diminui o nível do volume em 5%
 -   Foto : permite tirar uma foto do coelho
 -   Fotos excluir : permite excluir todas as fotos tiradas pelo coelho (libera espaço em disco)
 -   Fotos atualizar lista : permite atualizar a lista de fotos preservadas
 -   Listagem de fotos : lista de fotos mantidas
--   Download de fotos : permite baixar (por ftp) as fotos mantidas no disco (elas não são excluídas)
+-   Download de fotos : permite baixar (por ftp) as fotos armazenadas no disco (elas não são excluídas)
 
 Todos esses comandos estão disponíveis através dos cenários.
 
