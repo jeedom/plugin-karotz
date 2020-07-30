@@ -8,5 +8,7 @@
     "installation": "Aucun prérequis sauf pour la gestion du contrôle du volume. Il faut installer 3 fichiers sur le karotz. Ces fichiers sont conservés dans le répertoire resources. Une installation automatique des ces fichiers est possible pour tous les karotz actifs.",
     "category": "devicecommunication",
     "changelog": "https:\/\/doc.jeedom.com\/#language#\/plugins\/devicecommunication\/karotz\/changelog",
-    "documentation": "https:\/\/doc.jeedom.com\/#language#\/plugins\/devicecommunication\/karotz\/"
+    "documentation": "https:\/\/doc.jeedom.com\/#language#\/plugins\/devicecommunication\/karotz\/",
+    "language" : ["fr_FR","en_US","de_DE","sp_SP"],
+"compatibility" : ["miniplus","smart","rpi","docker","diy","mobile","v4"]
 }
