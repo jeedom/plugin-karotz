@@ -17,14 +17,14 @@
  */
 
 require_once dirname(__FILE__) . '/../../../core/php/core.inc.php';
+
 function karotz_update() {
     foreach (eqLogic::byType('karotz') as $karotz) {
         foreach ($karotz->getCmd() as $cmd) {
             if ($cmd->getLogicalId() == '') {
                 $cmd->remove();
             }
-        }        
+        }
         $karotz->save();
     }
 }
-?>

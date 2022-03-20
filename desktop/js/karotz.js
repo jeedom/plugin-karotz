@@ -15,31 +15,31 @@
  */
 
 
-$(document).ready(function(){
-	if ($('#snapshot').checked){
-	    $('.snapshotFtp').fadeIn('slow');
-	} else {
-	   	$('.snapshotFtp').fadeOut('slow');
-	};
-    $('#snapshot').change(function(){
-    	if(this.checked)
-        	$('.snapshotFtp').fadeIn('slow');
+$(document).ready(function () {
+    if ($('#snapshot').checked) {
+        $('.snapshotFtp').fadeIn('slow');
+    } else {
+        $('.snapshotFtp').fadeOut('slow');
+    };
+    $('#snapshot').change(function () {
+        if (this.checked)
+            $('.snapshotFtp').fadeIn('slow');
         else
-        	$('.snapshotFtp').fadeOut('slow');
+            $('.snapshotFtp').fadeOut('slow');
     });
-    if (volumeControlEnable==0){
-    	$('.volumeControlEnable').hide();
+    if (volumeControlEnable == 0) {
+        $('.volumeControlEnable').hide();
     }
-	if ($('#volume').checked){
-	    $('.volume').fadeIn('slow');
-	} else {
-	   	$('.volume').fadeOut('slow');
-	};
-    $('#volume').change(function(){
-    	if(this.checked)
-        	$('.volume').fadeIn('slow');
+    if ($('#volume').checked) {
+        $('.volume').fadeIn('slow');
+    } else {
+        $('.volume').fadeOut('slow');
+    };
+    $('#volume').change(function () {
+        if (this.checked)
+            $('.volume').fadeIn('slow');
         else
-        	$('.volume').fadeOut('slow');
+            $('.volume').fadeOut('slow');
     });
 });
 
@@ -49,7 +49,7 @@ $('#bt_replaceCmd').on('click', function () {
         if (result) {
             $.ajax({
                 type: "POST", // méthode de transmission des données au fichier php
-                url: "plugins/karotz/core/ajax/karotz.ajax.php", 
+                url: "plugins/karotz/core/ajax/karotz.ajax.php",
                 data: {
                     action: "replaceCmd",
                     id: $('.eqLogicAttr[data-l1key=id]').value(),
@@ -59,12 +59,12 @@ $('#bt_replaceCmd').on('click', function () {
                 error: function (request, status, error) {
                     handleAjaxError(request, status, error);
                 },
-                success: function (data) { 
+                success: function (data) {
                     if (data.state != 'ok') {
-                        $('#div_alert').showAlert({message: data.result, level: 'danger'});
+                        $('#div_alert').showAlert({ message: data.result, level: 'danger' });
                         return;
                     }
-                    $('#div_alert').showAlert({message: '{{Opération réalisée avec succès}}', level: 'success'});
+                    $('#div_alert').showAlert({ message: '{{Opération réalisée avec succès}}', level: 'success' });
                     $('.li_eqLogic[data-eqLogic_id=' + $('.eqLogicAttr[data-l1key=id]').value() + ']').click();
                 }
             });
@@ -78,7 +78,7 @@ $('#bt_refreshCmd').on('click', function () {
         if (result) {
             $.ajax({
                 type: "POST", // méthode de transmission des données au fichier php
-                url: "plugins/karotz/core/ajax/karotz.ajax.php", 
+                url: "plugins/karotz/core/ajax/karotz.ajax.php",
                 data: {
                     action: "refreshCmd",
                     id: $('.eqLogicAttr[data-l1key=id]').value(),
@@ -88,12 +88,12 @@ $('#bt_refreshCmd').on('click', function () {
                 error: function (request, status, error) {
                     handleAjaxError(request, status, error);
                 },
-                success: function (data) { 
+                success: function (data) {
                     if (data.state != 'ok') {
-                        $('#div_alert').showAlert({message: data.result, level: 'danger'});
+                        $('#div_alert').showAlert({ message: data.result, level: 'danger' });
                         return;
                     }
-                    $('#div_alert').showAlert({message: '{{Opération réalisée avec succès}}', level: 'success'});
+                    $('#div_alert').showAlert({ message: '{{Opération réalisée avec succès}}', level: 'success' });
                     $('.li_eqLogic[data-eqLogic_id=' + $('.eqLogicAttr[data-l1key=id]').value() + ']').click();
                 }
             });
@@ -101,35 +101,35 @@ $('#bt_refreshCmd').on('click', function () {
     });
 });
 
- $("#table_cmd").sortable({axis: "y", cursor: "move", items: ".cmd", placeholder: "ui-state-highlight", tolerance: "intersect", forcePlaceholderSize: true});
+$("#table_cmd").sortable({ axis: "y", cursor: "move", items: ".cmd", placeholder: "ui-state-highlight", tolerance: "intersect", forcePlaceholderSize: true });
 
- function addCmdToTable(_cmd) {
-  if (!isset(_cmd)) {
-    var _cmd = {configuration: {}};
-}
-if (!isset(_cmd.configuration)) {
-    _cmd.configuration = {};
-}
-var tr = '<tr class="cmd" data-cmd_id="' + init(_cmd.id) + '">';
-tr += '<td>';
-tr += '<span class="cmdAttr" data-l1key="id" style="display:none;"></span>';
-tr += '<div class="row">';
-tr += '<div class="col-sm-6">';
-tr += '<input class="cmdAttr form-control input-sm" data-l1key="name">';
-tr += '</div>';
-tr += '</div>';
-tr += '</td>';
-tr += '<td>';
-if (is_numeric(_cmd.id)) {
-    tr += '<a class="btn btn-default btn-xs cmdAction" data-action="configure"><i class="fa fa-cogs"></i></a> ';
-    tr += '<a class="btn btn-default btn-xs cmdAction" data-action="test"><i class="fa fa-rss"></i> {{Tester}}</a>';
-}
-tr += '</td>';
-tr += '</tr>';
-$('#table_cmd tbody').append(tr);
-$('#table_cmd tbody tr:last').setValues(_cmd, '.cmdAttr');
-if (isset(_cmd.type)) {
-    $('#table_cmd tbody tr:last .cmdAttr[data-l1key=type]').value(init(_cmd.type));
-}
-jeedom.cmd.changeType($('#table_cmd tbody tr:last'), init(_cmd.subType));
+function addCmdToTable(_cmd) {
+    if (!isset(_cmd)) {
+        var _cmd = { configuration: {} };
+    }
+    if (!isset(_cmd.configuration)) {
+        _cmd.configuration = {};
+    }
+    var tr = '<tr class="cmd" data-cmd_id="' + init(_cmd.id) + '">';
+    tr += '<td>';
+    tr += '<span class="cmdAttr" data-l1key="id" style="display:none;"></span>';
+    tr += '<div class="row">';
+    tr += '<div class="col-sm-6">';
+    tr += '<input class="cmdAttr form-control input-sm" data-l1key="name">';
+    tr += '</div>';
+    tr += '</div>';
+    tr += '</td>';
+    tr += '<td>';
+    if (is_numeric(_cmd.id)) {
+        tr += '<a class="btn btn-default btn-xs cmdAction" data-action="configure"><i class="fa fa-cogs"></i></a> ';
+        tr += '<a class="btn btn-default btn-xs cmdAction" data-action="test"><i class="fa fa-rss"></i> {{Tester}}</a>';
+    }
+    tr += '</td>';
+    tr += '</tr>';
+    $('#table_cmd tbody').append(tr);
+    $('#table_cmd tbody tr:last').setValues(_cmd, '.cmdAttr');
+    if (isset(_cmd.type)) {
+        $('#table_cmd tbody tr:last .cmdAttr[data-l1key=type]').value(init(_cmd.type));
+    }
+    jeedom.cmd.changeType($('#table_cmd tbody tr:last'), init(_cmd.subType));
 }
