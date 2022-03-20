@@ -444,7 +444,6 @@ class karotz extends eqLogic {
 		$cmd->setName(__('Endormi', __FILE__));
 		$cmd->setType('info');
 		$cmd->setSubType('binary');
-		$cmd->setEventOnly(1);
 		$cmd->setEqLogic_id($this->getId());
 		$cmd->save();
 
@@ -456,7 +455,6 @@ class karotz extends eqLogic {
 		}
 		$cmd->setName(__('Statut Couleur', __FILE__));
 		$cmd->setType('info');
-		$cmd->setEventOnly(1);
 		$cmd->setSubType('string');
 		$cmd->setEqLogic_id($this->getId());
 		$cmd->save();
@@ -481,7 +479,6 @@ class karotz extends eqLogic {
 		}
 		$cmd->setName(__('% Espace occupé', __FILE__));
 		$cmd->setType('info');
-		$cmd->setEventOnly(1);
 		$cmd->setSubType('numeric');
 		$cmd->setEqLogic_id($this->getId());
 		$cmd->save();
@@ -494,7 +491,6 @@ class karotz extends eqLogic {
 		}
 		$cmd->setName(__('Espace libre', __FILE__));
 		$cmd->setType('info');
-		$cmd->setEventOnly(1);
 		$cmd->setSubType('string');
 		$cmd->setEqLogic_id($this->getId());
 		$cmd->save();
@@ -534,7 +530,6 @@ class karotz extends eqLogic {
 		$cmd->setName(__('Niveau du volume', __FILE__));
 		$cmd->setUnite('%');
 		$cmd->setType('info');
-		$cmd->setEventOnly(1);
 		$cmd->setSubType('numeric');
 		$cmd->setEqLogic_id($this->getId());
 		$cmd->save();
