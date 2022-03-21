@@ -6,7 +6,12 @@
         "en_US": "Plugin to order the Karotz",
         "es_ES": "Plugin para ordenar el Karotz",
         "de_DE": "Plugin um den Karotz zu bestellen",
-        "pt_PT": "Plug-in para encomendar o Karotz"
+        "pt_PT": "Plug-in para encomendar o Karotz",
+        "ru_RU": "Plugin pour commander le Karotz",
+        "id_ID": "Plugin pour commander le Karotz",
+        "it_IT": "Plugin pour commander le Karotz",
+        "ja_JP": "Plugin pour commander le Karotz",
+        "tr": "Plugin pour commander le Karotz"
     },
     "licence": "AGPL",
     "author": "Loïc",
@@ -20,7 +25,12 @@
         "en_US",
         "es_ES",
         "de_DE",
-        "pt_PT"
+        "ru_RU",
+        "id_ID",
+        "it_IT",
+        "ja_JP",
+        "pt_PT",
+        "tr"
     ],
     "compatibility": [
         "miniplus",
@@ -30,5 +40,7 @@
         "diy",
         "mobile",
         "v4"
-    ]
+    ],
+    "changelog_beta": "https:\/\/doc.jeedom.com\/#language#\/plugins\/devicecommunication\/karotz\/beta\/changelog",
+    "documentation_beta": "https:\/\/doc.jeedom.com\/#language#\/plugins\/devicecommunication\/karotz\/beta"
 }
